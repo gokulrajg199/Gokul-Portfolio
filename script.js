@@ -1,277 +1,1306 @@
-const certs = [
-  [
-    "21673ae0 8367 4066 a1e3 85b128f880b6",
-    "21673ae0-8367-4066-a1e3-85b128f880b6.pdf",
-    ""
-  ],
-  [
-    "782ff36f 6785 4a71 9028 b5cfa182f7e5",
-    "782ff36f-6785-4a71-9028-b5cfa182f7e5.pdf",
-    ""
-  ],
-  [
-    "Adobe Scan Adobe Scan 17 Apr 2026",
-    "Adobe Scan Adobe Scan 17 Apr 2026.pdf",
-    ""
-  ],
-  [
-    "IEEE — Brain Tumor Segmentation",
-    "Brain Tumor IEEE.pdf",
-    "brain-tumor-ieee.jpg"
-  ],
-  [
-    "BCBUZZ — Cybersecurity FDP",
-    "Bubucizz Certificate FDP.pdf",
-    ""
-  ],
-  [
-    "Certificate of Gokulraj G",
-    "Certificate of Gokulraj G.pdf",
-    "certificate-of-gokulraj-g.jpg"
-  ],
-  [
-    "IBM — Introduction to Artificial Intelligence",
-    "Coursera IBM.pdf",
-    "coursera-ibm.jpg"
-  ],
-  [
-    "OWASP — Malware Analysis & Reverse Engineering",
-    "G_Gokulraj_OW_Participation_Certificate_SEP_2025 (1).pdf",
-    "g-gokulraj-ow-participation-certificate-sep-2025-1.jpg"
-  ],
-  [
-    "Gokul G",
-    "Gokul G.pdf",
-    ""
-  ],
-  [
-    "MUJ HackX 3.0 — Mentorship",
-    "Gokul-Mentor-Certificate jaipur .pdf-1.pdf",
-    "gokul-mentor-certificate-jaipur-pdf-1.jpg"
-  ],
-  [
-    "GokulrajBuddha",
-    "GokulrajBuddha.pdf",
-    ""
-  ],
-  [
-    "International Conference — Hindustan Institute",
-    "Hindustan Conference Certificate.pdf",
-    ""
-  ],
-  [
-    "Innovation Ambassador — Online Training",
-    "IA Online Training Certificate.pdf",
-    "ia-online-training-certificate.jpg"
-  ],
-  [
-    "Innovation Ambassador — Participation",
-    "IA Participation Certificate.pdf",
-    ""
-  ],
-  [
-    "IEEE Certificate ME (1)",
-    "IEEE Certificate ME (1).pdf",
-    ""
-  ],
-  [
-    "IMG 20250821 WA0108",
-    "IMG-20250821-WA0108.jpg",
-    ""
-  ],
-  [
-    "Internship Certificate",
-    "ISL-Internship Certificate .pdf",
-    ""
-  ],
-  [
-    "Infosys Certificate (4)",
-    "Infosys Certificate (4).pdf",
-    ""
-  ],
-  [
-    "Infosys Certificate",
-    "Infosys Certificate .pdf",
-    ""
-  ],
-  [
-    "Infosys Certificate",
-    "Infosys Certificate.pdf",
-    ""
-  ],
-  [
-    "KPI 2025 2026",
-    "KPI _2025 - 2026.pdf",
-    ""
-  ],
-  [
-    "Learnmall — Java Fundamentals",
-    "Learnmall Certificate.pdf",
-    ""
-  ],
-  [
-    "MATLAB EXPO 2025",
-    "MATLAB-EXPO-2025-certificate.pdf",
-    "matlab-expo-2025-certificate.jpg"
-  ],
-  [
-    "Mr. Gokul Raj G",
-    "Mr. Gokul Raj  G.pdf",
-    ""
-  ],
-  [
-    "Mr.G.Gokul Raj Certificate",
-    "Mr.G.Gokul_Raj_Certificate.pdf",
-    ""
-  ],
-  [
-    "NIT Warangal — Faculty Development Programme",
-    "NIT FDP .pdf",
-    "nit-fdp.jpg"
-  ],
-  [
-    "NIT Warangal — Faculty Development Programme",
-    "NIT FDP.pdf",
-    "nit-fdp.jpg"
-  ],
-  [
-    "Spoken Tutorial — Invigilator Appreciation",
-    "Share ST Edu Invigilator Certificate_Mr. G.Gokulraj_Sri Ramakrishna Institute of Technolog_T.N_24-25.pdf",
-    "share-st-edu-invigilator-certificate-mr-g-gokulraj-sri-ramakrishna-institute-of-technolog-t-n-24-25.jpg"
-  ],
-  [
-    "Skill Safari — Technical Training",
-    "Skill safari.pdf",
-    ""
-  ],
-  [
-    "WhatsApp Image 2025 08 01 at 9.31.58 PM",
-    "WhatsApp Image 2025-08-01 at 9.31.58 PM.jpeg",
-    ""
-  ],
-  [
-    "certificate",
-    "certificate.pdf",
-    "matlab-expo-2025-certificate.jpg"
-  ],
-  [
-    "Microsoft — Machine Learning Concepts",
-    "gokul microsoft  1.pdf",
-    ""
-  ],
-  [
-    "gokul microsoft",
-    "gokul microsoft.pdf",
-    ""
-  ],
-  [
-    "FDP — AI Tools for Teaching",
-    "kathir college certificates.pdf",
-    "kathir-college-certificates.jpg"
-  ],
-  [
-    "MATLAB Workshop Certificate",
-    "matlab certificate.pdf",
-    ""
-  ],
-  [
-    "International Journal Reviewer Recognition",
-    "reviewer-journal-certificate-2026-05-01-17-38-44.pdf",
-    "reviewer-journal-certificate-2026-05-01-17-38-44.jpg"
-  ],
-  [
-    "Reviewer Level Recognition — I",
-    "reviewer-level-certificate-2026-04-20-09-23-51.pdf",
-    ""
-  ],
-  [
-    "Reviewer Level Recognition — II",
-    "reviewer-level-certificate-2026-04-21-07-27-41.pdf",
-    ""
-  ],
-  [
-    "IEEE — YOLO Person Detection",
-    "yolo person detection IEEE Certificate (1).pdf",
-    "yolo-person-detection-ieee-certificate-1.jpg"
-  ]
-];
+/* =========================================================
+   GOKULRAJ G — ADVANCED PORTFOLIO
+   script.js
+   ========================================================= */
 
-const grid = document.getElementById('certGrid');
-certs.forEach((c,i)=>{
-  const a=document.createElement('a');
-  a.className='cert-card reveal'+(i>7?' hidden':'');
-  a.href='assets/certificates/'+encodeURIComponent(c[1]);
-  a.target='_blank'; a.rel='noopener';
-  a.innerHTML=`${c[2]?`<img loading="lazy" src="assets/thumbs/${c[2]}" alt="${c[0]} certificate">`:`<div class="cert-placeholder"><span>GG</span><small>VERIFIED CREDENTIAL</small></div>`}<div><b>${c[0]}</b><small>View credential ↗</small></div>`;
-  grid.appendChild(a);
-});
+document.addEventListener("DOMContentLoaded", () => {
 
-document.getElementById('showAll').addEventListener('click',e=>{
-  document.querySelectorAll('.cert-card.hidden').forEach(x=>x.classList.remove('hidden'));
-  e.currentTarget.style.display='none'; observeReveals();
-});
-document.getElementById('year').textContent=new Date().getFullYear();
+  /* =========================================================
+     HELPERS
+     ========================================================= */
 
-const nav=document.querySelector('.nav-shell');
-const menu=document.querySelector('.menu');
-const links=document.querySelector('.links');
-menu.addEventListener('click',()=>links.classList.toggle('open'));
-document.querySelectorAll('.links a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-function updateScroll(){
-  nav.classList.toggle('scrolled',scrollY>20);
-  const h=document.documentElement.scrollHeight-innerHeight;
-  document.getElementById('scrollProgress').style.width=(h?scrollY/h*100:0)+'%';
-}
-addEventListener('scroll',updateScroll,{passive:true}); updateScroll();
+  const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
-function observeReveals(){
-  const io=new IntersectionObserver(entries=>entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}
-  }),{threshold:.1,rootMargin:'0px 0px -35px'});
-  document.querySelectorAll('.reveal:not(.visible)').forEach(e=>io.observe(e));
-}
-observeReveals();
 
-const counterObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
-  if(!entry.isIntersecting)return;
-  const el=entry.target,end=+el.dataset.count,suffix=el.dataset.suffix||'';
-  const start=performance.now(),duration=1300;
-  const tick=now=>{const p=Math.min((now-start)/duration,1);const eased=1-Math.pow(1-p,3);el.textContent=Math.round(end*eased)+suffix;if(p<1)requestAnimationFrame(tick)};
-  requestAnimationFrame(tick);counterObserver.unobserve(el);
-}),{threshold:.5});
-document.querySelectorAll('[data-count]').forEach(e=>counterObserver.observe(e));
+  /* =========================================================
+     NAVIGATION — SCROLL EFFECT
+     ========================================================= */
 
-const sections=[...document.querySelectorAll('main section[id]')];
-const navLinks=[...document.querySelectorAll('.links a[href^="#"]')];
-const sectionObserver=new IntersectionObserver(entries=>entries.forEach(e=>{
-  if(e.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}
-}),{rootMargin:'-35% 0px -55%'});sections.forEach(s=>sectionObserver.observe(s));
+  const navShell = $(".nav-shell");
 
-if(matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
-  const glow=document.querySelector('.cursor-glow');
-  addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
-  document.querySelectorAll('.tilt').forEach(card=>{
-    card.addEventListener('pointermove',e=>{
-      const r=card.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5; const y=(e.clientY-r.top)/r.height-.5;
-      card.style.transform=`perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg) translateY(-2px)`;
+  const handleNavScroll = () => {
+    if (!navShell) return;
+
+    if (window.scrollY > 40) {
+      navShell.classList.add("scrolled");
+    } else {
+      navShell.classList.remove("scrolled");
+    }
+  };
+
+  window.addEventListener("scroll", handleNavScroll, {
+    passive: true
+  });
+
+  handleNavScroll();
+
+
+  /* =========================================================
+     MOBILE MENU
+     ========================================================= */
+
+  const menuButton = $(".menu");
+  const links = $(".links");
+
+  if (menuButton && links) {
+
+    menuButton.addEventListener("click", () => {
+
+      links.classList.toggle("open");
+
+      const isOpen = links.classList.contains("open");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+      );
+
+      menuButton.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
+
     });
-    card.addEventListener('pointerleave',()=>card.style.transform='');
-  });
-  document.querySelectorAll('.magnetic').forEach(btn=>{
-    btn.addEventListener('pointermove',e=>{const r=btn.getBoundingClientRect();btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.08}px,${(e.clientY-r.top-r.height/2)*.12}px)`});
-    btn.addEventListener('pointerleave',()=>btn.style.transform='');
-  });
-}
 
-// Lightweight AI neural-network canvas, no external dependency.
-const canvas=document.getElementById('neuralCanvas'),ctx=canvas.getContext('2d');
-let nodes=[],mouse={x:-9999,y:-9999};
-function resize(){const d=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;canvas.style.width=innerWidth+'px';canvas.style.height=innerHeight+'px';ctx.setTransform(d,0,0,d,0,0);const count=Math.min(80,Math.max(35,Math.floor(innerWidth/22)));nodes=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.5+.5}))}
-addEventListener('resize',resize);addEventListener('pointermove',e=>{mouse.x=e.clientX;mouse.y=e.clientY},{passive:true});resize();
-function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>innerWidth)n.vx*=-1;if(n.y<0||n.y>innerHeight)n.vy*=-1;const dx=n.x-mouse.x,dy=n.y-mouse.y,d=Math.hypot(dx,dy);if(d<150){n.x+=dx/d*.18;n.y+=dy/d*.18}}
-  for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<125){ctx.strokeStyle=`rgba(82,245,208,${(1-d/125)*.10})`;ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
-  for(const n of nodes){ctx.fillStyle='rgba(98,190,255,.38)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill()}
-  requestAnimationFrame(draw)
-}
-if(!matchMedia('(prefers-reduced-motion:reduce)').matches)draw();
+    // Close menu after clicking a navigation link
+    $$(".links a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        links.classList.remove("open");
+
+        menuButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================================================
+     ACTIVE NAVIGATION LINK
+     ========================================================= */
+
+  const navLinks = $$(".links a");
+
+  const sections = $$("section[id]");
+
+  if (navLinks.length && sections.length) {
+
+    const updateActiveLink = () => {
+
+      const scrollPosition =
+        window.scrollY + window.innerHeight * 0.35;
+
+      let currentSection = "";
+
+      sections.forEach(section => {
+
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+
+        if (
+          scrollPosition >= top &&
+          scrollPosition < top + height
+        ) {
+          currentSection = section.id;
+        }
+
+      });
+
+      navLinks.forEach(link => {
+
+        const href = link.getAttribute("href");
+
+        link.classList.toggle(
+          "active",
+          href === `#${currentSection}`
+        );
+
+      });
+
+    };
+
+    window.addEventListener(
+      "scroll",
+      updateActiveLink,
+      { passive: true }
+    );
+
+    updateActiveLink();
+
+  }
+
+
+  /* =========================================================
+     SMOOTH SCROLL
+     ========================================================= */
+
+  $$('a[href^="#"]').forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const targetId =
+        link.getAttribute("href");
+
+      if (
+        !targetId ||
+        targetId === "#"
+      ) {
+        return;
+      }
+
+      const target =
+        document.querySelector(targetId);
+
+      if (!target) return;
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    });
+
+  });
+
+
+  /* =========================================================
+     SCROLL PROGRESS BAR
+     ========================================================= */
+
+  const progressBar = $(".scroll-progress");
+
+  const updateProgress = () => {
+
+    if (!progressBar) return;
+
+    const scrollTop = window.scrollY;
+
+    const documentHeight =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    if (documentHeight <= 0) {
+      progressBar.style.width = "0%";
+      return;
+    }
+
+    const progress =
+      Math.min(
+        100,
+        Math.max(
+          0,
+          (scrollTop / documentHeight) * 100
+        )
+      );
+
+    progressBar.style.width = `${progress}%`;
+
+  };
+
+  window.addEventListener(
+    "scroll",
+    updateProgress,
+    { passive: true }
+  );
+
+  updateProgress();
+
+
+  /* =========================================================
+     CURSOR GLOW
+     ========================================================= */
+
+  const cursorGlow = $(".cursor-glow");
+
+  if (
+    cursorGlow &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    let glowX = mouseX;
+    let glowY = mouseY;
+
+    window.addEventListener("mousemove", event => {
+
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
+    });
+
+    const animateGlow = () => {
+
+      glowX += (mouseX - glowX) * 0.08;
+      glowY += (mouseY - glowY) * 0.08;
+
+      cursorGlow.style.left = `${glowX}px`;
+      cursorGlow.style.top = `${glowY}px`;
+
+      requestAnimationFrame(animateGlow);
+
+    };
+
+    animateGlow();
+
+  }
+
+
+  /* =========================================================
+     REVEAL ON SCROLL
+     ========================================================= */
+
+  const revealElements = $$(".reveal");
+
+  if (
+    revealElements.length &&
+    "IntersectionObserver" in window
+  ) {
+
+    const revealObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("visible");
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12,
+          rootMargin: "0px 0px -40px 0px"
+        }
+      );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
+
+  } else {
+
+    revealElements.forEach(element => {
+      element.classList.add("visible");
+    });
+
+  }
+
+
+  /* =========================================================
+     STAGGER REVEAL ANIMATION
+     ========================================================= */
+
+  const animatedGroups = [
+    ".role-grid .role-card",
+    ".cert-grid .cert-card",
+    ".featured-projects .project-card",
+    ".publication-stack .publication-card",
+    ".timeline-grid .timeline-card",
+    ".profile-grid > *",
+    ".academic-grid > *"
+  ];
+
+  animatedGroups.forEach(selector => {
+
+    const elements = $$(selector);
+
+    elements.forEach((element, index) => {
+
+      element.style.transitionDelay =
+        `${Math.min(index * 80, 500)}ms`;
+
+      element.classList.add("reveal");
+
+    });
+
+  });
+
+
+  /* =========================================================
+     3D TILT EFFECT
+     ========================================================= */
+
+  const tiltElements = $$(".tilt");
+
+  if (
+    tiltElements.length &&
+    window.matchMedia("(pointer:fine)").matches &&
+    !window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+  ) {
+
+    tiltElements.forEach(element => {
+
+      element.addEventListener("mousemove", event => {
+
+        const rect =
+          element.getBoundingClientRect();
+
+        const x =
+          event.clientX - rect.left;
+
+        const y =
+          event.clientY - rect.top;
+
+        const centerX =
+          rect.width / 2;
+
+        const centerY =
+          rect.height / 2;
+
+        const rotateX =
+          ((y - centerY) / centerY) * -5;
+
+        const rotateY =
+          ((x - centerX) / centerX) * 5;
+
+        element.style.transform =
+          `perspective(1000px)
+           rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           translateY(-4px)`;
+
+      });
+
+      element.addEventListener("mouseleave", () => {
+
+        element.style.transform =
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)";
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================================================
+     PORTRAIT CARD PARALLAX
+     ========================================================= */
+
+  const portraitCard = $(".portrait-card");
+
+  if (
+    portraitCard &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+
+    window.addEventListener("mousemove", event => {
+
+      const x =
+        (event.clientX / window.innerWidth - 0.5);
+
+      const y =
+        (event.clientY / window.innerHeight - 0.5);
+
+      const rotateY = x * 5;
+      const rotateX = y * -4;
+
+      portraitCard.style.transform =
+        `rotateX(${rotateX}deg)
+         rotateY(${rotateY}deg)`;
+
+    });
+
+    portraitCard.addEventListener(
+      "mouseleave",
+      () => {
+        portraitCard.style.transform =
+          "rotateX(0deg) rotateY(0deg)";
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     COUNTER ANIMATION
+     ========================================================= */
+
+  const counters = $$("[data-count]");
+
+  const animateCounter = element => {
+
+    const target =
+      parseFloat(
+        element.dataset.count
+      );
+
+    if (Number.isNaN(target)) return;
+
+    const duration = 1600;
+
+    const startTime = performance.now();
+
+    const suffix =
+      element.dataset.suffix || "";
+
+    const prefix =
+      element.dataset.prefix || "";
+
+    const decimals =
+      target % 1 !== 0 ? 1 : 0;
+
+    const update = currentTime => {
+
+      const elapsed =
+        currentTime - startTime;
+
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
+
+      // Smooth easing
+      const eased =
+        1 - Math.pow(1 - progress, 3);
+
+      const value =
+        target * eased;
+
+      element.textContent =
+        `${prefix}${value.toFixed(decimals)}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+
+    };
+
+    requestAnimationFrame(update);
+
+  };
+
+
+  if (
+    counters.length &&
+    "IntersectionObserver" in window
+  ) {
+
+    const counterObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              animateCounter(entry.target);
+
+              counterObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.5
+        }
+      );
+
+    counters.forEach(counter => {
+      counterObserver.observe(counter);
+    });
+
+  }
+
+
+  /* =========================================================
+     MENTORSHIP PROGRESS BARS
+     ========================================================= */
+
+  const dashboard =
+    $(".mentorship-dashboard");
+
+  if (
+    dashboard &&
+    "IntersectionObserver" in window
+  ) {
+
+    const dashboardObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              dashboard.classList.add(
+                "visible"
+              );
+
+              dashboardObserver.unobserve(
+                dashboard
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.25
+        }
+      );
+
+    dashboardObserver.observe(
+      dashboard
+    );
+
+  }
+
+
+  /* =========================================================
+     CERTIFICATE FILTER / SHOW MORE
+     ========================================================= */
+
+  const certificateCards =
+    $$(".cert-card");
+
+  const certificateButton =
+    $("[data-certificates-toggle]");
+
+  if (
+    certificateCards.length &&
+    certificateButton
+  ) {
+
+    const hiddenCertificates =
+      certificateCards.filter(
+        card =>
+          card.classList.contains("hidden")
+      );
+
+    certificateButton.addEventListener(
+      "click",
+      () => {
+
+        const isExpanded =
+          certificateButton.dataset.expanded ===
+          "true";
+
+        hiddenCertificates.forEach(card => {
+
+          card.classList.toggle(
+            "hidden",
+            isExpanded
+          );
+
+        });
+
+        certificateButton.dataset.expanded =
+          isExpanded ? "false" : "true";
+
+        certificateButton.innerHTML =
+          isExpanded
+            ? "View All Certificates <span>↗</span>"
+            : "Show Less <span>↑</span>";
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     IMAGE FALLBACK
+     ========================================================= */
+
+  $$("img").forEach(img => {
+
+    img.addEventListener("error", () => {
+
+      img.classList.add("image-error");
+
+      /*
+       * Prevent broken-image icon from
+       * making the design look damaged.
+       */
+
+      img.style.opacity = "0";
+
+    });
+
+  });
+
+
+  /* =========================================================
+     PROFILE IMAGE
+     ========================================================= */
+
+  const profileImage =
+    document.querySelector(
+      'img[src*="profile.jpg"]'
+    );
+
+  if (profileImage) {
+
+    profileImage.addEventListener(
+      "load",
+      () => {
+        profileImage.style.opacity = "1";
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     BUTTON RIPPLE EFFECT
+     ========================================================= */
+
+  $$(".btn").forEach(button => {
+
+    button.addEventListener(
+      "click",
+      event => {
+
+        const rect =
+          button.getBoundingClientRect();
+
+        const ripple =
+          document.createElement("span");
+
+        const size =
+          Math.max(
+            rect.width,
+            rect.height
+          );
+
+        ripple.style.position = "absolute";
+        ripple.style.width = `${size}px`;
+        ripple.style.height = `${size}px`;
+        ripple.style.left =
+          `${event.clientX - rect.left - size / 2}px`;
+        ripple.style.top =
+          `${event.clientY - rect.top - size / 2}px`;
+        ripple.style.borderRadius = "50%";
+        ripple.style.background =
+          "rgba(255,255,255,.22)";
+        ripple.style.transform =
+          "scale(0)";
+        ripple.style.pointerEvents =
+          "none";
+
+        ripple.style.transition =
+          "transform .6s ease, opacity .6s ease";
+
+        button.appendChild(ripple);
+
+        requestAnimationFrame(() => {
+
+          ripple.style.transform =
+            "scale(1.8)";
+
+          ripple.style.opacity = "0";
+
+        });
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 650);
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     EXTERNAL LINKS
+     ========================================================= */
+
+  $$("a[href]").forEach(link => {
+
+    const href =
+      link.getAttribute("href");
+
+    if (
+      href &&
+      (
+        href.startsWith("http://") ||
+        href.startsWith("https://")
+      )
+    ) {
+
+      link.setAttribute(
+        "target",
+        "_blank"
+      );
+
+      link.setAttribute(
+        "rel",
+        "noopener noreferrer"
+      );
+
+    }
+
+  });
+
+
+  /* =========================================================
+     EMAIL COPY BUTTON
+     ========================================================= */
+
+  const emailLinks =
+    $$(".email-link");
+
+  emailLinks.forEach(emailLink => {
+
+    emailLink.addEventListener(
+      "contextmenu",
+      async event => {
+
+        const href =
+          emailLink.getAttribute("href");
+
+        if (
+          !href ||
+          !href.startsWith("mailto:")
+        ) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const email =
+          href.replace(
+            "mailto:",
+            ""
+          );
+
+        try {
+
+          await navigator.clipboard.writeText(
+            email
+          );
+
+          showToast(
+            "Email address copied!"
+          );
+
+        } catch {
+          // Clipboard may be unavailable
+        }
+
+      }
+    );
+
+  });
+
+
+  /* =========================================================
+     TOAST NOTIFICATION
+     ========================================================= */
+
+  function showToast(message) {
+
+    let toast =
+      document.querySelector(
+        ".portfolio-toast"
+      );
+
+    if (!toast) {
+
+      toast =
+        document.createElement("div");
+
+      toast.className =
+        "portfolio-toast";
+
+      toast.style.position = "fixed";
+      toast.style.left = "50%";
+      toast.style.bottom = "30px";
+      toast.style.transform =
+        "translateX(-50%) translateY(20px)";
+      toast.style.padding =
+        "12px 18px";
+      toast.style.border =
+        "1px solid rgba(82,245,208,.25)";
+      toast.style.borderRadius =
+        "999px";
+      toast.style.background =
+        "rgba(7,15,31,.94)";
+      toast.style.backdropFilter =
+        "blur(18px)";
+      toast.style.color =
+        "#edf5ff";
+      toast.style.fontSize =
+        ".78rem";
+      toast.style.fontWeight =
+        "600";
+      toast.style.zIndex =
+        "9999";
+      toast.style.opacity =
+        "0";
+      toast.style.transition =
+        ".35s ease";
+
+      document.body.appendChild(
+        toast
+      );
+
+    }
+
+    toast.textContent = message;
+
+    requestAnimationFrame(() => {
+
+      toast.style.opacity = "1";
+
+      toast.style.transform =
+        "translateX(-50%) translateY(0)";
+
+    });
+
+    clearTimeout(
+      toast._timeout
+    );
+
+    toast._timeout =
+      setTimeout(() => {
+
+        toast.style.opacity = "0";
+
+        toast.style.transform =
+          "translateX(-50%) translateY(20px)";
+
+      }, 2200);
+
+  }
+
+
+  /* =========================================================
+     NEURAL NETWORK CANVAS
+     ========================================================= */
+
+  const canvas =
+    document.getElementById(
+      "neuralCanvas"
+    );
+
+  if (canvas) {
+
+    const ctx =
+      canvas.getContext("2d");
+
+    let width;
+    let height;
+    let particles = [];
+
+    const reduceMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+    const isMobile =
+      window.innerWidth < 700;
+
+    const particleCount =
+      reduceMotion
+        ? 0
+        : isMobile
+          ? 28
+          : 65;
+
+    const resizeCanvas = () => {
+
+      const dpr =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
+
+      width =
+        window.innerWidth;
+
+      height =
+        window.innerHeight;
+
+      canvas.width =
+        width * dpr;
+
+      canvas.height =
+        height * dpr;
+
+      canvas.style.width =
+        `${width}px`;
+
+      canvas.style.height =
+        `${height}px`;
+
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+
+    };
+
+
+    class Particle {
+
+      constructor() {
+
+        this.x =
+          Math.random() * width;
+
+        this.y =
+          Math.random() * height;
+
+        this.vx =
+          (Math.random() - 0.5) *
+          0.35;
+
+        this.vy =
+          (Math.random() - 0.5) *
+          0.35;
+
+        this.radius =
+          Math.random() * 1.7 +
+          0.5;
+
+      }
+
+
+      update() {
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (
+          this.x < -20 ||
+          this.x > width + 20
+        ) {
+          this.vx *= -1;
+        }
+
+        if (
+          this.y < -20 ||
+          this.y > height + 20
+        ) {
+          this.vy *= -1;
+        }
+
+      }
+
+
+      draw() {
+
+        ctx.beginPath();
+
+        ctx.arc(
+          this.x,
+          this.y,
+          this.radius,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fillStyle =
+          "rgba(82,245,208,.65)";
+
+        ctx.fill();
+
+      }
+
+    }
+
+
+    const createParticles = () => {
+
+      particles = [];
+
+      for (
+        let i = 0;
+        i < particleCount;
+        i++
+      ) {
+
+        particles.push(
+          new Particle()
+        );
+
+      }
+
+    };
+
+
+    const connectParticles = () => {
+
+      const maxDistance =
+        isMobile
+          ? 105
+          : 145;
+
+      for (
+        let i = 0;
+        i < particles.length;
+        i++
+      ) {
+
+        for (
+          let j = i + 1;
+          j < particles.length;
+          j++
+        ) {
+
+          const a =
+            particles[i];
+
+          const b =
+            particles[j];
+
+          const dx =
+            a.x - b.x;
+
+          const dy =
+            a.y - b.y;
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+          if (
+            distance < maxDistance
+          ) {
+
+            const opacity =
+              (1 -
+                distance /
+                maxDistance) *
+              0.18;
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+              a.x,
+              a.y
+            );
+
+            ctx.lineTo(
+              b.x,
+              b.y
+            );
+
+            ctx.strokeStyle =
+              `rgba(82,245,208,${opacity})`;
+
+            ctx.lineWidth =
+              0.6;
+
+            ctx.stroke();
+
+          }
+
+        }
+
+      }
+
+    };
+
+
+    const animateCanvas = () => {
+
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      particles.forEach(
+        particle => {
+          particle.update();
+          particle.draw();
+        }
+      );
+
+      connectParticles();
+
+      if (!reduceMotion) {
+        requestAnimationFrame(
+          animateCanvas
+        );
+      }
+
+    };
+
+
+    resizeCanvas();
+    createParticles();
+
+    if (!reduceMotion) {
+      animateCanvas();
+    }
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        resizeCanvas();
+        createParticles();
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     IMAGE PARALLAX ON HERO
+     ========================================================= */
+
+  const visualStage =
+    $(".visual-stage");
+
+  if (
+    visualStage &&
+    window.matchMedia("(pointer:fine)").matches &&
+    !window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+  ) {
+
+    visualStage.addEventListener(
+      "mousemove",
+      event => {
+
+        const rect =
+          visualStage.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left) /
+          rect.width -
+          0.5;
+
+        const y =
+          (event.clientY - rect.top) /
+          rect.height -
+          0.5;
+
+        const orbits =
+          $$(".orbit", visualStage);
+
+        orbits.forEach(
+          (orbit, index) => {
+
+            const amount =
+              (index + 1) * 5;
+
+            orbit.style.marginLeft =
+              `${x * amount}px`;
+
+            orbit.style.marginTop =
+              `${y * amount}px`;
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     KEYBOARD ACCESSIBILITY
+     ========================================================= */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      // ESC closes mobile menu
+      if (
+        event.key === "Escape" &&
+        links
+      ) {
+
+        links.classList.remove(
+          "open"
+        );
+
+        if (menuButton) {
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     CURRENT YEAR
+     ========================================================= */
+
+  const yearElements =
+    $$("[data-current-year]");
+
+  yearElements.forEach(
+    element => {
+
+      element.textContent =
+        new Date().getFullYear();
+
+    }
+  );
+
+
+  /* =========================================================
+     PAGE READY
+     ========================================================= */
+
+  document.documentElement.classList.add(
+    "js-ready"
+  );
+
+  console.log(
+    "%cGOKULRAJ G — PORTFOLIO",
+    "color:#52f5d0;font-size:18px;font-weight:bold;"
+  );
+
+  console.log(
+    "%cAI • IoT • Research • Innovation • Leadership",
+    "color:#91a3bd;font-size:12px;"
+  );
+
+});
