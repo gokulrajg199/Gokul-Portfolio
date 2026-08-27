@@ -3,836 +3,759 @@
    script.js
    ========================================================= */
 
+"use strict";
+
+/* =========================================================
+   1. DOM HELPERS
+   ========================================================= */
+
+const $ = (selector, parent = document) => parent.querySelector(selector);
+const $$ = (selector, parent = document) =>
+  Array.from(parent.querySelectorAll(selector));
+
+/* =========================================================
+   2. PAGE READY
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
+  initNavigation();
+  initScrollProgress();
+  initRevealAnimations();
+  initCounters();
+  initTiltCards();
+  initCursorGlow();
+  initCertificateFilter();
+  initSmoothScrolling();
+  initActiveNavigation();
+  initCurrentYear();
+  initLazyImages();
+});
 
-  /* =======================================================
-     ELEMENTS
-     ======================================================= */
+/* =========================================================
+   3. NAVIGATION
+   ========================================================= */
 
-  const navShell = document.querySelector(".nav-shell");
-  const menu = document.querySelector(".menu");
-  const links = document.querySelector(".links");
-  const scrollProgress = document.querySelector(".scroll-progress");
-  const cursorGlow = document.querySelector(".cursor-glow");
-  const neuralCanvas = document.getElementById("neuralCanvas");
+function initNavigation() {
+  const menuButton = $(".menu");
+  const links = $(".links");
 
-  /* =======================================================
-     MOBILE NAVIGATION
-     ======================================================= */
+  if (!menuButton || !links) return;
 
-  if (menu && links) {
-    menu.addEventListener("click", () => {
-      links.classList.toggle("open");
+  menuButton.addEventListener("click", () => {
+    const isOpen = links.classList.toggle("open");
 
-      const expanded = links.classList.contains("open");
-      menu.setAttribute("aria-expanded", expanded);
-    });
+    menuButton.setAttribute("aria-expanded", String(isOpen));
 
-    links.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        links.classList.remove("open");
-        menu.setAttribute("aria-expanded", "false");
-      });
-    });
-  }
-
-  /* =======================================================
-     NAVBAR SCROLL EFFECT
-     ======================================================= */
-
-  const updateNavbar = () => {
-    if (!navShell) return;
-
-    if (window.scrollY > 40) {
-      navShell.classList.add("scrolled");
+    if (isOpen) {
+      menuButton.classList.add("active");
     } else {
-      navShell.classList.remove("scrolled");
+      menuButton.classList.remove("active");
     }
-  };
-
-  window.addEventListener("scroll", updateNavbar, {
-    passive: true
   });
 
-  updateNavbar();
+  /* Close menu after clicking a navigation link */
+  $$(".links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      links.classList.remove("open");
+      menuButton.classList.remove("active");
+      menuButton.setAttribute("aria-expanded", "false");
+    });
+  });
 
-  /* =======================================================
-     SCROLL PROGRESS
-     ======================================================= */
+  /* Close menu when clicking outside */
+  document.addEventListener("click", (event) => {
+    if (
+      links.classList.contains("open") &&
+      !links.contains(event.target) &&
+      !menuButton.contains(event.target)
+    ) {
+      links.classList.remove("open");
+      menuButton.classList.remove("active");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  });
 
-  const updateScrollProgress = () => {
-    if (!scrollProgress) return;
+  /* Close mobile menu with Escape */
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      links.classList.remove("open");
+      menuButton.classList.remove("active");
+      menuButton.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+/* =========================================================
+   4. NAVBAR SCROLL EFFECT
+   ========================================================= */
+
+function updateNavbar() {
+  const navShell = $(".nav-shell");
+
+  if (!navShell) return;
+
+  if (window.scrollY > 40) {
+    navShell.classList.add("scrolled");
+  } else {
+    navShell.classList.remove("scrolled");
+  }
+}
+
+window.addEventListener("scroll", updateNavbar, {
+  passive: true,
+});
+
+updateNavbar();
+
+/* =========================================================
+   5. SCROLL PROGRESS
+   ========================================================= */
+
+function initScrollProgress() {
+  const progress = $(".scroll-progress");
+
+  if (!progress) return;
+
+  const updateProgress = () => {
+    const scrollTop = window.scrollY;
 
     const documentHeight =
       document.documentElement.scrollHeight - window.innerHeight;
 
-    const progress =
-      documentHeight > 0
-        ? (window.scrollY / documentHeight) * 100
-        : 0;
+    if (documentHeight <= 0) {
+      progress.style.width = "0%";
+      return;
+    }
 
-    scrollProgress.style.width = `${progress}%`;
+    const percentage = (scrollTop / documentHeight) * 100;
+
+    progress.style.width = `${Math.min(100, Math.max(0, percentage))}%`;
   };
 
-  window.addEventListener("scroll", updateScrollProgress, {
-    passive: true
+  window.addEventListener("scroll", updateProgress, {
+    passive: true,
   });
 
-  window.addEventListener("resize", updateScrollProgress);
+  window.addEventListener("resize", updateProgress);
 
-  updateScrollProgress();
+  updateProgress();
+}
 
-  /* =======================================================
-     ACTIVE NAVIGATION LINK
-     ======================================================= */
+/* =========================================================
+   6. REVEAL ANIMATIONS
+   ========================================================= */
 
-  const navLinks = document.querySelectorAll(".links a");
-  const sections = document.querySelectorAll("section[id]");
+function initRevealAnimations() {
+  const elements = $$(".reveal");
+
+  if (!elements.length) return;
+
+  /* Respect reduced-motion preference */
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reduceMotion) {
+    elements.forEach((element) => {
+      element.classList.add("visible");
+    });
+
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, observerInstance) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+
+          observerInstance.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -50px 0px",
+    }
+  );
+
+  elements.forEach((element) => {
+    observer.observe(element);
+  });
+}
+
+/* =========================================================
+   7. ANIMATED COUNTERS
+   ========================================================= */
+
+function initCounters() {
+  const counters = $$("[data-count]");
+
+  if (!counters.length) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const animateCounter = (element) => {
+    const target = Number(element.dataset.count);
+
+    if (!Number.isFinite(target)) return;
+
+    const decimals = Number(element.dataset.decimals || 0);
+    const duration = Number(element.dataset.duration || 1600);
+
+    if (reduceMotion) {
+      element.textContent = target.toFixed(decimals);
+      return;
+    }
+
+    const startTime = performance.now();
+
+    const update = (currentTime) => {
+      const elapsed = currentTime - startTime;
+
+      const progress = Math.min(elapsed / duration, 1);
+
+      /* Smooth ease-out */
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      const currentValue = target * eased;
+
+      element.textContent = currentValue.toFixed(decimals);
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target.toFixed(decimals);
+      }
+    };
+
+    requestAnimationFrame(update);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries, observerInstance) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const element = entry.target;
+
+        if (element.dataset.counted === "true") return;
+
+        element.dataset.counted = "true";
+
+        animateCounter(element);
+
+        observerInstance.unobserve(element);
+      });
+    },
+    {
+      threshold: 0.5,
+    }
+  );
+
+  counters.forEach((counter) => {
+    observer.observe(counter);
+  });
+}
+
+/* =========================================================
+   8. 3D TILT EFFECT
+   ========================================================= */
+
+function initTiltCards() {
+  const cards = $$(".tilt");
+
+  if (!cards.length) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const isTouchDevice =
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0;
+
+  if (reduceMotion || isTouchDevice) return;
+
+  cards.forEach((card) => {
+    let frame = null;
+
+    const resetCard = () => {
+      card.style.transform = "";
+      card.style.removeProperty("--mx");
+      card.style.removeProperty("--my");
+    };
+
+    card.addEventListener("mousemove", (event) => {
+      if (frame) cancelAnimationFrame(frame);
+
+      frame = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -5;
+        const rotateY = ((x - centerX) / centerX) * 5;
+
+        const mx = (x / rect.width) * 100;
+        const my = (y / rect.height) * 100;
+
+        card.style.transform = `
+          perspective(900px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateY(-4px)
+        `;
+
+        card.style.setProperty("--mx", `${mx}%`);
+        card.style.setProperty("--my", `${my}%`);
+      });
+    });
+
+    card.addEventListener("mouseleave", () => {
+      if (frame) cancelAnimationFrame(frame);
+      resetCard();
+    });
+
+    card.addEventListener("blur", resetCard);
+  });
+}
+
+/* =========================================================
+   9. CURSOR GLOW
+   ========================================================= */
+
+function initCursorGlow() {
+  const glow = $(".cursor-glow");
+
+  if (!glow) return;
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  const isTouchDevice =
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0;
+
+  if (reduceMotion || isTouchDevice) {
+    glow.style.display = "none";
+    return;
+  }
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+
+  let currentX = mouseX;
+  let currentY = mouseY;
+
+  window.addEventListener(
+    "mousemove",
+    (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    },
+    {
+      passive: true,
+    }
+  );
+
+  const animate = () => {
+    currentX += (mouseX - currentX) * 0.08;
+    currentY += (mouseY - currentY) * 0.08;
+
+    glow.style.left = `${currentX}px`;
+    glow.style.top = `${currentY}px`;
+
+    requestAnimationFrame(animate);
+  };
+
+  animate();
+}
+
+/* =========================================================
+   10. CERTIFICATE FILTER / SHOW MORE
+   ========================================================= */
+
+function initCertificateFilter() {
+  const certificateCards = $$(".cert-card");
+  const filterButtons = $$("[data-cert-filter]");
+  const showMoreButton =
+    $("[data-cert-more]") ||
+    $("#certMore") ||
+    $(".cert-more");
+
+  if (!certificateCards.length) return;
+
+  /* -------------------------------------------------------
+     Certificate filtering
+     ------------------------------------------------------- */
+
+  if (filterButtons.length) {
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = (
+          button.dataset.certFilter || "all"
+        ).toLowerCase();
+
+        filterButtons.forEach((item) => {
+          item.classList.remove("active");
+          item.setAttribute("aria-selected", "false");
+        });
+
+        button.classList.add("active");
+        button.setAttribute("aria-selected", "true");
+
+        certificateCards.forEach((card) => {
+          const category = (
+            card.dataset.category || "all"
+          ).toLowerCase();
+
+          const matches =
+            filter === "all" ||
+            category === filter ||
+            category.includes(filter);
+
+          card.classList.toggle("hidden", !matches);
+        });
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Show more certificates
+     ------------------------------------------------------- */
+
+  if (showMoreButton) {
+    const initialVisible = Number(
+      showMoreButton.dataset.initial ||
+        showMoreButton.dataset.visible ||
+        8
+    );
+
+    let expanded = false;
+
+    const updateCertificates = () => {
+      certificateCards.forEach((card, index) => {
+        if (expanded || index < initialVisible) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      showMoreButton.textContent = expanded
+        ? "Show Less"
+        : "View More Certificates";
+
+      showMoreButton.setAttribute(
+        "aria-expanded",
+        String(expanded)
+      );
+    };
+
+    showMoreButton.addEventListener("click", () => {
+      expanded = !expanded;
+      updateCertificates();
+    });
+
+    updateCertificates();
+  }
+}
+
+/* =========================================================
+   11. SMOOTH SCROLLING
+   ========================================================= */
+
+function initSmoothScrolling() {
+  const links = $$('a[href^="#"]');
+
+  links.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+
+      if (!href || href === "#") return;
+
+      const target = document.querySelector(href);
+
+      if (!target) return;
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior: window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
+
+      /* Update URL without jumping */
+      try {
+        history.pushState(null, "", href);
+      } catch (error) {
+        /* Ignore browser history errors */
+      }
+    });
+  });
+}
+
+/* =========================================================
+   12. ACTIVE NAVIGATION
+   ========================================================= */
+
+function initActiveNavigation() {
+  const navLinks = $$(".links a");
+
+  if (!navLinks.length) return;
+
+  const sections = [];
+
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
+
+    if (!href || !href.startsWith("#")) return;
+
+    const section = document.querySelector(href);
+
+    if (section) {
+      sections.push({
+        section,
+        link,
+      });
+    }
+  });
+
+  if (!sections.length) return;
 
   const updateActiveLink = () => {
-    let currentSection = "";
+    const scrollPosition =
+      window.scrollY + 160;
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 150;
-      const sectionBottom =
-        sectionTop + section.offsetHeight;
+    let current = sections[0];
 
-      if (
-        window.scrollY >= sectionTop &&
-        window.scrollY < sectionBottom
-      ) {
-        currentSection = section.getAttribute("id");
+    sections.forEach((item) => {
+      if (item.section.offsetTop <= scrollPosition) {
+        current = item;
       }
     });
 
     navLinks.forEach((link) => {
       link.classList.remove("active");
-
-      const href = link.getAttribute("href");
-
-      if (
-        currentSection &&
-        href === `#${currentSection}`
-      ) {
-        link.classList.add("active");
-      }
+      link.removeAttribute("aria-current");
     });
+
+    if (current) {
+      current.link.classList.add("active");
+      current.link.setAttribute(
+        "aria-current",
+        "page"
+      );
+    }
   };
 
   window.addEventListener("scroll", updateActiveLink, {
-    passive: true
+    passive: true,
   });
 
+  window.addEventListener("resize", updateActiveLink);
+
   updateActiveLink();
+}
 
-  /* =======================================================
-     REVEAL ON SCROLL
-     ======================================================= */
+/* =========================================================
+   13. CURRENT YEAR
+   ========================================================= */
 
-  const revealElements =
-    document.querySelectorAll(".reveal");
+function initCurrentYear() {
+  const yearElements = $$("[data-year]");
+
+  if (!yearElements.length) return;
+
+  const year = new Date().getFullYear();
+
+  yearElements.forEach((element) => {
+    element.textContent = year;
+  });
+}
+
+/* =========================================================
+   14. LAZY IMAGE LOADING
+   ========================================================= */
+
+function initLazyImages() {
+  const images = $$("img[data-src]");
+
+  if (!images.length) return;
 
   if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries, observerInstance) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
 
-    const revealObserver =
-      new IntersectionObserver(
-        (entries, observer) => {
+          const image = entry.target;
+          const source = image.dataset.src;
 
-          entries.forEach((entry) => {
+          if (source) {
+            image.src = source;
+            image.removeAttribute("data-src");
+          }
 
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-
-          });
-
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -50px 0px"
-        }
-      );
-
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
-
-  } else {
-
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
-
-  }
-
-  /* =======================================================
-     MOUSE CURSOR GLOW
-     ======================================================= */
-
-  if (cursorGlow && window.matchMedia(
-    "(pointer: fine)"
-  ).matches) {
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-
-    let glowX = mouseX;
-    let glowY = mouseY;
-
-    window.addEventListener("mousemove", (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    });
-
-    const animateGlow = () => {
-
-      glowX += (mouseX - glowX) * 0.08;
-      glowY += (mouseY - glowY) * 0.08;
-
-      cursorGlow.style.left = `${glowX}px`;
-      cursorGlow.style.top = `${glowY}px`;
-
-      requestAnimationFrame(animateGlow);
-    };
-
-    animateGlow();
-  }
-
-  /* =======================================================
-     3D TILT EFFECT
-     ======================================================= */
-
-  const tiltElements =
-    document.querySelectorAll(".tilt");
-
-  const enableTilt =
-    window.matchMedia(
-      "(pointer: fine)"
-    ).matches &&
-    !window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-  if (enableTilt) {
-
-    tiltElements.forEach((element) => {
-
-      element.addEventListener(
-        "mousemove",
-        (event) => {
-
-          const rect =
-            element.getBoundingClientRect();
-
-          const x =
-            event.clientX - rect.left;
-
-          const y =
-            event.clientY - rect.top;
-
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-
-          const rotateX =
-            ((y - centerY) / centerY) * -4;
-
-          const rotateY =
-            ((x - centerX) / centerX) * 4;
-
-          element.style.transform =
-            `perspective(1000px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateY(-3px)`;
-        }
-      );
-
-      element.addEventListener(
-        "mouseleave",
-        () => {
-          element.style.transform = "";
-        }
-      );
-
-    });
-  }
-
-  /* =======================================================
-     COUNTER ANIMATION
-     ======================================================= */
-
-  const counters =
-    document.querySelectorAll("[data-count]");
-
-  const animateCounter = (element) => {
-
-    const target =
-      Number(element.dataset.count);
-
-    if (!Number.isFinite(target)) return;
-
-    const duration = 1600;
-    const startTime = performance.now();
-
-    const updateCounter = (currentTime) => {
-
-      const elapsed =
-        currentTime - startTime;
-
-      const progress =
-        Math.min(elapsed / duration, 1);
-
-      const eased =
-        1 - Math.pow(1 - progress, 3);
-
-      const value =
-        Math.floor(target * eased);
-
-      element.textContent = value;
-
-      if (progress < 1) {
-        requestAnimationFrame(updateCounter);
-      } else {
-        element.textContent = target;
+          observerInstance.unobserve(image);
+        });
+      },
+      {
+        rootMargin: "200px",
       }
-    };
+    );
 
-    requestAnimationFrame(updateCounter);
+    images.forEach((image) => {
+      observer.observe(image);
+    });
+  } else {
+    images.forEach((image) => {
+      const source = image.dataset.src;
+
+      if (source) {
+        image.src = source;
+        image.removeAttribute("data-src");
+      }
+    });
+  }
+}
+
+/* =========================================================
+   15. IMAGE ERROR HANDLING
+   ========================================================= */
+
+$$("img").forEach((image) => {
+  image.addEventListener("error", () => {
+    image.classList.add("image-error");
+  });
+});
+
+/* =========================================================
+   16. EXTERNAL LINKS
+   ========================================================= */
+
+$$('a[target="_blank"]').forEach((link) => {
+  const currentRel = link.getAttribute("rel") || "";
+
+  const relValues = new Set(
+    currentRel.split(/\s+/).filter(Boolean)
+  );
+
+  relValues.add("noopener");
+  relValues.add("noreferrer");
+
+  link.setAttribute(
+    "rel",
+    Array.from(relValues).join(" ")
+  );
+});
+
+/* =========================================================
+   17. KEYBOARD ACCESSIBILITY
+   ========================================================= */
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Tab") return;
+
+  document.body.classList.add("keyboard-user");
+});
+
+document.addEventListener("mousedown", () => {
+  document.body.classList.remove("keyboard-user");
+});
+
+/* =========================================================
+   18. BACK TO TOP SUPPORT
+   ========================================================= */
+
+const backToTop =
+  $("[data-back-top]") ||
+  $("#backToTop") ||
+  $(".back-to-top");
+
+if (backToTop) {
+  const toggleBackToTop = () => {
+    if (window.scrollY > 600) {
+      backToTop.classList.add("show");
+    } else {
+      backToTop.classList.remove("show");
+    }
   };
 
-  if ("IntersectionObserver" in window) {
+  window.addEventListener("scroll", toggleBackToTop, {
+    passive: true,
+  });
 
-    const counterObserver =
-      new IntersectionObserver(
-        (entries, observer) => {
-
-          entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-              animateCounter(entry.target);
-              observer.unobserve(entry.target);
-            }
-
-          });
-
-        },
-        {
-          threshold: 0.5
-        }
-      );
-
-    counters.forEach((counter) => {
-      counterObserver.observe(counter);
-    });
-
-  } else {
-
-    counters.forEach((counter) => {
-      counter.textContent =
-        counter.dataset.count;
-    });
-
-  }
-
-  /* =======================================================
-     MENTORSHIP BAR ANIMATION
-     ======================================================= */
-
-  const mentorshipDashboard =
-    document.querySelector(
-      ".mentorship-dashboard"
-    );
-
-  if (
-    mentorshipDashboard &&
-    "IntersectionObserver" in window
-  ) {
-
-    const dashboardObserver =
-      new IntersectionObserver(
-        (entries, observer) => {
-
-          entries.forEach((entry) => {
-
-            if (entry.isIntersecting) {
-
-              entry.target.classList.add(
-                "visible"
-              );
-
-              observer.unobserve(
-                entry.target
-              );
-            }
-
-          });
-
-        },
-        {
-          threshold: 0.25
-        }
-      );
-
-    dashboardObserver.observe(
-      mentorshipDashboard
-    );
-
-  } else if (mentorshipDashboard) {
-
-    mentorshipDashboard.classList.add(
-      "visible"
-    );
-  }
-
-  /* =======================================================
-     CERTIFICATE FILTER / SHOW MORE
-     ======================================================= */
-
-  const certificateButton =
-    document.querySelector(
-      "[data-cert-toggle]"
-    );
-
-  const hiddenCertificates =
-    document.querySelectorAll(
-      ".cert-card.hidden"
-    );
-
-  if (
-    certificateButton &&
-    hiddenCertificates.length
-  ) {
-
-    certificateButton.addEventListener(
-      "click",
-      () => {
-
-        const currentlyHidden =
-          document.querySelectorAll(
-            ".cert-card.hidden"
-          );
-
-        currentlyHidden.forEach((card) => {
-          card.classList.remove("hidden");
-        });
-
-        certificateButton.textContent =
-          "Show Less";
-
-        certificateButton.dataset.expanded =
-          "true";
-
-        certificateButton.onclick = () => {
-
-          document
-            .querySelectorAll(
-              ".cert-card"
-            )
-            .forEach((card, index) => {
-
-              if (index >= 4) {
-                card.classList.add("hidden");
-              }
-
-            });
-
-          certificateButton.textContent =
-            "View All Certificates";
-
-          certificateButton.dataset.expanded =
-            "false";
-
-          certificateButton.onclick = null;
-        };
-      }
-    );
-  }
-
-  /* =======================================================
-     SMOOTH SCROLL
-     ======================================================= */
-
-  document
-    .querySelectorAll('a[href^="#"]')
-    .forEach((anchor) => {
-
-      anchor.addEventListener(
-        "click",
-        (event) => {
-
-          const targetId =
-            anchor.getAttribute("href");
-
-          if (
-            !targetId ||
-            targetId === "#"
-          ) {
-            return;
-          }
-
-          const target =
-            document.querySelector(
-              targetId
-            );
-
-          if (!target) return;
-
-          event.preventDefault();
-
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        }
-      );
-    });
-
-  /* =======================================================
-     NEURAL NETWORK CANVAS
-     ======================================================= */
-
-  if (neuralCanvas) {
-
-    const canvas =
-      neuralCanvas;
-
-    const ctx =
-      canvas.getContext("2d");
-
-    if (!ctx) return;
-
-    let width = 0;
-    let height = 0;
-    let particles = [];
-
-    const reduceMotion =
-      window.matchMedia(
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia(
         "(prefers-reduced-motion: reduce)"
-      ).matches;
+      ).matches
+        ? "auto"
+        : "smooth",
+    });
+  });
 
-    const isMobile =
-      window.innerWidth < 700;
+  toggleBackToTop();
+}
 
-    const particleCount =
-      reduceMotion
-        ? 0
-        : isMobile
-          ? 28
-          : 55;
+/* =========================================================
+   19. RESUME / PDF LINK SAFETY
+   ========================================================= */
 
-    const resizeCanvas = () => {
+$$('a[href$=".pdf"]').forEach((link) => {
+  link.addEventListener("click", () => {
+    link.setAttribute("target", "_blank");
+    link.setAttribute(
+      "rel",
+      "noopener noreferrer"
+    );
+  });
+});
 
-      const ratio =
-        Math.min(
-          window.devicePixelRatio || 1,
-          2
-        );
+/* =========================================================
+   20. PERFORMANCE — PAUSE EFFECTS WHEN TAB HIDDEN
+   ========================================================= */
 
-      width =
-        window.innerWidth;
-
-      height =
-        window.innerHeight;
-
-      canvas.width =
-        width * ratio;
-
-      canvas.height =
-        height * ratio;
-
-      canvas.style.width =
-        `${width}px`;
-
-      canvas.style.height =
-        `${height}px`;
-
-      ctx.setTransform(
-        ratio,
-        0,
-        0,
-        ratio,
-        0,
-        0
-      );
-    };
-
-    class Particle {
-
-      constructor() {
-
-        this.x =
-          Math.random() * width;
-
-        this.y =
-          Math.random() * height;
-
-        this.vx =
-          (Math.random() - 0.5) * 0.35;
-
-        this.vy =
-          (Math.random() - 0.5) * 0.35;
-
-        this.radius =
-          Math.random() * 1.4 + 0.5;
-      }
-
-      update() {
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0) {
-          this.x = width;
-        }
-
-        if (this.x > width) {
-          this.x = 0;
-        }
-
-        if (this.y < 0) {
-          this.y = height;
-        }
-
-        if (this.y > height) {
-          this.y = 0;
-        }
-      }
-
-      draw() {
-
-        ctx.beginPath();
-
-        ctx.arc(
-          this.x,
-          this.y,
-          this.radius,
-          0,
-          Math.PI * 2
-        );
-
-        ctx.fillStyle =
-          "rgba(82,245,208,.55)";
-
-        ctx.fill();
-      }
-    }
-
-    const createParticles = () => {
-
-      particles = [];
-
-      for (
-        let i = 0;
-        i < particleCount;
-        i++
-      ) {
-        particles.push(
-          new Particle()
-        );
-      }
-    };
-
-    const drawConnections = () => {
-
-      const maxDistance =
-        isMobile
-          ? 105
-          : 135;
-
-      for (
-        let i = 0;
-        i < particles.length;
-        i++
-      ) {
-
-        for (
-          let j = i + 1;
-          j < particles.length;
-          j++
-        ) {
-
-          const a =
-            particles[i];
-
-          const b =
-            particles[j];
-
-          const dx =
-            a.x - b.x;
-
-          const dy =
-            a.y - b.y;
-
-          const distance =
-            Math.sqrt(
-              dx * dx + dy * dy
-            );
-
-          if (
-            distance < maxDistance
-          ) {
-
-            const opacity =
-              (1 - distance / maxDistance) *
-              0.16;
-
-            ctx.beginPath();
-
-            ctx.moveTo(
-              a.x,
-              a.y
-            );
-
-            ctx.lineTo(
-              b.x,
-              b.y
-            );
-
-            ctx.strokeStyle =
-              `rgba(85,168,255,${opacity})`;
-
-            ctx.lineWidth = 0.7;
-
-            ctx.stroke();
-          }
-        }
-      }
-    };
-
-    const animateNetwork = () => {
-
-      ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-      );
-
-      particles.forEach(
-        (particle) => {
-          particle.update();
-          particle.draw();
-        }
-      );
-
-      drawConnections();
-
-      if (!reduceMotion) {
-        requestAnimationFrame(
-          animateNetwork
-        );
-      }
-    };
-
-    resizeCanvas();
-    createParticles();
-
-    if (!reduceMotion) {
-      animateNetwork();
-    }
-
-    window.addEventListener(
-      "resize",
-      () => {
-        resizeCanvas();
-        createParticles();
-      }
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    document.documentElement.classList.add(
+      "page-hidden"
+    );
+  } else {
+    document.documentElement.classList.remove(
+      "page-hidden"
     );
   }
-
-  /* =======================================================
-     IMAGE ERROR HANDLING
-     ======================================================= */
-
-  document
-    .querySelectorAll("img")
-    .forEach((image) => {
-
-      image.addEventListener(
-        "error",
-        () => {
-
-          image.classList.add(
-            "image-error"
-          );
-
-        }
-      );
-
-    });
-
-  /* =======================================================
-     EXTERNAL LINKS
-     ======================================================= */
-
-  document
-    .querySelectorAll(
-      'a[href^="http"]'
-    )
-    .forEach((link) => {
-
-      link.setAttribute(
-        "target",
-        "_blank"
-      );
-
-      link.setAttribute(
-        "rel",
-        "noopener noreferrer"
-      );
-    });
-
-  /* =======================================================
-     CURRENT YEAR
-     ======================================================= */
-
-  document
-    .querySelectorAll(
-      "[data-year]"
-    )
-    .forEach((element) => {
-
-      element.textContent =
-        new Date().getFullYear();
-
-    });
-
-  /* =======================================================
-     KEYBOARD ACCESSIBILITY
-     ======================================================= */
-
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (
-        event.key === "Escape" &&
-        links
-      ) {
-
-        links.classList.remove(
-          "open"
-        );
-
-        if (menu) {
-          menu.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-        }
-      }
-
-    }
-  );
-
-  /* =======================================================
-     PAGE READY
-     ======================================================= */
-
-  document.body.classList.add(
-    "page-ready"
-  );
-
 });
+
+/* =========================================================
+   21. CONSOLE MESSAGE
+   ========================================================= */
+
+console.log(
+  "%cGOKULRAJ G — Portfolio",
+  "font-size:18px;font-weight:bold;"
+);
+
+console.log(
+  "%cAI • ML • IoT • Computer Vision • Research • Innovation",
+  "font-size:12px;"
+);
+
+/* =========================================================
+   END OF SCRIPT
+   ========================================================= */
