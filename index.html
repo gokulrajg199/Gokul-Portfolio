@@ -1,31 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050816">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>G. Gokulraj | AI & IoT Educator | Researcher | Innovator</title>
 
   <meta
     name="description"
-    content="G. Gokulraj - Assistant Professor, AI & IoT Researcher, IEEE Author, Scopus Researcher, ROS2 Mentor and Innovation Entrepreneur."
+    content="G. Gokulraj — Assistant Professor, AI & IoT Researcher, Hackathon Mentor, ROS Club Coordinator and Technology Innovator."
   >
 
   <meta
     name="keywords"
-    content="Gokulraj, Assistant Professor, CSE, AI, Machine Learning, Computer Vision, IoT, ROS2, Researcher, IEEE, Scopus, SRIT"
+    content="Gokulraj, AI, IoT, Machine Learning, Deep Learning, Computer Vision, YOLO, Researcher, Assistant Professor, Hackathon Mentor, ROS"
   >
 
   <meta name="author" content="G. Gokulraj">
 
-  <title>G. Gokulraj | AI, Research & Innovation Portfolio</title>
+  <link rel="icon" href="assets/profile.jpg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     rel="stylesheet"
+  >
+
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   >
 
   <!-- Main CSS -->
@@ -38,13 +45,14 @@
        BACKGROUND EFFECTS
   ========================================================== -->
 
-  <canvas id="neuralCanvas" aria-hidden="true"></canvas>
+  <canvas id="neuralCanvas"></canvas>
+
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
 
   <div class="aurora aurora-one"></div>
   <div class="aurora aurora-two"></div>
 
-  <div class="grid-overlay"></div>
-  <div class="noise"></div>
   <div class="cursor-glow"></div>
 
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -54,46 +62,29 @@
        NAVIGATION
   ========================================================== -->
 
-  <header class="nav-shell">
+  <header class="nav-shell" id="navbar">
 
-    <nav class="nav container">
+    <div class="container nav">
 
-      <a
-        class="brand"
-        href="#home"
-        aria-label="G. Gokulraj home"
-      >
+      <a href="#home" class="brand">
 
         <span class="brand-orbit">
           <i>GG</i>
         </span>
 
         <span>
-          <b>G. Gokulraj</b>
-          <small>Academic & Innovation Portfolio</small>
+          <b>G. GOKULRAJ</b>
+          <small>AI • IoT • Research • Innovation</small>
         </span>
 
       </a>
 
 
-      <!-- Mobile Menu -->
+      <nav class="links" id="navLinks">
 
-      <button
-        class="menu"
-        id="menuButton"
-        aria-label="Toggle navigation"
-        aria-expanded="false"
-      >
-        <span></span>
-        <span></span>
-      </button>
+        <a href="#home" class="active">Home</a>
 
-
-      <!-- Navigation Links -->
-
-      <div class="links" id="navLinks">
-
-        <a href="#about">Profile</a>
+        <a href="#profile">Profile</a>
 
         <a href="#academic">Academic</a>
 
@@ -101,157 +92,141 @@
 
         <a href="#projects">Projects</a>
 
-        <a href="#mentorship">Impact</a>
-
-        <a href="#development">Service</a>
+        <a href="#leadership">Leadership</a>
 
         <a href="#credentials">Credentials</a>
 
-        <a href="#venture">Venture</a>
-
-        <a
-          class="nav-cta"
-          href="#contact"
-        >
-          Connect <span>↗</span>
+        <a href="#contact" class="nav-cta">
+          <span>Let's Connect</span>
         </a>
 
-      </div>
+      </nav>
 
-    </nav>
+
+      <button
+        class="menu"
+        id="menuButton"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+      >
+
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
 
   </header>
 
 
   <!-- =========================================================
-       MAIN CONTENT
+       HERO
   ========================================================== -->
 
   <main>
 
-
-    <!-- =======================================================
-         HERO
-    ======================================================== -->
-
-    <section
-      id="home"
-      class="hero container"
-    >
+    <section class="hero container" id="home">
 
       <div class="hero-copy reveal">
 
         <div class="status-pill">
+
           <span></span>
-          Open to research & innovation collaborations
+
+          Open to Research • Innovation • Collaboration
+
         </div>
 
 
-        <p class="eyebrow">
-          ASSISTANT PROFESSOR · IEEE AUTHOR · SCOPUS RESEARCHER
-        </p>
+        <div class="eyebrow">
+          ASSISTANT PROFESSOR • AI & IoT RESEARCHER
+        </div>
 
 
         <h1>
-          Engineering intelligence.
-          <br>
+
+          Gokulraj<br>
 
           <span class="gradient-text">
-            Inspiring innovation.
+            G.
           </span>
+
         </h1>
 
 
         <p class="lead">
 
-          I build at the intersection of
-
-          <b>
-            AI, Computer Vision, IoT and ROS2
-          </b>
-
-          —turning research into real-world systems and mentoring students to transform ideas into impact.
+          Computer Science educator, researcher and technology mentor
+          focused on building meaningful solutions using
+          <b>Artificial Intelligence, Machine Learning, Computer Vision,
+          IoT and Robotics.</b>
 
         </p>
 
 
-        <!-- Hero Buttons -->
-
         <div class="hero-actions">
 
           <a
-            class="btn primary magnetic"
-            href="#research"
-          >
-            <span>Explore Research</span>
-            <i>↗</i>
-          </a>
-
-
-          <!-- RESUME -->
-
-          <a
-            class="btn glass magnetic"
-            href="assets/G_Gokulraj_Resume.pdf"
+            href="assets/docs/G_Gokulraj_Resume.pdf"
+            class="btn primary"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
-            <span>View Resume</span>
-            <i>↗</i>
+
+            View Resume
+
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
           </a>
 
 
-          <!-- DOWNLOAD RESUME -->
+          <a href="#research" class="btn glass">
 
-          <a
-            class="btn glass magnetic"
-            href="assets/G_Gokulraj_Resume.pdf"
-            download
-          >
-            <span>Download CV</span>
-            <i>↓</i>
+            Explore Research
+
+            <i class="fa-solid fa-flask"></i>
+
+          </a>
+
+
+          <a href="#contact" class="btn glass">
+
+            Contact Me
+
+            <i class="fa-solid fa-paper-plane"></i>
+
           </a>
 
         </div>
 
 
-        <!-- Social Links -->
-
         <div class="social-rail">
-
-          <a
-            href="https://www.linkedin.com/in/gokulraj-g-699b50214"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn <span>↗</span>
-          </a>
-
 
           <a
             href="https://github.com/gokulrajg199"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
-            GitHub <span>↗</span>
+            <span>01</span> GitHub
           </a>
 
 
           <a
-            href="https://ieeexplore.ieee.org/author/911391347219365"
+            href="https://www.linkedin.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
-            IEEE <span>↗</span>
+            <span>02</span> LinkedIn
           </a>
 
 
           <a
-            href="https://www.scopus.com/authid/detail.uri?authorId=59403144200"
+            href="https://scholar.google.com/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
           >
-            Scopus <span>↗</span>
+            <span>03</span> Google Scholar
           </a>
 
         </div>
@@ -259,9 +234,7 @@
       </div>
 
 
-      <!-- =====================================================
-           HERO VISUAL
-      ====================================================== -->
+      <!-- HERO VISUAL -->
 
       <div class="visual-stage reveal">
 
@@ -270,31 +243,25 @@
         <div class="orbit orbit-c"></div>
 
 
-        <!-- Profile -->
-
         <div class="portrait-card tilt">
+
+          <img
+            src="assets/profile.jpg"
+            alt="G. Gokulraj"
+            loading="eager"
+          >
 
           <div class="portrait-glow"></div>
 
 
-          <img
-            src="assets/profile.jpg"
-            alt="Professional portrait of G. Gokulraj"
-          >
-
-
           <div class="portrait-caption">
 
-            <small>
-              G. GOKULRAJ
-            </small>
+            <small>TECHNOLOGY • EDUCATION • RESEARCH</small>
 
-            <b>
-              Assistant Professor · CSE
-            </b>
+            <b>G. Gokulraj</b>
 
             <span>
-              Sri Ramakrishna Institute of Technology
+              Assistant Professor • CSE
             </span>
 
           </div>
@@ -304,546 +271,451 @@
 
         <!-- Data Cards -->
 
-        <div class="data-card data-one glass-panel">
+        <div class="data-card glass-panel data-one">
 
-          <span class="pulse-dot"></span>
+          <div class="pulse-dot"></div>
 
           <div>
 
-            <small>
-              RESEARCH FOCUS
-            </small>
+            <small>ROLE</small>
 
-            <b>
-              AI · IoT · ROS2
-            </b>
+            <b>EDUCATOR</b>
 
           </div>
 
         </div>
 
 
-        <div class="data-card data-two glass-panel">
-
-          <strong>
-            5+
-          </strong>
+        <div class="data-card glass-panel data-two">
 
           <div>
 
-            <small>
-              SCOPUS
-            </small>
+            <small>FOCUS</small>
 
-            <b>
-              Publications
-            </b>
+            <strong>AI</strong>
 
           </div>
 
         </div>
 
 
-        <div class="data-card data-three glass-panel">
-
-          <strong>
-            61+
-          </strong>
+        <div class="data-card glass-panel data-three">
 
           <div>
 
-            <small>
-              STUDENTS
-            </small>
+            <small>DOMAIN</small>
 
-            <b>
-              Mentored
-            </b>
+            <b>IoT + CV</b>
 
           </div>
 
         </div>
 
-      </div>
 
+        <a href="#profile" class="scroll-cue">
 
-      <!-- Scroll -->
+          <i></i>
 
-      <a
-        class="scroll-cue"
-        href="#impact"
-      >
+          Explore Profile
 
-        <span>
-          Scroll to explore
-        </span>
-
-        <i></i>
-
-      </a>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         IMPACT METRICS
-    ======================================================== -->
-
-    <section
-      id="impact"
-      class="impact-strip container reveal"
-    >
-
-      <div class="metric">
-
-        <strong
-          data-count="5"
-          data-suffix="+"
-        >
-          0
-        </strong>
-
-        <span>
-          Research Publications
-        </span>
-
-      </div>
-
-
-      <div class="metric">
-
-        <strong
-          data-count="61"
-          data-suffix="+"
-        >
-          0
-        </strong>
-
-        <span>
-          Students Mentored
-        </span>
-
-      </div>
-
-
-      <div class="metric">
-
-        <strong
-          data-count="20"
-          data-suffix="+"
-        >
-          0
-        </strong>
-
-        <span>
-          Idea Lab Project Themes
-        </span>
-
-      </div>
-
-
-      <div class="metric">
-
-        <strong
-          data-count="2"
-          data-suffix=""
-        >
-          0
-        </strong>
-
-        <span>
-          Featured Funded Projects
-        </span>
-
-      </div>
-
-
-      <div class="metric">
-
-        <strong
-          data-count="20"
-          data-suffix="+"
-        >
-          0
-        </strong>
-
-        <span>
-          Professional Credentials
-        </span>
+        </a>
 
       </div>
 
     </section>
 
 
+    <!-- =========================================================
+         IMPACT STRIP
+    ========================================================== -->
 
-    <!-- =======================================================
+    <section class="container">
+
+      <div class="impact-strip reveal">
+
+        <div class="metric">
+
+          <strong>01+</strong>
+
+          <span>
+            Years of Professional<br>
+            Teaching Experience
+          </span>
+
+        </div>
+
+
+        <div class="metric">
+
+          <strong>10+</strong>
+
+          <span>
+            Technology &<br>
+            Innovation Initiatives
+          </span>
+
+        </div>
+
+
+        <div class="metric">
+
+          <strong>05+</strong>
+
+          <span>
+            Research &<br>
+            Development Areas
+          </span>
+
+        </div>
+
+
+        <div class="metric">
+
+          <strong>08</strong>
+
+          <span>
+            Hackathon / Innovation<br>
+            Mentoring Activities
+          </span>
+
+        </div>
+
+
+        <div class="metric">
+
+          <strong>∞</strong>
+
+          <span>
+            Curiosity for<br>
+            Technology
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
          PROFILE
-    ======================================================== -->
+    ========================================================== -->
 
-    <section
-      id="about"
-      class="section container"
-    >
+    <section class="section" id="profile">
 
-      <div class="section-head reveal">
+      <div class="container">
 
-        <div>
+        <div class="section-head reveal">
 
-          <span class="index">
-            01 / PROFILE
-          </span>
+          <div>
 
-          <h2>
-            Academic depth.
-            <br>
-
-            <span>
-              Innovation mindset.
+            <span class="index">
+              01 / PROFILE
             </span>
 
-          </h2>
+            <h2>
+              Building <span>people</span><br>
+              and technology.
+            </h2>
+
+          </div>
+
+
+          <p>
+
+            My work sits at the intersection of education,
+            emerging technologies, research and innovation.
+
+          </p>
 
         </div>
 
 
-        <p>
-
-          An educator, researcher and entrepreneur shaping technology-led learning through practical experimentation, funded projects, publications and student innovation.
-
-        </p>
-
-      </div>
+        <div class="profile-grid">
 
 
-      <div class="profile-grid">
+          <!-- BIO -->
+
+          <article class="glass-panel bio-card reveal">
+
+            <div class="card-icon">
+
+              <i class="fa-solid fa-user-astronaut"></i>
+
+            </div>
 
 
-        <!-- Bio -->
-
-        <article class="glass-panel bio-card tilt reveal">
-
-          <div class="card-icon">
-            ⌘
-          </div>
-
-          <h3>
-            Professional Profile
-          </h3>
-
-          <p>
-
-            Assistant Professor in the Department of Computer Science and Engineering at Sri Ramakrishna Institute of Technology, Coimbatore, with teaching and research experience.
-
-          </p>
-
-          <p>
-
-            My work connects outcome-oriented teaching with artificial intelligence, machine learning, computer vision, IoT, robotics, cybersecurity, student mentoring and entrepreneurship.
-
-          </p>
-
-        </article>
+            <h3>
+              Educator. Researcher. Mentor.
+            </h3>
 
 
-        <!-- Identity -->
+            <p>
 
-        <article class="glass-panel identity-card tilt reveal">
+              I am an Assistant Professor in the Department of
+              Computer Science and Engineering with a strong interest
+              in Artificial Intelligence, Machine Learning, Computer
+              Vision, IoT and Robotics.
 
-          <span class="label">
-            ACADEMIC IDENTITY
-          </span>
-
-
-          <div class="identity-row">
-
-            <small>
-              Current Role
-            </small>
-
-            <b>
-              Assistant Professor · CSE
-            </b>
-
-          </div>
+            </p>
 
 
-          <div class="identity-row">
+            <p>
 
-            <small>
-              Institution
-            </small>
+              Alongside teaching, I actively participate in
+              hackathons, student mentoring, research projects,
+              institutional innovation activities and technology
+              development initiatives.
 
-            <b>
-              Sri Ramakrishna Institute of Technology
-            </b>
-
-          </div>
+            </p>
 
 
-          <div class="identity-row">
+            <p>
 
-            <small>
-              Education
-            </small>
+              My goal is to help students transform ideas into
+              practical solutions while continuously exploring
+              emerging technologies.
 
-            <b>
-              M.E. & B.E. · Computer Science and Engineering
-            </b>
+            </p>
 
-          </div>
+          </article>
 
 
-          <div class="identity-row">
+          <!-- IDENTITY -->
 
-            <small>
-              Experience
-            </small>
+          <article class="glass-panel identity-card reveal">
 
-            <b>
-              Teaching & Research
-            </b>
-
-          </div>
+            <span class="label">
+              IDENTITY
+            </span>
 
 
-          <div class="identity-row">
+            <div class="identity-row">
 
-            <small>
-              Scopus Author ID
-            </small>
+              <small>PROFESSION</small>
 
-            <b>
-              59403144200
-            </b>
+              <b>Assistant Professor — CSE</b>
 
-          </div>
+            </div>
 
 
-          <div class="identity-row">
+            <div class="identity-row">
 
-            <small>
-              IEEE Author ID
-            </small>
+              <small>INSTITUTION</small>
 
-            <b>
-              911391347219365
-            </b>
+              <b>
+                Sri Ramakrishna Institute of Technology
+              </b>
 
-          </div>
-
-        </article>
+            </div>
 
 
-        <!-- Mission -->
+            <div class="identity-row">
 
-        <article class="glass-panel mission-card tilt reveal">
+              <small>DEPARTMENT</small>
 
-          <span class="label">
-            MISSION
-          </span>
+              <b>
+                Computer Science & Engineering
+              </b>
 
-          <blockquote>
+            </div>
 
-            “Transforming ideas into innovation, research into impact, and students into future technology leaders.”
 
-          </blockquote>
+            <div class="identity-row">
 
-          <div class="signature">
-            G. Gokulraj
-          </div>
+              <small>INTERESTS</small>
 
-        </article>
+              <b>
+                AI • ML • CV • IoT • Robotics
+              </b>
+
+            </div>
+
+          </article>
+
+
+          <!-- MISSION -->
+
+          <article class="glass-panel mission-card reveal">
+
+            <span class="label">
+              MISSION
+            </span>
+
+
+            <blockquote>
+
+              “Turn curiosity into capability,
+              and capability into meaningful innovation.”
+
+            </blockquote>
+
+
+            <span class="signature">
+              — Gokulraj
+            </span>
+
+          </article>
+
+        </div>
 
       </div>
 
     </section>
 
 
+    <!-- =========================================================
+         ACADEMIC
+    ========================================================== -->
 
-    <!-- =======================================================
-         ACADEMIC PRACTICE
-    ======================================================== -->
+    <section class="section" id="academic">
 
-    <section
-      id="academic"
-      class="section container academic-section"
-    >
+      <div class="container">
 
-      <div class="section-head reveal">
+        <div class="section-head reveal">
 
-        <div>
+          <div>
 
-          <span class="index">
-            02 / ACADEMIC PRACTICE
-          </span>
-
-          <h2>
-
-            Teaching that connects
-            <br>
-
-            <span>
-              theory, tools and impact.
+            <span class="index">
+              02 / ACADEMIC
             </span>
 
-          </h2>
+            <h2>
+              Knowledge<br>
+              <span>in motion.</span>
+            </h2>
+
+          </div>
+
+
+          <p>
+
+            Combining academic foundations with hands-on
+            technology development and student engagement.
+
+          </p>
 
         </div>
 
 
-        <p>
-
-          Outcome-oriented course delivery supported by practical learning, interdisciplinary exposure, industry tools, continuous feedback and project-based mentoring.
-
-        </p>
-
-      </div>
+        <div class="academic-grid">
 
 
-      <div class="academic-grid">
+          <!-- EDUCATION -->
 
+          <article class="glass-panel academic-card reveal">
 
-        <article class="glass-panel academic-card tilt reveal">
-
-          <span class="label">
-            TEACHING STRATEGY
-          </span>
-
-          <h3>
-            Outcome-Based & Experiential Learning
-          </h3>
-
-          <ul>
-
-            <li>
-              Course delivery aligned with objectives and measurable outcomes
-            </li>
-
-            <li>
-              Practical and interdisciplinary exposure in AI and cybersecurity
-            </li>
-
-            <li>
-              Workshops, certifications and real-time problem solving
-            </li>
-
-            <li>
-              Technical discussions, continuous mentoring and student engagement
-            </li>
-
-          </ul>
-
-        </article>
-
-
-        <article class="glass-panel academic-card tilt reveal">
-
-          <span class="label">
-            TOOLS & PLATFORMS
-          </span>
-
-          <h3>
-            Technology-Enabled Learning
-          </h3>
-
-          <div class="tool-chips">
-
-            <span>Microsoft Learn</span>
-            <span>HP LIFE</span>
-            <span>MATLAB</span>
-            <span>OWASP Tools</span>
-            <span>Geospatial Intelligence</span>
-            <span>Google Colab</span>
-            <span>Jupyter</span>
-            <span>Streamlit</span>
-
-          </div>
-
-        </article>
-
-
-        <article class="glass-panel academic-card tilt reveal">
-
-          <span class="label">
-            ASSESSMENT & FEEDBACK
-          </span>
-
-          <h3>
-            Reliable, Fair and Constructive
-          </h3>
-
-          <p>
-
-            Maintains prompt evaluation, transparent assessment, constructive feedback and sustained learner interest.
-
-          </p>
-
-        </article>
-
-
-        <article class="glass-panel academic-card tilt reveal">
-
-          <span class="label">
-            EDUCATION
-          </span>
-
-          <h3>
-            Computer Science & Engineering
-          </h3>
-
-
-          <div class="degree">
-
-            <b>
-              M.E.
-            </b>
-
-            <span>
-              Computer Science and Engineering
+            <span class="label">
+              EDUCATION
             </span>
 
-          </div>
+
+            <div class="degree">
+
+              <b>M.E.</b>
+
+              <span>
+                Computer Science & Engineering<br>
+                2023 — 2025
+              </span>
+
+            </div>
 
 
-          <div class="degree">
+            <div class="degree">
 
-            <b>
-              B.E.
-            </b>
+              <b>B.E.</b>
 
-            <span>
-              Computer Science and Engineering
+              <span>
+                Computer Science & Engineering<br>
+                2019 — 2023
+              </span>
+
+            </div>
+
+
+            <div class="tool-chips">
+
+              <span>AI</span>
+              <span>Machine Learning</span>
+              <span>Deep Learning</span>
+              <span>IoT</span>
+              <span>Computer Vision</span>
+              <span>Robotics</span>
+
+            </div>
+
+          </article>
+
+
+          <!-- TEACHING -->
+
+          <article class="glass-panel academic-card reveal">
+
+            <span class="label">
+              TEACHING
             </span>
 
-          </div>
 
-        </article>
+            <h3>
+              Computer Science Education
+            </h3>
 
-      </div>
+
+            <ul>
+
+              <li>
+                Data Structures
+              </li>
+
+              <li>
+                C Programming
+              </li>
+
+              <li>
+                Database Management Systems
+              </li>
+
+              <li>
+                Cyber Law and Practices
+              </li>
+
+              <li>
+                IoT with Real-Time Project Development
+              </li>
+
+              <li>
+                Data Science & AI Foundation
+              </li>
+
+            </ul>
+
+          </article>
+
+        </div>
 
 
-      <div class="service-ribbon reveal">
+        <div class="service-ribbon reveal">
 
-        <span>Course Planning</span>
-        <span>OBE & NBA Documentation</span>
-        <span>Laboratory Coordination</span>
-        <span>Project Evaluation</span>
-        <span>Student Mentoring</span>
-        <span>Industry-Oriented Learning</span>
+          <span>Student Mentoring</span>
+          <span>Hackathon Coordination</span>
+          <span>Project Mentoring</span>
+          <span>Innovation</span>
+          <span>Research</span>
+          <span>Entrepreneurship</span>
+
+        </div>
 
       </div>
 
     </section>
 
 
-
-    <!-- =======================================================
+    <!-- =========================================================
          LEADERSHIP
-    ======================================================== -->
+    ========================================================== -->
 
-    <section class="section leadership-section">
+    <section class="section leadership-section" id="leadership">
 
       <div class="container">
 
@@ -856,14 +728,8 @@
             </span>
 
             <h2>
-
-              Leading beyond
-              <br>
-
-              <span>
-                the classroom.
-              </span>
-
+              Beyond the<br>
+              <span>classroom.</span>
             </h2>
 
           </div>
@@ -871,7 +737,8 @@
 
           <p>
 
-            Institutional service, technical leadership, mentorship and entrepreneurship initiatives that build a stronger innovation ecosystem.
+            Creating opportunities for students through
+            leadership, mentoring, innovation and technology.
 
           </p>
 
@@ -881,12 +748,12 @@
         <div class="role-grid">
 
 
-          <article class="role-card tilt reveal">
+          <article class="role-card reveal">
 
             <span>01</span>
 
             <div class="role-icon">
-              ⚡
+              <i class="fa-solid fa-code"></i>
             </div>
 
             <h3>
@@ -894,18 +761,20 @@
             </h3>
 
             <p>
-              Coordinates innovation challenges, coding events and rapid problem-solving initiatives.
+              Coordinating institutional hackathons and
+              supporting students through ideation,
+              development and competitive events.
             </p>
 
           </article>
 
 
-          <article class="role-card tilt reveal">
+          <article class="role-card reveal">
 
             <span>02</span>
 
             <div class="role-icon">
-              ◎
+              <i class="fa-solid fa-robot"></i>
             </div>
 
             <h3>
@@ -913,132 +782,19 @@
             </h3>
 
             <p>
-              Leads ROS/ROS2 learning, workshops and robotics-focused student development.
+              Supporting student exploration of robotics,
+              ROS-based development and real-world automation.
             </p>
 
           </article>
 
 
-          <article class="role-card tilt reveal">
+          <article class="role-card reveal">
 
             <span>03</span>
 
             <div class="role-icon">
-              ◇
-            </div>
-
-            <h3>
-              Capstone Project Mentor
-            </h3>
-
-            <p>
-              Guides student teams from ideation and architecture to deployment and presentation.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>04</span>
-
-            <div class="role-icon">
-              ◈
-            </div>
-
-            <h3>
-              Admission Cell Member
-            </h3>
-
-            <p>
-              Supports counseling, institutional outreach and student admission coordination.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>05</span>
-
-            <div class="role-icon">
-              ↗
-            </div>
-
-            <h3>
-              Faculty Advisor · NEC
-            </h3>
-
-            <p>
-              Faculty Advisor for the National Entrepreneurship Challenge associated with E-Cell IIT Bombay.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>06</span>
-
-            <div class="role-icon">
-              ✦
-            </div>
-
-            <h3>
-              MUJ HackX Mentor
-            </h3>
-
-            <p>
-              Mentored participants during HackX 3.0 International Hackathon.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>07</span>
-
-            <div class="role-icon">
-              ∆
-            </div>
-
-            <h3>
-              Innovation Ambassador
-            </h3>
-
-            <p>
-              Promotes entrepreneurship, innovation culture and design-led problem solving.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>08</span>
-
-            <div class="role-icon">
-              ◌
-            </div>
-
-            <h3>
-              Academic Service
-            </h3>
-
-            <p>
-              Journal reviewer, project evaluator, examiner and Spoken Tutorial invigilator.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>09</span>
-
-            <div class="role-icon">
-              ✧
+              <i class="fa-solid fa-lightbulb"></i>
             </div>
 
             <h3>
@@ -1046,64 +802,28 @@
             </h3>
 
             <p>
-              Supports institutional innovation activities, student ideation and entrepreneurship initiatives.
+              Supporting institutional innovation,
+              entrepreneurship and student innovation initiatives.
             </p>
 
           </article>
 
 
-          <article class="role-card tilt reveal">
+          <article class="role-card reveal">
 
-            <span>10</span>
+            <span>04</span>
 
             <div class="role-icon">
-              ◈
+              <i class="fa-solid fa-people-group"></i>
             </div>
 
             <h3>
-              SIH Mentor
+              Student Mentor
             </h3>
 
             <p>
-              Supports students in Smart India Hackathon preparation, ideation, technical development and presentations.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>11</span>
-
-            <div class="role-icon">
-              ⌘
-            </div>
-
-            <h3>
-              Startup Singam Mentor
-            </h3>
-
-            <p>
-              Provides mentoring support for student entrepreneurship, startup ideation and innovation activities.
-            </p>
-
-          </article>
-
-
-          <article class="role-card tilt reveal">
-
-            <span>12</span>
-
-            <div class="role-icon">
-              ◎
-            </div>
-
-            <h3>
-              IIIT Pune Hackathon Mentor
-            </h3>
-
-            <p>
-              Mentored student teams selected for the IIIT Pune Hackathon final round.
+              Mentoring students for hackathons, projects,
+              competitions and technology-driven initiatives.
             </p>
 
           </article>
@@ -1115,308 +835,11 @@
     </section>
 
 
-
-    <!-- =======================================================
+    <!-- =========================================================
          RESEARCH
-    ======================================================== -->
+    ========================================================== -->
 
-    <section
-      id="research"
-      class="section container research-section"
-    >
-
-      <div class="section-head reveal">
-
-        <div>
-
-          <span class="index">
-            04 / RESEARCH
-          </span>
-
-          <h2>
-
-            Research with
-            <br>
-
-            <span>
-              real-world relevance.
-            </span>
-
-          </h2>
-
-        </div>
-
-
-        <p>
-
-          Focused on intelligent systems that advance healthcare, agriculture, safety, robotics and computer vision.
-
-        </p>
-
-      </div>
-
-
-      <div class="research-shell">
-
-
-        <!-- Research Sidebar -->
-
-        <aside class="research-sidebar reveal">
-
-          <span class="label">
-            RESEARCH DOMAINS
-          </span>
-
-
-          <div class="domain-list">
-
-            <span>Artificial Intelligence</span>
-            <span>Machine Learning</span>
-            <span>Computer Vision</span>
-            <span>YOLO Object Detection</span>
-            <span>Internet of Things</span>
-            <span>ROS & ROS2</span>
-            <span>Smart Agriculture</span>
-            <span>Medical Imaging</span>
-            <span>Cybersecurity</span>
-            <span>Generative AI</span>
-
-          </div>
-
-
-          <a
-            class="profile-button"
-            href="https://ieeexplore.ieee.org/author/911391347219365"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            <span>
-              IEEE Author Profile
-            </span>
-
-            <b>
-              ↗
-            </b>
-
-          </a>
-
-
-          <a
-            class="profile-button"
-            href="https://www.scopus.com/authid/detail.uri?authorId=59403144200"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            <span>
-              Scopus Profile
-            </span>
-
-            <b>
-              ↗
-            </b>
-
-          </a>
-
-        </aside>
-
-
-        <!-- Publications -->
-
-        <div class="publication-stack">
-
-
-          <article class="publication-card tilt reveal">
-
-            <div class="pub-no">
-              01
-            </div>
-
-            <div>
-
-              <span class="pub-meta">
-                IEEE · ICTMIM · 07 APR 2025
-              </span>
-
-              <h3>
-                Smart IoT Based Nutrition Alert System for Hydroponic Plant Growth
-              </h3>
-
-              <p>
-                Intelligent nutrient monitoring and alert architecture for controlled-environment agriculture.
-              </p>
-
-              <div class="tags">
-                <span>IoT</span>
-                <span>Smart Agriculture</span>
-                <span>Scopus</span>
-              </div>
-
-            </div>
-
-            <i>
-              ↗
-            </i>
-
-          </article>
-
-
-          <article class="publication-card tilt reveal">
-
-            <div class="pub-no">
-              02
-            </div>
-
-            <div>
-
-              <span class="pub-meta">
-                IEEE · CSNT · 07 MAR 2025
-              </span>
-
-              <h3>
-                Person Detection using Proposed YOLOv8 Algorithm
-              </h3>
-
-              <p>
-                Real-time person detection research based on a robust computer-vision pipeline.
-              </p>
-
-              <div class="tags">
-                <span>YOLOv8</span>
-                <span>Computer Vision</span>
-                <span>Scopus</span>
-              </div>
-
-            </div>
-
-            <i>
-              ↗
-            </i>
-
-          </article>
-
-
-          <article class="publication-card tilt reveal">
-
-            <div class="pub-no">
-              03
-            </div>
-
-            <div>
-
-              <span class="pub-meta">
-                IEEE · ICPCSN · 14 MAY 2025
-              </span>
-
-              <h3>
-                Efficient YOLOv8 Model for Licence, Helmet and Person Detection
-              </h3>
-
-              <p>
-                Multi-object road-safety detection using an efficient deep-learning approach.
-              </p>
-
-              <div class="tags">
-                <span>Road Safety</span>
-                <span>Deep Learning</span>
-                <span>Scopus</span>
-              </div>
-
-            </div>
-
-            <i>
-              ↗
-            </i>
-
-          </article>
-
-
-          <article class="publication-card tilt reveal">
-
-            <div class="pub-no">
-              04
-            </div>
-
-            <div>
-
-              <span class="pub-meta">
-                IEEE · ICEPE · 09 MAY 2025
-              </span>
-
-              <h3>
-                Brain Tumor Segmentation using Proposed YOLO Algorithm
-              </h3>
-
-              <p>
-                AI-assisted medical image segmentation designed to improve diagnostic analysis.
-              </p>
-
-              <div class="tags">
-                <span>Medical AI</span>
-                <span>Segmentation</span>
-                <span>Scopus</span>
-              </div>
-
-            </div>
-
-            <i>
-              ↗
-            </i>
-
-          </article>
-
-
-          <article class="publication-card tilt reveal">
-
-            <div class="pub-no">
-              05
-            </div>
-
-            <div>
-
-              <span class="pub-meta">
-                SCI · 2025
-              </span>
-
-              <h3>
-                Deep Learning-Based U-Net Enhancement for Breast Cancer Segmentation
-              </h3>
-
-              <p>
-                U-Net enhancement for precise and effective breast-cancer image segmentation.
-              </p>
-
-              <div class="tags">
-                <span>U-Net</span>
-                <span>Healthcare</span>
-                <span>Deep Learning</span>
-              </div>
-
-            </div>
-
-            <i>
-              ↗
-            </i>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         PROJECTS
-    ======================================================== -->
-
-    <section
-      id="projects"
-      class="section project-section"
-    >
+    <section class="section" id="research">
 
       <div class="container">
 
@@ -1425,18 +848,12 @@
           <div>
 
             <span class="index">
-              05 / INNOVATION
+              04 / RESEARCH
             </span>
 
             <h2>
-
-              Funded projects.
-              <br>
-
-              <span>
-                Purposeful systems.
-              </span>
-
+              Questions worth<br>
+              <span>solving.</span>
             </h2>
 
           </div>
@@ -1444,7 +861,284 @@
 
           <p>
 
-            SRIT Research Promotion Scheme seed-funded student innovation projects combining ROS2, assistive technology, embedded intelligence and safety automation.
+            Exploring intelligent systems that connect data,
+            machines, people and the physical world.
+
+          </p>
+
+        </div>
+
+
+        <div class="research-shell">
+
+
+          <!-- RESEARCH SIDEBAR -->
+
+          <aside class="research-sidebar reveal">
+
+            <span class="label">
+              RESEARCH DOMAINS
+            </span>
+
+
+            <div class="domain-list">
+
+              <span>Artificial Intelligence</span>
+
+              <span>Machine Learning</span>
+
+              <span>Deep Learning</span>
+
+              <span>Computer Vision</span>
+
+              <span>YOLO / YOLOv8</span>
+
+              <span>Medical Image Analysis</span>
+
+              <span>IoT</span>
+
+              <span>Smart Agriculture</span>
+
+            </div>
+
+
+            <a
+              href="https://scholar.google.com/"
+              target="_blank"
+              rel="noopener"
+              class="profile-button"
+            >
+
+              <span>
+                Google Scholar
+              </span>
+
+              <b>
+                ↗
+              </b>
+
+            </a>
+
+
+            <a
+              href="https://www.scopus.com/"
+              target="_blank"
+              rel="noopener"
+              class="profile-button"
+            >
+
+              <span>
+                Scopus
+              </span>
+
+              <b>
+                ↗
+              </b>
+
+            </a>
+
+
+            <div class="profile-button">
+
+              <span>
+                Scopus ID
+              </span>
+
+              <b>
+                59403144200
+              </b>
+
+            </div>
+
+          </aside>
+
+
+          <!-- PUBLICATIONS -->
+
+          <div class="publication-stack">
+
+
+            <article class="publication-card reveal">
+
+              <div class="pub-no">
+                01
+              </div>
+
+
+              <div>
+
+                <span class="pub-meta">
+                  IoT • SMART AGRICULTURE
+                </span>
+
+
+                <h3>
+                  Smart IoT Based Nutrition Alert System
+                  for Hydroponic Plant Growth
+                </h3>
+
+
+                <p>
+
+                  Research work focusing on intelligent monitoring
+                  of hydroponic plant environments using pH,
+                  EC, TDS, temperature and humidity sensors with
+                  automated control and predictive analysis.
+
+                </p>
+
+
+                <div class="tags">
+
+                  <span>Arduino</span>
+                  <span>IoT</span>
+                  <span>Hydroponics</span>
+                  <span>Federated Learning</span>
+                  <span>Predictive Analysis</span>
+
+                </div>
+
+              </div>
+
+
+              <i>
+                ↗
+              </i>
+
+            </article>
+
+
+            <article class="publication-card reveal">
+
+              <div class="pub-no">
+                02
+              </div>
+
+
+              <div>
+
+                <span class="pub-meta">
+                  BOOK CHAPTER
+                </span>
+
+
+                <h3>
+                  Sustainable Farming: IoT in Hydroponics
+                </h3>
+
+
+                <p>
+
+                  Exploring IoT-enabled approaches for sustainable
+                  hydroponic farming, environmental sensing,
+                  automation and intelligent agricultural systems.
+
+                </p>
+
+
+                <div class="tags">
+
+                  <span>IoT</span>
+                  <span>Smart Farming</span>
+                  <span>MQTT</span>
+                  <span>ESP32</span>
+
+                </div>
+
+              </div>
+
+
+              <i>
+                ↗
+              </i>
+
+            </article>
+
+
+            <article class="publication-card reveal">
+
+              <div class="pub-no">
+                03
+              </div>
+
+
+              <div>
+
+                <span class="pub-meta">
+                  BOOK CHAPTER
+                </span>
+
+
+                <h3>
+                  Monitoring Water Quality
+                  with Smart Technologies
+                </h3>
+
+
+                <p>
+
+                  Smart sensing and connected technologies
+                  for monitoring water quality parameters
+                  and enabling intelligent decision-making.
+
+                </p>
+
+
+                <div class="tags">
+
+                  <span>Water Quality</span>
+                  <span>IoT</span>
+                  <span>Sensors</span>
+                  <span>Smart Monitoring</span>
+
+                </div>
+
+              </div>
+
+
+              <i>
+                ↗
+              </i>
+
+            </article>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PROJECTS
+    ========================================================== -->
+
+    <section class="section project-section" id="projects">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div>
+
+            <span class="index">
+              05 / PROJECTS
+            </span>
+
+            <h2>
+              Ideas into<br>
+              <span>systems.</span>
+            </h2>
+
+          </div>
+
+
+          <p>
+
+            Practical technology projects developed around
+            real-world problems and emerging technologies.
 
           </p>
 
@@ -1454,20 +1148,20 @@
         <div class="featured-projects">
 
 
-          <!-- Project 1 -->
+          <!-- PROJECT 01 -->
 
-          <article class="project-card tilt reveal">
+          <article class="project-card reveal">
 
-            <div class="project-visual glove-visual">
+            <div class="project-visual">
+
+              <span>
+                PROJECT / 01
+              </span>
 
               <div class="holo-ring"></div>
 
-              <span>
-                01
-              </span>
-
               <b>
-                ROS2
+                IoT
               </b>
 
             </div>
@@ -1475,27 +1169,35 @@
 
             <div class="project-body">
 
-              <div class="project-label">
-                FUNDED · ASSISTIVE TECHNOLOGY
-              </div>
+              <span class="project-label">
+                SMART AGRICULTURE
+              </span>
+
 
               <h3>
-                Voice-Controlled Hand Glove System
+                Smart Hydroponic
+                Nutrition Monitoring
               </h3>
+
 
               <p>
 
-                A wearable assistive solution integrating sensors, gesture interaction, voice output and a ROS2-oriented architecture to support accessible communication.
+                An IoT-based system for monitoring
+                hydroponic plant growth conditions using
+                multiple environmental and water-quality
+                sensors with automated control.
 
               </p>
 
 
               <div class="tags">
 
-                <span>ROS2</span>
-                <span>Embedded Systems</span>
-                <span>Accessibility</span>
-                <span>Voice Synthesis</span>
+                <span>Arduino</span>
+                <span>GSM</span>
+                <span>pH</span>
+                <span>EC</span>
+                <span>TDS</span>
+                <span>IoT</span>
 
               </div>
 
@@ -1504,20 +1206,20 @@
           </article>
 
 
-          <!-- Project 2 -->
+          <!-- PROJECT 02 -->
 
-          <article class="project-card tilt reveal">
+          <article class="project-card reveal">
 
-            <div class="project-visual brake-visual">
+            <div class="project-visual">
+
+              <span>
+                PROJECT / 02
+              </span>
 
               <div class="radar"></div>
 
-              <span>
-                02
-              </span>
-
               <b>
-                AEB
+                AI
               </b>
 
             </div>
@@ -1525,33 +1227,60 @@
 
             <div class="project-body">
 
-              <div class="project-label">
-                FUNDED · AUTONOMOUS SAFETY
-              </div>
+              <span class="project-label">
+                COMPUTER VISION
+              </span>
+
 
               <h3>
-                Autonomous Braking System using ROS2
+                Intelligent
+                Vision Systems
               </h3>
+
 
               <p>
 
-                An intelligent vehicle-safety system for obstacle awareness, autonomous decision-making and collision-prevention braking.
+                Exploring YOLO-based computer vision systems
+                for real-world detection, recognition and
+                intelligent automation applications.
 
               </p>
 
 
               <div class="tags">
 
-                <span>ROS2</span>
-                <span>Sensor Fusion</span>
-                <span>Autonomous Control</span>
-                <span>Safety</span>
+                <span>Python</span>
+                <span>YOLO</span>
+                <span>YOLOv8</span>
+                <span>Deep Learning</span>
+                <span>Computer Vision</span>
 
               </div>
 
             </div>
 
           </article>
+
+        </div>
+
+
+        <div class="project-marquee">
+
+          <div>
+
+            <span>ARTIFICIAL INTELLIGENCE</span>
+            <span>MACHINE LEARNING</span>
+            <span>COMPUTER VISION</span>
+            <span>INTERNET OF THINGS</span>
+            <span>ROBOTICS</span>
+            <span>SMART AGRICULTURE</span>
+
+            <span>ARTIFICIAL INTELLIGENCE</span>
+            <span>MACHINE LEARNING</span>
+            <span>COMPUTER VISION</span>
+            <span>INTERNET OF THINGS</span>
+
+          </div>
 
         </div>
 
@@ -1559,421 +1288,344 @@
         <div class="funding-note glass-panel reveal">
 
           <span class="label">
-            SRIT RESEARCH PROMOTION SCHEME
+            INNOVATION MINDSET
           </span>
+
 
           <p>
 
-            Institutional seed-money support was received for student-led innovation. Featured mentorship contributions include the
+            Technology is most valuable when it solves a real
+            problem. My projects therefore focus on combining
+            <b>research, engineering and practical implementation</b>
+            rather than technology for technology's sake.
 
-            <b>
-              Voice-Controlled Hand Glove System
-            </b>
+          </p>
 
-            and the
+        </div>
 
-            <b>
-              Automatic Braking System
-            </b>
+      </div>
 
-            with emphasis on ROS-based implementation, assistive technology and embedded safety.
+    </section>
+
+
+    <!-- =========================================================
+         MENTORSHIP
+    ========================================================== -->
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div>
+
+            <span class="index">
+              06 / MENTORSHIP
+            </span>
+
+            <h2>
+              Helping teams<br>
+              <span>go further.</span>
+            </h2>
+
+          </div>
+
+
+          <p>
+
+            Supporting students and teams through ideation,
+            development, competitions and innovation.
 
           </p>
 
         </div>
 
 
-        <!-- Project Marquee -->
+        <div class="mentorship-dashboard reveal">
 
-        <div class="project-marquee reveal">
+
+          <div class="mentor-stat">
+
+            <span>
+              HACKATHON MENTORING
+            </span>
+
+            <strong>
+              08+
+            </strong>
+
+            <div class="bar">
+              <i style="--w:88%"></i>
+            </div>
+
+          </div>
+
+
+          <div class="mentor-stat">
+
+            <span>
+              STUDENT TEAMS
+            </span>
+
+            <strong>
+              10+
+            </strong>
+
+            <div class="bar">
+              <i style="--w:82%"></i>
+            </div>
+
+          </div>
+
+
+          <div class="mentor-stat">
+
+            <span>
+              INNOVATION
+            </span>
+
+            <strong>
+              05+
+            </strong>
+
+            <div class="bar">
+              <i style="--w:76%"></i>
+            </div>
+
+          </div>
+
+
+          <div class="mentor-stat">
+
+            <span>
+              TECHNOLOGY
+            </span>
+
+            <strong>
+              ∞
+            </strong>
+
+            <div class="bar">
+              <i style="--w:100%"></i>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="project-cloud reveal">
+
+          <span>IIIT Pune Hackathon</span>
+
+          <span>MUJ HackX 3.0</span>
+
+          <span>Smart India Hackathon</span>
+
+          <span>Startup Singam</span>
+
+          <span>National Entrepreneurship Challenge</span>
+
+          <span>ROS Projects</span>
+
+          <span>Student Innovation</span>
+
+          <span>AI Projects</span>
+
+        </div>
+
+
+        <div class="glass-panel facility-panel reveal">
+
+          <span class="label">
+            MENTORING PHILOSOPHY
+          </span>
+
+
+          <p>
+
+            IDEATION • PROBLEM DEFINITION • RESEARCH •
+            PROTOTYPING • DEVELOPMENT • TESTING •
+            PRESENTATION • COMPETITION
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         DEVELOPMENT / EXPERIENCE
+    ========================================================== -->
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-head reveal">
 
           <div>
 
-            <span>Hydroponic Nutrition Alert</span>
-            <span>YOLO Person Detection</span>
-            <span>Brain Tumor Segmentation</span>
-            <span>Face Recognition Attendance</span>
-            <span>Smart Timetable ERP</span>
-            <span>Endless Xplorers Platform</span>
-
-            <span>Hydroponic Nutrition Alert</span>
-            <span>YOLO Person Detection</span>
-            <span>Brain Tumor Segmentation</span>
-            <span>Face Recognition Attendance</span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         MENTORSHIP
-    ======================================================== -->
-
-    <section
-      id="mentorship"
-      class="section container"
-    >
-
-      <div class="section-head reveal">
-
-        <div>
-
-          <span class="index">
-            06 / MENTORSHIP
-          </span>
-
-          <h2>
-
-            Mentoring ideas
-            <br>
-
-            <span>
-              into working prototypes.
+            <span class="index">
+              07 / JOURNEY
             </span>
 
-          </h2>
+            <h2>
+              From learner<br>
+              to <span>mentor.</span>
+            </h2>
 
-        </div>
-
-
-        <p>
-
-          AICTE IDEA Lab guidance for 61 students across 20 IoT and embedded-system project themes.
-
-        </p>
-
-      </div>
-
-
-      <div class="mentorship-dashboard reveal">
-
-
-        <div class="mentor-stat">
-
-          <span>
-            STUDENTS GUIDED
-          </span>
-
-          <strong>
-            61+
-          </strong>
-
-          <div class="bar">
-            <i style="--w:92%"></i>
           </div>
 
-        </div>
 
+          <p>
 
-        <div class="mentor-stat">
+            A journey shaped by continuous learning,
+            teaching, research and innovation.
 
-          <span>
-            PROJECT THEMES
-          </span>
-
-          <strong>
-            20+
-          </strong>
-
-          <div class="bar">
-            <i style="--w:84%"></i>
-          </div>
+          </p>
 
         </div>
 
 
-        <div class="mentor-stat">
-
-          <span>
-            PRIMARY DOMAIN
-          </span>
-
-          <strong>
-            IoT
-          </strong>
-
-          <div class="bar">
-            <i style="--w:96%"></i>
-          </div>
-
-        </div>
+        <div class="timeline-grid">
 
 
-        <div class="mentor-stat">
-
-          <span>
-            FACILITY
-          </span>
-
-          <strong>
-            IDEA Lab
-          </strong>
-
-          <div class="bar">
-            <i style="--w:88%"></i>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- Project Themes -->
-
-      <div class="project-cloud reveal">
-
-        <span>Smart Blind Stick</span>
-        <span>Obstacle Detection</span>
-        <span>Home Security Alert</span>
-        <span>Gas Leakage Detection</span>
-        <span>Smart Dustbin</span>
-        <span>Bluetooth Home Automation</span>
-        <span>Solar Phone Charger</span>
-        <span>Patient Room Monitoring</span>
-        <span>Smart Door Lock</span>
-        <span>Automatic Street Light</span>
-        <span>Energy Monitoring</span>
-        <span>Electronic Coin Counter</span>
-        <span>Anti-Sleep Driver Alarm</span>
-        <span>Automatic Fan Speed Control</span>
-        <span>Medication Reminder Box</span>
-        <span>Voice-Controlled Appliances</span>
-        <span>Automatic Plant Watering</span>
-        <span>Digital Locker</span>
-        <span>Contactless Sanitizer</span>
-        <span>Smart Capacity Waste Bin</span>
-
-      </div>
-
-
-      <div class="facility-panel glass-panel reveal">
-
-        <span class="label">
-          AICTE IDEA LAB FACILITIES
-        </span>
-
-        <p>
-
-          Arduino · NodeMCU · RFID · Ultrasonic Sensors · PIR Sensors · Gas Sensors · Soil Moisture Sensors · IoT Development Kits · Electronics Workbench · Testing Instruments · Prototyping Tools
-
-        </p>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         DEVELOPMENT & SERVICE
-    ======================================================== -->
-
-    <section
-      id="development"
-      class="section container development-section"
-    >
-
-      <div class="section-head reveal">
-
-        <div>
-
-          <span class="index">
-            07 / DEVELOPMENT & SERVICE
-          </span>
-
-          <h2>
-
-            Continuous learning.
-            <br>
+          <article class="glass-panel timeline-card reveal">
 
             <span>
-              Institutional contribution.
+              2019 — 2023
             </span>
 
-          </h2>
+            <h3>
+              B.E. Computer Science & Engineering
+            </h3>
+
+            <ul>
+
+              <li>
+                Built foundational knowledge in computer science.
+              </li>
+
+              <li>
+                Explored software development and emerging technologies.
+              </li>
+
+              <li>
+                Developed interest in AI, IoT and project development.
+              </li>
+
+            </ul>
+
+          </article>
+
+
+          <article class="glass-panel timeline-card reveal">
+
+            <span>
+              2023 — 2025
+            </span>
+
+            <h3>
+              M.E. Computer Science & Engineering
+            </h3>
+
+            <ul>
+
+              <li>
+                Advanced study in computer science and intelligent systems.
+              </li>
+
+              <li>
+                Developed research work around IoT and hydroponics.
+              </li>
+
+              <li>
+                Explored machine learning and predictive analysis.
+              </li>
+
+            </ul>
+
+          </article>
+
+
+          <article class="glass-panel timeline-card reveal">
+
+            <span>
+              2025 — PRESENT
+            </span>
+
+            <h3>
+              Assistant Professor — CSE
+            </h3>
+
+            <ul>
+
+              <li>
+                Teaching undergraduate Computer Science subjects.
+              </li>
+
+              <li>
+                Mentoring student projects and hackathon teams.
+              </li>
+
+              <li>
+                Coordinating innovation and technology activities.
+              </li>
+
+            </ul>
+
+          </article>
+
+
+          <article class="glass-panel timeline-card reveal">
+
+            <span>
+              CONTINUOUS
+            </span>
+
+            <h3>
+              Research & Innovation
+            </h3>
+
+            <ul>
+
+              <li>
+                AI and Computer Vision exploration.
+              </li>
+
+              <li>
+                IoT-enabled smart systems.
+              </li>
+
+              <li>
+                Robotics and ROS activities.
+              </li>
+
+              <li>
+                Student innovation and entrepreneurship mentoring.
+              </li>
+
+            </ul>
+
+          </article>
 
         </div>
-
-
-        <p>
-
-          National-level training, technical exposure, examination responsibilities and institutional service that strengthen teaching and professional practice.
-
-        </p>
-
-      </div>
-
-
-      <div class="timeline-grid">
-
-
-        <article class="timeline-card glass-panel reveal">
-
-          <span>
-            FACULTY DEVELOPMENT
-          </span>
-
-          <h3>
-            Advanced Training & FDPs
-          </h3>
-
-          <ul>
-
-            <li>
-              NIT Warangal — Emerging Tools & Techniques for Environmental Risk Assessment
-            </li>
-
-            <li>
-              One-week FDP — Image Processing & Computer Vision
-            </li>
-
-            <li>
-              Kathir College — AI Tools for Teaching
-            </li>
-
-            <li>
-              IIT Madras — Cybersecurity Capacity Building Programme
-            </li>
-
-            <li>
-              MATLAB EXPO 2025 — Reinforcement Learning and Smart Appliances AI exposure
-            </li>
-
-          </ul>
-
-        </article>
-
-
-        <article class="timeline-card glass-panel reveal">
-
-          <span>
-            INDUSTRY & TECHNICAL EXPOSURE
-          </span>
-
-          <h3>
-            Hands-On Professional Learning
-          </h3>
-
-          <ul>
-
-            <li>
-              IIIT Sri City — Geospatial Intelligence Workshop
-            </li>
-
-            <li>
-              OWASP — Malware Analysis and Reverse Engineering
-            </li>
-
-            <li>
-              BCBUZZ — Cybersecurity Foundations for Future Professionals
-            </li>
-
-            <li>
-              ROS2 hands-on Robot Operating Systems workshop
-            </li>
-
-            <li>
-              IBM, Microsoft and HP LIFE AI learning pathways
-            </li>
-
-          </ul>
-
-        </article>
-
-
-        <article class="timeline-card glass-panel reveal">
-
-          <span>
-            ACADEMIC SERVICE
-          </span>
-
-          <h3>
-            Examination & Evaluation
-          </h3>
-
-          <ul>
-
-            <li>
-              End-semester examination invigilation
-            </li>
-
-            <li>
-              Spoken Tutorial invigilator
-            </li>
-
-            <li>
-              Laboratory examiner for CSE courses
-            </li>
-
-            <li>
-              Final-year project guide and evaluator
-            </li>
-
-            <li>
-              Journal review and research evaluation contributions
-            </li>
-
-          </ul>
-
-        </article>
-
-
-        <article class="timeline-card glass-panel reveal">
-
-          <span>
-            INSTITUTIONAL CONTRIBUTION
-          </span>
-
-          <h3>
-            Service Beyond the Classroom
-          </h3>
-
-          <ul>
-
-            <li>
-              Admission Cell member and student counseling support
-            </li>
-
-            <li>
-              ROS Club mentoring and innovation activities
-            </li>
-
-            <li>
-              Hackathon and entrepreneurship support
-            </li>
-
-            <li>
-              National Entrepreneurship Challenge faculty advisory
-            </li>
-
-            <li>
-              NSPC 2025 participation and continuous professional learning
-            </li>
-
-          </ul>
-
-        </article>
 
       </div>
 
     </section>
 
 
-
-    <!-- =======================================================
+    <!-- =========================================================
          CREDENTIALS
-    ======================================================== -->
+    ========================================================== -->
 
-    <section
-      id="credentials"
-      class="section credential-section"
-    >
+    <section class="section credential-section" id="credentials">
 
       <div class="container">
 
@@ -1986,14 +1638,8 @@
             </span>
 
             <h2>
-
-              Continuous learning.
-              <br>
-
-              <span>
-                Future-ready expertise.
-              </span>
-
+              Proof of<br>
+              <span>progress.</span>
             </h2>
 
           </div>
@@ -2001,91 +1647,217 @@
 
           <p>
 
-            Credentials spanning AI, machine learning, cybersecurity, MATLAB, ROS2, innovation, research review and faculty development.
+            Certifications, achievements and continuous
+            professional development.
 
           </p>
 
         </div>
 
 
-        <!-- Credential Orbit -->
+        <!-- CREDENTIAL ORBIT -->
 
         <div class="credential-orbit reveal">
 
           <div class="orbit-core">
 
             <b>
-              20+
+              GG
             </b>
 
             <span>
-              Credentials
+              CREDENTIALS
             </span>
 
           </div>
 
 
           <span style="--i:0">
-            IBM AI
+            AI
           </span>
 
           <span style="--i:1">
-            Microsoft ML
+            IoT
           </span>
 
           <span style="--i:2">
-            HP LIFE
+            ML
           </span>
 
           <span style="--i:3">
-            MATLAB
+            CV
           </span>
 
           <span style="--i:4">
-            IIT Madras
+            ROS
           </span>
 
           <span style="--i:5">
-            NIT Warangal
+            Research
           </span>
 
           <span style="--i:6">
-            OWASP
+            Innovation
           </span>
 
           <span style="--i:7">
-            ROS2
+            Mentoring
           </span>
 
         </div>
 
 
-        <!-- Dynamic Certificate Grid -->
+        <!-- CERTIFICATES -->
 
-        <div
-          class="cert-grid"
-          id="certGrid"
-        >
+        <div class="cert-grid">
+
+
+          <a
+            href="assets/certificates/"
+            class="cert-card reveal"
+          >
+
+            <div class="cert-placeholder">
+
+              <span>
+                CERT
+              </span>
+
+              <small>
+                VIEW CERTIFICATES
+              </small>
+
+            </div>
+
+
+            <div>
+
+              <b>
+                Academic & Professional Credentials
+              </b>
+
+              <small>
+                Open Certificate Collection ↗
+              </small>
+
+            </div>
+
+          </a>
+
+
+          <a
+            href="assets/certificates/"
+            class="cert-card reveal"
+          >
+
+            <div class="cert-placeholder">
+
+              <span>
+                AI
+              </span>
+
+              <small>
+                ARTIFICIAL INTELLIGENCE
+              </small>
+
+            </div>
+
+
+            <div>
+
+              <b>
+                AI / ML Certifications
+              </b>
+
+              <small>
+                View Collection ↗
+              </small>
+
+            </div>
+
+          </a>
+
+
+          <a
+            href="assets/certificates/"
+            class="cert-card reveal"
+          >
+
+            <div class="cert-placeholder">
+
+              <span>
+                IOT
+              </span>
+
+              <small>
+                INTERNET OF THINGS
+              </small>
+
+            </div>
+
+
+            <div>
+
+              <b>
+                IoT & Technology
+              </b>
+
+              <small>
+                View Collection ↗
+              </small>
+
+            </div>
+
+          </a>
+
+
+          <a
+            href="assets/certificates/"
+            class="cert-card reveal"
+          >
+
+            <div class="cert-placeholder">
+
+              <span>
+                DEV
+              </span>
+
+              <small>
+                DEVELOPMENT
+              </small>
+
+            </div>
+
+
+            <div>
+
+              <b>
+                Technical Credentials
+              </b>
+
+              <small>
+                View Collection ↗
+              </small>
+
+            </div>
+
+          </a>
+
         </div>
 
 
         <div class="center">
 
-          <button
-            class="btn glass magnetic"
-            id="showAll"
-            type="button"
+          <a
+            href="assets/certificates/"
+            class="btn glass"
           >
 
-            <span>
-              Show all credentials
-            </span>
+            View All Certificates
 
-            <i>
-              ＋
-            </i>
+            <i class="fa-solid fa-folder-open"></i>
 
-          </button>
+          </a>
 
         </div>
 
@@ -2094,144 +1866,170 @@
     </section>
 
 
+    <!-- =========================================================
+         ENDLESS XPLORERS
+    ========================================================== -->
 
-    <!-- =======================================================
-         ENTREPRENEURSHIP
-    ======================================================== -->
+    <section class="section">
 
-    <section
-      id="venture"
-      class="section container venture-section"
-    >
+      <div class="container">
 
-      <div class="venture-panel reveal">
+        <div class="venture-panel reveal">
 
 
-        <div class="venture-copy">
+          <div class="venture-copy">
+
+            <span class="index">
+              09 / ENTREPRENEURSHIP
+            </span>
+
+
+            <span class="venture-kicker">
+              MANAGING DIRECTOR
+            </span>
+
+
+            <h2>
+
+              Endless<br>
+
+              <span>Xplorers</span>
+
+            </h2>
+
+
+            <p>
+
+              A travel and exploration initiative built around
+              meaningful experiences, discovery and going beyond
+              conventional boundaries.
+
+            </p>
+
+
+            <p>
+
+              <b>
+                EXPLORE BEYOND BOUNDARIES.
+              </b>
+
+            </p>
+
+
+            <a
+              href="#contact"
+              class="btn glass"
+            >
+
+              Explore Collaboration
+
+              <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+          </div>
+
+
+          <div class="venture-logo">
+
+            <div class="logo-halo"></div>
+
+
+            <img
+              src="assets/endless-xplorers-logo.png"
+              alt="Endless Xplorers Logo"
+              loading="lazy"
+            >
+
+
+            <small>
+              EXPLORE BEYOND BOUNDARIES
+            </small>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         CONTACT
+    ========================================================== -->
+
+    <section class="contact-section" id="contact">
+
+      <div class="container contact-grid">
+
+
+        <div class="reveal">
 
           <span class="index">
-            09 / ENTREPRENEURSHIP
+            10 / CONTACT
           </span>
-
-          <p class="venture-kicker">
-            FOUNDER & CEO
-          </p>
 
 
           <h2>
 
-            Endless
-            <br>
+            Let's build<br>
 
-            <span>
-              Xplorers
-            </span>
+            <span>something.</span>
 
           </h2>
 
 
           <p>
 
-            A technology-enabled travel and tourism venture built around memorable experiences, digital engagement, customer-centric planning and business innovation.
+            Whether it's research collaboration, student innovation,
+            an academic project, technology development or a new idea,
+            I'm always interested in meaningful conversations.
 
           </p>
 
 
-          <div class="tags">
+          <div class="hero-actions">
 
-            <span>
-              Travel Technology
-            </span>
+            <a
+              href="mailto:gokulraj@example.com"
+              class="btn primary"
+            >
 
-            <span>
-              Tourism Innovation
-            </span>
+              Send Email
 
-            <span>
-              Digital Marketing
-            </span>
+              <i class="fa-solid fa-envelope"></i>
 
-            <span>
-              Customer Experience
-            </span>
+            </a>
+
+
+            <a
+              href="assets/docs/G_Gokulraj_Resume.pdf"
+              target="_blank"
+              rel="noopener"
+              class="btn glass"
+            >
+
+              Resume
+
+              <i class="fa-solid fa-file-pdf"></i>
+
+            </a>
 
           </div>
 
         </div>
 
 
-        <div class="venture-logo">
-
-          <div class="logo-halo"></div>
-
-
-          <img
-            src="assets/endless-xplorers-logo.png"
-            alt="Endless Xplorers logo"
-          >
-
-
-          <small>
-            Creating memories together...
-          </small>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =======================================================
-         CONTACT
-    ======================================================== -->
-
-    <section
-      id="contact"
-      class="contact-section"
-    >
-
-      <div class="container contact-grid reveal">
-
-
-        <div>
-
-          <span class="index">
-            10 / CONNECT
-          </span>
-
-
-          <h2>
-
-            Let’s build something
-            <br>
-
-            <span>
-              meaningful.
-            </span>
-
-          </h2>
-
-
-          <p>
-
-            Open to research collaboration, student mentoring, academic programs, project development and innovation partnerships.
-
-          </p>
-
-        </div>
-
-
-        <div class="contact-panel glass-panel">
+        <div class="glass-panel contact-panel reveal">
 
 
           <a
+            href="mailto:gokulraj@example.com"
             class="email-link"
-            href="mailto:gokulrajg199@gmail.com"
           >
 
-            gokulrajg199@gmail.com
+            gokulraj@example.com
 
             <span>
               ↗
@@ -2243,11 +2041,11 @@
           <div class="contact-line">
 
             <small>
-              INSTITUTION
+              PROFESSIONAL ROLE
             </small>
 
             <b>
-              Sri Ramakrishna Institute of Technology
+              Assistant Professor — CSE
             </b>
 
           </div>
@@ -2256,11 +2054,11 @@
           <div class="contact-line">
 
             <small>
-              DEPARTMENT
+              SPECIALIZATION
             </small>
 
             <b>
-              Computer Science and Engineering
+              AI • ML • Computer Vision • IoT
             </b>
 
           </div>
@@ -2269,11 +2067,11 @@
           <div class="contact-line">
 
             <small>
-              RESEARCH IDENTIFIERS
+              LOCATION
             </small>
 
             <b>
-              Scopus: 59403144200 · IEEE: 911391347219365
+              Coimbatore, Tamil Nadu, India
             </b>
 
           </div>
@@ -2281,49 +2079,30 @@
 
           <div class="contact-links">
 
-
-            <a
-              href="https://www.linkedin.com/in/gokulraj-g-699b50214"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-
-
             <a
               href="https://github.com/gokulrajg199"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
-              GitHub
+              GitHub ↗
             </a>
 
 
             <a
-              href="https://ieeexplore.ieee.org/author/911391347219365"
+              href="https://www.linkedin.com/"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
-              IEEE
+              LinkedIn ↗
             </a>
 
 
             <a
-              href="https://www.scopus.com/authid/detail.uri?authorId=59403144200"
+              href="https://scholar.google.com/"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
-              Scopus
-            </a>
-
-
-            <a
-              href="assets/G_Gokulraj_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Resume
+              Scholar ↗
             </a>
 
           </div>
@@ -2337,7 +2116,6 @@
   </main>
 
 
-
   <!-- =========================================================
        FOOTER
   ========================================================== -->
@@ -2347,12 +2125,8 @@
     <div class="container">
 
       <span>
-        © <b id="year"></b> G. Gokulraj
-      </span>
-
-
-      <span>
-        Educator · Researcher · Innovator · Entrepreneur
+        © <span id="currentYear"></span> G. Gokulraj.
+        All rights reserved.
       </span>
 
 
