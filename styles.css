@@ -3554,3 +3554,10 @@ footer a {
   }
 }
 ```
+/* FINAL FIX - DISABLE BOOT OVERLAY */
+#boot {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
