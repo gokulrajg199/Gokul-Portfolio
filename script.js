@@ -33,7 +33,7 @@
     if (!boot) return;
 
     const hideBoot = () => {
-      boot.classList.add("boot-hidden");
+      boot.classList.add("hidden");
       boot.setAttribute("aria-hidden", "true");
 
       setTimeout(() => {
