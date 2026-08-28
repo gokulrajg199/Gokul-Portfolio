@@ -212,3 +212,35 @@
 @media (prefers-reduced-motion:reduce){
   .portrait-card,.floating-card,.hero-readout{transform:none!important;}
 }
+/* ===== PORTFOLIO FINAL VISIBILITY FIX ===== */
+
+.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+.hero-copy,
+.hero-stage,
+.impact,
+.section-head,
+.panel,
+.research-lab,
+.research-card,
+.project-card,
+.impact-card,
+.timeline,
+.development-grid,
+.credential-toolbar,
+.cert-grid,
+.venture-panel,
+.contact-panel,
+.contact-grid {
+    visibility: visible !important;
+}
+
+.boot {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
