@@ -1,106 +1,69 @@
 ```javascript
 /* =========================================================
    G. GOKULRAJ PORTFOLIO
-   FINAL INTERACTION ENGINE
+   FINAL SCRIPT
    ========================================================= */
 
 (() => {
   "use strict";
 
   /* =======================================================
-     CONFIG
-     ======================================================= */
-
-  const CONFIG = {
-    bootDuration: 950,
-    clockInterval: 1000,
-    focusInterval: 2600,
-    neuralParticlesDesktop: 55,
-    neuralParticlesMobile: 28,
-    neuralConnectionDistance: 135,
-    tiltMax: 7,
-    cursorEnabledWidth: 900
-  };
-
-
-  /* =======================================================
-     HELPERS
+     GLOBAL HELPERS
      ======================================================= */
 
   const $ = (selector, parent = document) =>
     parent.querySelector(selector);
 
   const $$ = (selector, parent = document) =>
-    Array.from(parent.querySelectorAll(selector));
-
-  const clamp = (value, min, max) =>
-    Math.min(Math.max(value, min), max);
+    [...parent.querySelectorAll(selector)];
 
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
-  );
-
-
-  /* =======================================================
-     GLOBAL STATE
-     ======================================================= */
-
-  const state = {
-    reducedMotion: prefersReducedMotion.matches,
-    activeFilter: "all",
-    searchTerm: "",
-    activeModal: null,
-    lastFocusedElement: null,
-    animationFrame: null,
-    resizeTimer: null
-  };
-
-
-  /* =======================================================
-     REDUCED MOTION
-     ======================================================= */
-
-  function updateMotionPreference() {
-    state.reducedMotion = prefersReducedMotion.matches;
-
-    document.documentElement.classList.toggle(
-      "reduced-motion",
-      state.reducedMotion
-    );
-  }
-
-  updateMotionPreference();
-
-  if (typeof prefersReducedMotion.addEventListener === "function") {
-    prefersReducedMotion.addEventListener(
-      "change",
-      updateMotionPreference
-    );
-  }
+  ).matches;
 
 
   /* =======================================================
      BOOT SCREEN
+     IMPORTANT: REMOVE GG SCREEN
      ======================================================= */
 
-  function initBoot() {
+  function initBootScreen() {
     const boot = $("#boot");
 
     if (!boot) return;
 
-    if (state.reducedMotion) {
-      boot.classList.add("is-hidden");
+    const hideBoot = () => {
+      boot.classList.add("boot-hidden");
       boot.setAttribute("aria-hidden", "true");
-      return;
+
+      setTimeout(() => {
+        if (boot && boot.parentNode) {
+          boot.remove();
+        }
+      }, prefersReducedMotion ? 0 : 700);
+    };
+
+    /*
+     * Hide the boot screen quickly.
+     * This prevents the site from being permanently
+     * stuck displaying only "GG".
+     */
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(hideBoot, prefersReducedMotion ? 0 : 600);
+      });
+    } else {
+      setTimeout(hideBoot, prefersReducedMotion ? 0 : 600);
     }
 
-    window.setTimeout(() => {
-      boot.classList.add("is-hidden");
+    /*
+     * Emergency fallback.
+     * Even if another script/component fails,
+     * the boot screen will never remain forever.
+     */
 
-      window.setTimeout(() => {
-        boot.setAttribute("aria-hidden", "true");
-      }, 500);
-    }, CONFIG.bootDuration);
+    setTimeout(hideBoot, 2500);
   }
 
 
@@ -114,102 +77,68 @@
 
     if (!menuButton || !navLinks) return;
 
-    const navItems = $$("a", navLinks);
+    const links = $$("a", navLinks);
 
     const closeMenu = () => {
       navLinks.classList.remove("open");
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-      menuButton.setAttribute(
-        "aria-label",
-        "Open navigation"
-      );
+      menuButton.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
     };
 
-    const toggleMenu = () => {
-      const isOpen =
-        navLinks.classList.toggle("open");
-
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
-
-      menuButton.setAttribute(
-        "aria-label",
-        isOpen
-          ? "Close navigation"
-          : "Open navigation"
-      );
+    const openMenu = () => {
+      navLinks.classList.add("open");
+      menuButton.classList.add("open");
+      menuButton.setAttribute("aria-expanded", "true");
+      menuButton.setAttribute("aria-label", "Close navigation");
     };
 
-    menuButton.addEventListener(
-      "click",
-      toggleMenu
-    );
+    menuButton.addEventListener("click", () => {
+      const expanded =
+        menuButton.getAttribute("aria-expanded") === "true";
 
-    navItems.forEach((link) => {
-      link.addEventListener(
-        "click",
-        closeMenu
-      );
+      if (expanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
-    document.addEventListener(
-      "keydown",
-      (event) => {
-        if (event.key === "Escape") {
-          closeMenu();
-        }
-      }
-    );
+    links.forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
 
-    window.addEventListener(
-      "resize",
-      () => {
-        if (window.innerWidth > 900) {
-          closeMenu();
-        }
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
       }
-    );
+    });
   }
 
 
   /* =======================================================
-     SMOOTH ANCHOR NAVIGATION
+     NAVBAR SCROLL STATE
      ======================================================= */
 
-  function initSmoothAnchors() {
-    $$('a[href^="#"]').forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const href = link.getAttribute("href");
+  function initNavbar() {
+    const navbar = $("#navbar");
 
-        if (!href || href === "#") return;
+    if (!navbar) return;
 
-        const target = $(href);
+    const update = () => {
+      navbar.classList.toggle(
+        "scrolled",
+        window.scrollY > 40
+      );
+    };
 
-        if (!target) return;
+    update();
 
-        event.preventDefault();
-
-        target.scrollIntoView({
-          behavior: state.reducedMotion
-            ? "auto"
-            : "smooth",
-          block: "start"
-        });
-
-        history.replaceState(
-          null,
-          "",
-          href
-        );
-      });
-    });
+    window.addEventListener(
+      "scroll",
+      update,
+      { passive: true }
+    );
   }
 
 
@@ -222,71 +151,30 @@
 
     if (!progress) return;
 
-    let ticking = false;
-
     const update = () => {
       const documentHeight =
         document.documentElement.scrollHeight -
         window.innerHeight;
 
+      if (documentHeight <= 0) {
+        progress.style.width = "0%";
+        return;
+      }
+
       const percentage =
-        documentHeight > 0
-          ? (window.scrollY / documentHeight) * 100
-          : 0;
+        (window.scrollY / documentHeight) * 100;
 
       progress.style.width =
-        `${clamp(percentage, 0, 100)}%`;
-
-      ticking = false;
+        `${Math.min(100, Math.max(0, percentage))}%`;
     };
+
+    update();
 
     window.addEventListener(
       "scroll",
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
+      update,
       { passive: true }
     );
-
-    update();
-  }
-
-
-  /* =======================================================
-     NAVBAR SCROLL STATE
-     ======================================================= */
-
-  function initNavbarScroll() {
-    const navbar = $("#navbar");
-
-    if (!navbar) return;
-
-    let ticking = false;
-
-    const update = () => {
-      navbar.classList.toggle(
-        "scrolled",
-        window.scrollY > 30
-      );
-
-      ticking = false;
-    };
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-
-    update();
   }
 
 
@@ -294,15 +182,12 @@
      REVEAL ANIMATIONS
      ======================================================= */
 
-  function initRevealAnimations() {
+  function initReveal() {
     const elements = $$(".reveal");
 
     if (!elements.length) return;
 
-    if (
-      state.reducedMotion ||
-      !("IntersectionObserver" in window)
-    ) {
+    if (prefersReducedMotion) {
       elements.forEach((element) => {
         element.classList.add("visible");
       });
@@ -310,192 +195,31 @@
       return;
     }
 
-    const observer =
-      new IntersectionObserver(
-        (entries, obs) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((element) => {
+        element.classList.add("visible");
+      });
 
-            entry.target.classList.add(
-              "visible"
-            );
+      return;
+    }
 
-            obs.unobserve(entry.target);
-          });
-        },
-        {
-          threshold: 0.12,
-          rootMargin: "0px 0px -60px 0px"
-        }
-      );
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -50px 0px"
+      }
+    );
 
     elements.forEach((element) => {
       observer.observe(element);
-    });
-  }
-
-
-  /* =======================================================
-     CURSOR GLOW
-     ======================================================= */
-
-  function initCursorGlow() {
-    const glow = $(".cursor-glow");
-
-    if (!glow) return;
-
-    const finePointer =
-      window.matchMedia(
-        "(pointer: fine)"
-      ).matches;
-
-    if (
-      state.reducedMotion ||
-      !finePointer ||
-      window.innerWidth < CONFIG.cursorEnabledWidth
-    ) {
-      glow.style.display = "none";
-      return;
-    }
-
-    let mouseX = -200;
-    let mouseY = -200;
-    let currentX = -200;
-    let currentY = -200;
-
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-      },
-      { passive: true }
-    );
-
-    const animate = () => {
-      currentX +=
-        (mouseX - currentX) * 0.12;
-
-      currentY +=
-        (mouseY - currentY) * 0.12;
-
-      glow.style.transform =
-        `translate3d(${currentX}px, ${currentY}px, 0)`;
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-  }
-
-
-  /* =======================================================
-     MAGNETIC BUTTONS
-     ======================================================= */
-
-  function initMagneticButtons() {
-    if (
-      state.reducedMotion ||
-      !window.matchMedia("(pointer: fine)").matches
-    ) {
-      return;
-    }
-
-    $$(".magnetic").forEach((button) => {
-      button.addEventListener(
-        "pointermove",
-        (event) => {
-          const rect =
-            button.getBoundingClientRect();
-
-          const x =
-            event.clientX -
-            rect.left -
-            rect.width / 2;
-
-          const y =
-            event.clientY -
-            rect.top -
-            rect.height / 2;
-
-          const moveX =
-            clamp(
-              x / 7,
-              -8,
-              8
-            );
-
-          const moveY =
-            clamp(
-              y / 7,
-              -8,
-              8
-            );
-
-          button.style.transform =
-            `translate3d(${moveX}px, ${moveY}px, 0)`;
-        }
-      );
-
-      button.addEventListener(
-        "pointerleave",
-        () => {
-          button.style.transform = "";
-        }
-      );
-    });
-  }
-
-
-  /* =======================================================
-     3D TILT CARDS
-     ======================================================= */
-
-  function initTiltCards() {
-    if (
-      state.reducedMotion ||
-      !window.matchMedia("(pointer: fine)").matches
-    ) {
-      return;
-    }
-
-    $$(".tilt").forEach((card) => {
-      card.addEventListener(
-        "pointermove",
-        (event) => {
-          const rect =
-            card.getBoundingClientRect();
-
-          const x =
-            (event.clientX - rect.left) /
-            rect.width;
-
-          const y =
-            (event.clientY - rect.top) /
-            rect.height;
-
-          const rotateY =
-            (x - 0.5) *
-            CONFIG.tiltMax;
-
-          const rotateX =
-            (0.5 - y) *
-            CONFIG.tiltMax;
-
-          card.style.transform =
-            `perspective(1000px)
-             rotateX(${rotateX}deg)
-             rotateY(${rotateY}deg)
-             translateZ(0)`;
-        }
-      );
-
-      card.addEventListener(
-        "pointerleave",
-        () => {
-          card.style.transform = "";
-        }
-      );
     });
   }
 
@@ -513,71 +237,382 @@
       const now = new Date();
 
       clock.textContent =
-        now.toLocaleTimeString(
-          "en-IN",
-          {
-            hour12: false,
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-          }
-        );
+        now.toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false
+        });
     };
 
     updateClock();
 
-    window.setInterval(
-      updateClock,
-      CONFIG.clockInterval
-    );
+    setInterval(updateClock, 1000);
   }
 
 
   /* =======================================================
-     FOCUS ROTATOR
+     FOCUS ROTATION
      ======================================================= */
 
-  function initFocusRotator() {
-    const target = $("#focusText");
+  function initFocusText() {
+    const focusText = $("#focusText");
 
-    if (!target) return;
+    if (!focusText) return;
 
-    const focusItems = [
+    const focusAreas = [
       "COMPUTER VISION",
       "ARTIFICIAL INTELLIGENCE",
       "SMART AGRICULTURE",
-      "INTERNET OF THINGS",
       "ROBOTICS",
+      "INTERNET OF THINGS",
       "AGENTIC AI",
       "RESEARCH & INNOVATION"
     ];
 
-    if (state.reducedMotion) {
-      target.textContent = focusItems[0];
-      return;
-    }
-
     let index = 0;
 
-    window.setInterval(() => {
-      index =
-        (index + 1) %
-        focusItems.length;
+    const changeFocus = () => {
+      index = (index + 1) % focusAreas.length;
 
-      target.classList.add(
-        "focus-changing"
+      if (prefersReducedMotion) {
+        focusText.textContent = focusAreas[index];
+        return;
+      }
+
+      focusText.style.opacity = "0";
+
+      setTimeout(() => {
+        focusText.textContent = focusAreas[index];
+        focusText.style.opacity = "1";
+      }, 200);
+    };
+
+    setInterval(changeFocus, 3500);
+  }
+
+
+  /* =======================================================
+     SMOOTH INTERNAL LINKS
+     ======================================================= */
+
+  function initSmoothLinks() {
+    const links = $$('a[href^="#"]');
+
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const href = link.getAttribute("href");
+
+        if (!href || href === "#") return;
+
+        const target = $(href);
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: prefersReducedMotion
+            ? "auto"
+            : "smooth",
+          block: "start"
+        });
+      });
+    });
+  }
+
+
+  /* =======================================================
+     RESEARCH DOMAIN DATA
+     ======================================================= */
+
+  const researchDomains = {
+    AI: {
+      title: "Artificial Intelligence",
+      text:
+        "Machine learning, deep learning and intelligent decision systems for practical applications.",
+      tags: [
+        "Machine Learning",
+        "Deep Learning",
+        "AI Systems"
+      ]
+    },
+
+    "Computer Vision": {
+      title: "Computer Vision",
+      text:
+        "Computer vision systems for detection, monitoring, recognition and intelligent automation.",
+      tags: [
+        "YOLO",
+        "Object Detection",
+        "Deep Learning"
+      ]
+    },
+
+    IoT: {
+      title: "Internet of Things",
+      text:
+        "Connected sensing, monitoring and automation systems for practical real-world applications.",
+      tags: [
+        "Sensors",
+        "MQTT",
+        "Embedded Systems"
+      ]
+    },
+
+    Robotics: {
+      title: "Robotics",
+      text:
+        "ROS and ROS2-oriented robotics development, learning systems and autonomous technology.",
+      tags: [
+        "ROS",
+        "ROS2",
+        "Robotics"
+      ]
+    },
+
+    "Smart Agriculture": {
+      title: "Smart Agriculture",
+      text:
+        "IoT-enabled agriculture, hydroponics monitoring, environmental sensing and intelligent farming.",
+      tags: [
+        "Hydroponics",
+        "IoT",
+        "Smart Farming"
+      ]
+    },
+
+    "Agentic AI": {
+      title: "Agentic AI",
+      text:
+        "Exploring intelligent agents capable of reasoning, curation and goal-oriented problem solving.",
+      tags: [
+        "AI Agents",
+        "Reasoning",
+        "Automation"
+      ]
+    }
+  };
+
+
+  /* =======================================================
+     RESEARCH DOMAIN UI
+     ======================================================= */
+
+  function initResearchDomains() {
+    const title = $("#domainTitle");
+    const text = $("#domainText");
+    const tagsContainer = $("#domainTags");
+
+    const nodes = $$(".graph-node");
+
+    if (!title || !text || !tagsContainer) return;
+
+    const renderDomain = (domainName) => {
+      const data =
+        researchDomains[domainName] ||
+        researchDomains.AI;
+
+      title.textContent = data.title;
+      text.textContent = data.text;
+
+      tagsContainer.innerHTML = "";
+
+      data.tags.forEach((tag) => {
+        const span = document.createElement("span");
+        span.textContent = tag;
+        tagsContainer.appendChild(span);
+      });
+
+      nodes.forEach((node) => {
+        const active =
+          node.dataset.domain === domainName;
+
+        node.classList.toggle("active", active);
+        node.setAttribute(
+          "aria-pressed",
+          active ? "true" : "false"
+        );
+      });
+    };
+
+    nodes.forEach((node) => {
+      node.addEventListener("click", () => {
+        renderDomain(node.dataset.domain);
+      });
+    });
+
+    renderDomain("AI");
+  }
+
+
+  /* =======================================================
+     RESEARCH CANVAS
+     ======================================================= */
+
+  function initResearchCanvas() {
+    const canvas = $("#researchCanvas");
+
+    if (!canvas) return;
+
+    const parent = canvas.parentElement;
+
+    if (!parent) return;
+
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+
+    const nodes = [
+      { x: 0.5, y: 0.5 },
+      { x: 0.22, y: 0.22 },
+      { x: 0.78, y: 0.22 },
+      { x: 0.18, y: 0.72 },
+      { x: 0.82, y: 0.72 },
+      { x: 0.5, y: 0.14 },
+      { x: 0.5, y: 0.86 }
+    ];
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+
+      const dpr =
+        Math.min(window.devicePixelRatio || 1, 2);
+
+      width = Math.max(1, rect.width);
+      height = Math.max(1, rect.height);
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
+    };
+
+    const draw = () => {
+      ctx.clearRect(
+        0,
+        0,
+        width,
+        height
       );
 
-      window.setTimeout(() => {
-        target.textContent =
-          focusItems[index];
+      ctx.lineWidth = 1;
 
-        target.classList.remove(
-          "focus-changing"
+      const points = nodes.map((node) => ({
+        x: node.x * width,
+        y: node.y * height
+      }));
+
+      /*
+       * Connection lines
+       */
+
+      points.slice(1).forEach((point) => {
+        const center = points[0];
+
+        ctx.beginPath();
+        ctx.moveTo(center.x, center.y);
+        ctx.lineTo(point.x, point.y);
+
+        ctx.strokeStyle =
+          "rgba(130, 160, 210, 0.22)";
+
+        ctx.stroke();
+      });
+
+      /*
+       * Secondary connections
+       */
+
+      for (let i = 1; i < points.length; i++) {
+        for (
+          let j = i + 1;
+          j < points.length;
+          j++
+        ) {
+          const dx =
+            points[i].x - points[j].x;
+
+          const dy =
+            points[i].y - points[j].y;
+
+          const distance =
+            Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < width * 0.55) {
+            ctx.beginPath();
+
+            ctx.moveTo(
+              points[i].x,
+              points[i].y
+            );
+
+            ctx.lineTo(
+              points[j].x,
+              points[j].y
+            );
+
+            ctx.strokeStyle =
+              "rgba(130, 160, 210, 0.08)";
+
+            ctx.stroke();
+          }
+        }
+      }
+
+      /*
+       * Points
+       */
+
+      points.forEach((point, index) => {
+        ctx.beginPath();
+
+        ctx.arc(
+          point.x,
+          point.y,
+          index === 0 ? 4 : 2,
+          0,
+          Math.PI * 2
         );
-      }, 180);
 
-    }, CONFIG.focusInterval);
+        ctx.fillStyle =
+          index === 0
+            ? "rgba(255,255,255,.9)"
+            : "rgba(150,180,220,.55)";
+
+        ctx.fill();
+      });
+
+      if (!prefersReducedMotion) {
+        requestAnimationFrame(draw);
+      }
+    };
+
+    resize();
+    draw();
+
+    window.addEventListener(
+      "resize",
+      resize,
+      { passive: true }
+    );
+
+    if (prefersReducedMotion) {
+      draw();
+    }
   }
 
 
@@ -586,52 +621,34 @@
      ======================================================= */
 
   function initNeuralCanvas() {
-    const canvas =
-      $("#neuralCanvas");
+    const canvas = $("#neuralCanvas");
 
     if (!canvas) return;
 
-    const ctx =
-      canvas.getContext("2d", {
-        alpha: true
-      });
+    const ctx = canvas.getContext("2d");
 
     if (!ctx) return;
 
-    const particles = [];
     let width = 0;
     let height = 0;
-    let dpr = 1;
 
-    const getParticleCount = () =>
-      window.innerWidth <= 700
-        ? CONFIG.neuralParticlesMobile
-        : CONFIG.neuralParticlesDesktop;
+    let particles = [];
 
-    function resize() {
-      dpr =
-        Math.min(
-          window.devicePixelRatio || 1,
-          2
-        );
+    const particleCount =
+      window.innerWidth < 700 ? 28 : 55;
 
-      width =
-        window.innerWidth;
+    const resize = () => {
+      const dpr =
+        Math.min(window.devicePixelRatio || 1, 2);
 
-      height =
-        window.innerHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
 
-      canvas.width =
-        Math.floor(width * dpr);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
 
-      canvas.height =
-        Math.floor(height * dpr);
-
-      canvas.style.width =
-        `${width}px`;
-
-      canvas.style.height =
-        `${height}px`;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
 
       ctx.setTransform(
         dpr,
@@ -642,33 +659,23 @@
         0
       );
 
-      createParticles();
-    }
+      particles = [];
 
-    function createParticles() {
-      particles.length = 0;
-
-      const count =
-        getParticleCount();
-
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           vx:
-            (Math.random() - 0.5) *
-            0.28,
+            (Math.random() - 0.5) * 0.25,
           vy:
-            (Math.random() - 0.5) *
-            0.28,
+            (Math.random() - 0.5) * 0.25,
           radius:
-            Math.random() * 1.5 +
-            0.5
+            Math.random() * 1.6 + 0.4
         });
       }
-    }
+    };
 
-    function draw() {
+    const draw = () => {
       ctx.clearRect(
         0,
         0,
@@ -676,109 +683,26 @@
         height
       );
 
-      if (state.reducedMotion) {
-        drawStaticParticles();
-        return;
-      }
-
-      for (const particle of particles) {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        if (
-          particle.x < -20 ||
-          particle.x > width + 20
-        ) {
-          particle.vx *= -1;
-        }
-
-        if (
-          particle.y < -20 ||
-          particle.y > height + 20
-        ) {
-          particle.vy *= -1;
-        }
-      }
-
-      for (
-        let i = 0;
-        i < particles.length;
-        i++
-      ) {
-        const a = particles[i];
-
-        ctx.beginPath();
-
-        ctx.arc(
-          a.x,
-          a.y,
-          a.radius,
-          0,
-          Math.PI * 2
-        );
-
-        ctx.fillStyle =
-          "rgba(150, 180, 255, 0.35)";
-
-        ctx.fill();
-
-        for (
-          let j = i + 1;
-          j < particles.length;
-          j++
-        ) {
-          const b =
-            particles[j];
-
-          const dx =
-            a.x - b.x;
-
-          const dy =
-            a.y - b.y;
-
-          const distance =
-            Math.sqrt(
-              dx * dx +
-              dy * dy
-            );
+      particles.forEach((particle) => {
+        if (!prefersReducedMotion) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
 
           if (
-            distance <
-            CONFIG.neuralConnectionDistance
+            particle.x < 0 ||
+            particle.x > width
           ) {
-            const opacity =
-              1 -
-              distance /
-              CONFIG.neuralConnectionDistance;
+            particle.vx *= -1;
+          }
 
-            ctx.beginPath();
-
-            ctx.moveTo(
-              a.x,
-              a.y
-            );
-
-            ctx.lineTo(
-              b.x,
-              b.y
-            );
-
-            ctx.strokeStyle =
-              `rgba(120, 160, 255, ${opacity * 0.10})`;
-
-            ctx.lineWidth = 0.7;
-
-            ctx.stroke();
+          if (
+            particle.y < 0 ||
+            particle.y > height
+          ) {
+            particle.vy *= -1;
           }
         }
-      }
 
-      state.animationFrame =
-        requestAnimationFrame(draw);
-    }
-
-    function drawStaticParticles() {
-      for (const particle of particles) {
         ctx.beginPath();
 
         ctx.arc(
@@ -790,428 +714,204 @@
         );
 
         ctx.fillStyle =
-          "rgba(150, 180, 255, 0.25)";
+          "rgba(150,180,220,.45)";
 
         ctx.fill();
+      });
+
+      /*
+       * Connections
+       */
+
+      for (let i = 0; i < particles.length; i++) {
+        for (
+          let j = i + 1;
+          j < particles.length;
+          j++
+        ) {
+          const a = particles[i];
+          const b = particles[j];
+
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+
+          const distance =
+            Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 130) {
+            const opacity =
+              0.12 *
+              (1 - distance / 130);
+
+            ctx.beginPath();
+
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+
+            ctx.strokeStyle =
+              `rgba(130,160,210,${opacity})`;
+
+            ctx.lineWidth = 0.7;
+
+            ctx.stroke();
+          }
+        }
       }
-    }
+
+      if (!prefersReducedMotion) {
+        requestAnimationFrame(draw);
+      }
+    };
 
     resize();
+    draw();
 
     window.addEventListener(
       "resize",
-      () => {
-        clearTimeout(
-          state.resizeTimer
-        );
-
-        state.resizeTimer =
-          setTimeout(
-            resize,
-            150
-          );
-      }
+      resize,
+      { passive: true }
     );
-
-    draw();
   }
 
 
   /* =======================================================
-     RESEARCH GRAPH
+     CURSOR GLOW
      ======================================================= */
 
-  const researchDomains = {
-    AI: {
-      title:
-        "Artificial Intelligence",
-      text:
-        "Machine learning, deep learning and intelligent decision systems for practical applications.",
-      tags: [
-        "Machine Learning",
-        "Deep Learning",
-        "AI Systems"
-      ]
-    },
+  function initCursorGlow() {
+    const glow = $(".cursor-glow");
 
-    "Computer Vision": {
-      title:
-        "Computer Vision",
-      text:
-        "Computer vision workflows for object detection, person detection, monitoring and intelligent automation.",
-      tags: [
-        "YOLOv8",
-        "Object Detection",
-        "Deep Learning"
-      ]
-    },
+    if (!glow) return;
 
-    IoT: {
-      title:
-        "Internet of Things",
-      text:
-        "Connected sensing, monitoring and automation architectures for practical smart-system applications.",
-      tags: [
-        "Sensors",
-        "MQTT",
-        "Automation"
-      ]
-    },
+    /*
+     * Disable on touch devices.
+     */
 
-    Robotics: {
-      title:
-        "Robotics",
-      text:
-        "ROS and ROS2-oriented robotics learning, development and student project experimentation.",
-      tags: [
-        "ROS",
-        "ROS2",
-        "Autonomous Systems"
-      ]
-    },
-
-    "Smart Agriculture": {
-      title:
-        "Smart Agriculture",
-      text:
-        "IoT-enabled agriculture research focused on hydroponics, environmental monitoring and intelligent alerts.",
-      tags: [
-        "Hydroponics",
-        "Smart Farming",
-        "IoT"
-      ]
-    },
-
-    "Agentic AI": {
-      title:
-        "Agentic AI",
-      text:
-        "Emerging work around intelligent agents, reasoning, curation and human-potential-oriented problem solving.",
-      tags: [
-        "Agents",
-        "Reasoning",
-        "AI"
-      ]
+    if (
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0
+    ) {
+      glow.style.display = "none";
+      return;
     }
-  };
+
+    if (prefersReducedMotion) {
+      glow.style.display = "none";
+      return;
+    }
+
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        glow.style.transform =
+          `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+      },
+      { passive: true }
+    );
+  }
 
 
-  function initResearchGraph() {
-    const canvas =
-      $("#researchCanvas");
+  /* =======================================================
+     TILT EFFECT
+     ======================================================= */
 
-    const graph =
-      $(".research-graph");
+  function initTilt() {
+    if (prefersReducedMotion) return;
 
-    if (!canvas || !graph) return;
+    const elements = $$(".tilt");
 
-    const ctx =
-      canvas.getContext("2d");
+    elements.forEach((element) => {
+      element.addEventListener(
+        "pointermove",
+        (event) => {
+          if (window.innerWidth < 900) return;
 
-    if (!ctx) return;
+          const rect =
+            element.getBoundingClientRect();
 
-    const nodes =
-      $$(".graph-node", graph);
+          const x =
+            event.clientX - rect.left;
 
-    let width = 0;
-    let height = 0;
+          const y =
+            event.clientY - rect.top;
 
-    function resize() {
-      const rect =
-        graph.getBoundingClientRect();
+          const rotateY =
+            ((x / rect.width) - 0.5) * 8;
 
-      width =
-        Math.max(
-          rect.width,
-          300
-        );
+          const rotateX =
+            ((y / rect.height) - 0.5) * -8;
 
-      height =
-        Math.max(
-          rect.height,
-          500
-        );
-
-      const dpr =
-        Math.min(
-          window.devicePixelRatio || 1,
-          2
-        );
-
-      canvas.width =
-        Math.floor(width * dpr);
-
-      canvas.height =
-        Math.floor(height * dpr);
-
-      canvas.style.width =
-        `${width}px`;
-
-      canvas.style.height =
-        `${height}px`;
-
-      ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
+          element.style.transform =
+            `perspective(900px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)
+             translateY(-4px)`;
+        }
       );
 
-      draw();
-    }
-
-    function getNodeCenter(node) {
-      const graphRect =
-        graph.getBoundingClientRect();
-
-      const rect =
-        node.getBoundingClientRect();
-
-      return {
-        x:
-          rect.left -
-          graphRect.left +
-          rect.width / 2,
-
-        y:
-          rect.top -
-          graphRect.top +
-          rect.height / 2
-      };
-    }
-
-    function getCoreCenter() {
-      const core =
-        $(".graph-core", graph);
-
-      if (!core) {
-        return {
-          x: width / 2,
-          y: height / 2
-        };
-      }
-
-      const graphRect =
-        graph.getBoundingClientRect();
-
-      const rect =
-        core.getBoundingClientRect();
-
-      return {
-        x:
-          rect.left -
-          graphRect.left +
-          rect.width / 2,
-
-        y:
-          rect.top -
-          graphRect.top +
-          rect.height / 2
-      };
-    }
-
-    function draw() {
-      ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-      );
-
-      const core =
-        getCoreCenter();
-
-      nodes.forEach((node) => {
-        const point =
-          getNodeCenter(node);
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-          core.x,
-          core.y
-        );
-
-        ctx.lineTo(
-          point.x,
-          point.y
-        );
-
-        ctx.strokeStyle =
-          "rgba(130, 160, 255, 0.13)";
-
-        ctx.lineWidth = 1;
-
-        ctx.stroke();
-      });
-
-      nodes.forEach((node) => {
-        const point =
-          getNodeCenter(node);
-
-        ctx.beginPath();
-
-        ctx.arc(
-          point.x,
-          point.y,
-          3,
-          0,
-          Math.PI * 2
-        );
-
-        ctx.fillStyle =
-          "rgba(160, 190, 255, 0.55)";
-
-        ctx.fill();
-      });
-    }
-
-    function updateDomain(domain) {
-      const data =
-        researchDomains[domain];
-
-      if (!data) return;
-
-      const title =
-        $("#domainTitle");
-
-      const text =
-        $("#domainText");
-
-      const tags =
-        $("#domainTags");
-
-      if (title) {
-        title.textContent =
-          data.title;
-      }
-
-      if (text) {
-        text.textContent =
-          data.text;
-      }
-
-      if (tags) {
-        tags.innerHTML = "";
-
-        data.tags.forEach((tag) => {
-          const element =
-            document.createElement(
-              "span"
-            );
-
-          element.textContent =
-            tag;
-
-          tags.appendChild(
-            element
-          );
-        });
-      }
-
-      nodes.forEach((node) => {
-        node.classList.toggle(
-          "active",
-          node.dataset.domain === domain
-        );
-
-        node.setAttribute(
-          "aria-pressed",
-          String(
-            node.dataset.domain ===
-            domain
-          )
-        );
-      });
-    }
-
-    nodes.forEach((node) => {
-      node.setAttribute(
-        "aria-pressed",
-        "false"
-      );
-
-      node.addEventListener(
-        "click",
+      element.addEventListener(
+        "pointerleave",
         () => {
-          updateDomain(
-            node.dataset.domain
-          );
-
-          node.animate(
-            [
-              {
-                transform:
-                  "scale(1)"
-              },
-              {
-                transform:
-                  "scale(1.12)"
-              },
-              {
-                transform:
-                  "scale(1)"
-              }
-            ],
-            {
-              duration:
-                state.reducedMotion
-                  ? 0
-                  : 420,
-              easing:
-                "ease-out"
-            }
-          );
+          element.style.transform = "";
         }
       );
     });
-
-    window.addEventListener(
-      "resize",
-      () => {
-        clearTimeout(
-          state.resizeTimer
-        );
-
-        state.resizeTimer =
-          setTimeout(
-            resize,
-            120
-          );
-      }
-    );
-
-    resize();
-
-    updateDomain("AI");
   }
 
 
   /* =======================================================
-     PROJECT MODAL DATA
+     MAGNETIC BUTTONS
      ======================================================= */
 
-  const projects = {
+  function initMagneticButtons() {
+    if (prefersReducedMotion) return;
 
+    const buttons = $$(".magnetic");
+
+    buttons.forEach((button) => {
+      button.addEventListener(
+        "pointermove",
+        (event) => {
+          if (window.innerWidth < 900) return;
+
+          const rect =
+            button.getBoundingClientRect();
+
+          const x =
+            event.clientX -
+            (rect.left + rect.width / 2);
+
+          const y =
+            event.clientY -
+            (rect.top + rect.height / 2);
+
+          button.style.transform =
+            `translate(${x * 0.12}px, ${y * 0.12}px)`;
+        }
+      );
+
+      button.addEventListener(
+        "pointerleave",
+        () => {
+          button.style.transform = "";
+        }
+      );
+    });
+  }
+
+
+  /* =======================================================
+     PROJECT DATA
+     ======================================================= */
+
+  const projectData = {
     hydro: {
-      category:
-        "SMART AGRICULTURE",
       title:
         "Hydroponic Nutrition Alert System",
+      category:
+        "SMART AGRICULTURE",
       description:
-        "A smart agriculture research system focused on monitoring hydroponic plant-growth conditions using connected sensors and intelligent alerts.",
-      details: [
-        "pH monitoring",
-        "EC and TDS monitoring",
-        "Temperature and humidity sensing",
-        "Arduino / ESP32-oriented architecture",
-        "GSM alerting",
-        "Relay and pump automation",
-        "Dashboard visualization",
-        "Proposed predictive-analysis layer"
-      ],
+        "Sensor-driven monitoring architecture for pH, EC, TDS, temperature and humidity, with intelligent alerts, automation and predictive-analysis possibilities.",
       tags: [
         "IoT",
         "Arduino",
@@ -1222,150 +922,113 @@
     },
 
     vision: {
-      category:
-        "COMPUTER VISION",
       title:
         "AI-Based Detection Systems",
+      category:
+        "COMPUTER VISION",
       description:
-        "Computer vision workflows using YOLO/YOLOv8 concepts for object and person detection, monitoring and automation.",
-      details: [
-        "YOLO / YOLOv8",
-        "Object detection",
-        "Person detection",
-        "Python-based workflows",
-        "Deep learning",
-        "Real-time monitoring direction"
-      ],
+        "YOLO and YOLOv8-oriented computer vision workflows for intelligent detection, monitoring and automation applications.",
       tags: [
-        "YOLOv8",
         "Python",
+        "YOLOv8",
         "Computer Vision",
         "Deep Learning"
       ]
     },
 
     attendance: {
-      category:
-        "AI AUTOMATION",
       title:
         "Faculty Attendance System",
+      category:
+        "AI AUTOMATION",
       description:
-        "An AI/computer-vision project direction for person detection and attendance-oriented automation.",
-      details: [
-        "Person detection",
-        "Computer vision",
-        "YOLO-oriented workflow",
-        "Attendance automation",
-        "AI-assisted monitoring"
-      ],
+        "A computer-vision project direction focused on person detection and attendance-oriented automation.",
       tags: [
-        "AI",
-        "YOLO",
         "Python",
+        "YOLO",
         "Computer Vision"
       ]
     },
 
     timetable: {
-      category:
-        "ACADEMIC SOFTWARE",
       title:
         "SRIT Timetable ERP",
+      category:
+        "ACADEMIC SOFTWARE",
       description:
-        "An academic scheduling system direction designed around practical timetable-management challenges.",
-      details: [
-        "Faculty clash engine",
-        "Room and lab optimization",
-        "Continuous period scheduling",
-        "Academic timetable management",
-        "Excel export",
-        "Streamlit-oriented application"
-      ],
+        "Academic scheduling platform direction with faculty clash handling, room and lab optimization, continuous-period scheduling and Excel export.",
       tags: [
         "Python",
         "Streamlit",
         "Scheduling",
-        "ERP"
+        "Excel"
       ]
     },
 
     aura: {
-      category:
-        "AGENTIC AI",
       title:
         "Project AURA — Agentic AI Curator",
+      category:
+        "AGENTIC AI",
       description:
-        "An agentic AI concept centered around intelligent curation, reasoning and human-potential-oriented problem solving.",
-      details: [
-        "Agentic AI",
-        "Intelligent curation",
-        "Reasoning workflows",
-        "Human-potential focus",
-        "Innovation-oriented problem solving"
-      ],
+        "An agentic AI concept focused on intelligent curation, reasoning and human-potential-oriented problem solving.",
       tags: [
-        "Agents",
-        "AI",
-        "Reasoning",
-        "Innovation"
+        "Agentic AI",
+        "AI Agents",
+        "Reasoning"
       ]
     },
 
     ros: {
-      category:
-        "ROBOTICS",
       title:
         "ROS Robotics Projects",
+      category:
+        "ROBOTICS",
       description:
-        "Robotics learning and project development using ROS/ROS2-oriented workflows and practical student innovation.",
-      details: [
-        "ROS",
-        "ROS2",
-        "Robotics development",
-        "Autonomous-system concepts",
-        "Student project mentoring"
-      ],
+        "Practical robotics learning and project development through ROS and ROS2-oriented workflows and student innovation.",
       tags: [
         "ROS",
         "ROS2",
-        "Robotics"
+        "Robotics",
+        "Autonomous Systems"
       ]
     }
   };
 
 
   /* =======================================================
-     MODAL
+     PROJECT MODAL
      ======================================================= */
 
-  function initModal() {
-    const modal =
-      $("#modal");
+  function initProjectModal() {
+    const modal = $("#modal");
+    const modalContent = $("#modalContent");
 
-    const content =
-      $("#modalContent");
+    if (!modal || !modalContent) return;
 
-    if (!modal || !content) return;
+    let lastFocusedElement = null;
 
-    const closeButton =
-      $(".modal-close", modal);
+    const closeModal = () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
 
-    const backdrop =
-      $(".modal-backdrop", modal);
+      if (
+        lastFocusedElement &&
+        typeof lastFocusedElement.focus === "function"
+      ) {
+        lastFocusedElement.focus();
+      }
+    };
 
-    function openModal(key) {
-      const data =
-        projects[key];
+    const openModal = (projectKey, trigger) => {
+      const data = projectData[projectKey];
 
       if (!data) return;
 
-      state.activeModal =
-        key;
+      lastFocusedElement = trigger;
 
-      state.lastFocusedElement =
-        document.activeElement;
-
-      content.innerHTML = `
+      modalContent.innerHTML = `
         <span class="label">
           ${escapeHTML(data.category)}
         </span>
@@ -1378,148 +1041,90 @@
           ${escapeHTML(data.description)}
         </p>
 
-        <div class="modal-details">
-          ${data.details
-            .map(
-              (item) =>
-                `<div>
-                  <span>✓</span>
-                  <b>${escapeHTML(item)}</b>
-                </div>`
-            )
-            .join("")}
-        </div>
-
-        <div class="tags modal-tags">
+        <div class="tags">
           ${data.tags
             .map(
               (tag) =>
-                `<i>${escapeHTML(tag)}</i>`
+                `<span>${escapeHTML(tag)}</span>`
             )
             .join("")}
         </div>
       `;
 
       modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
 
-      modal.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-
-      document.body.classList.add(
-        "modal-open"
-      );
+      const closeButton =
+        $(".modal-close", modal);
 
       if (closeButton) {
-        window.setTimeout(
-          () => closeButton.focus(),
-          50
+        setTimeout(() => {
+          closeButton.focus();
+        }, 20);
+      }
+    };
+
+    $$(".project-open").forEach((button) => {
+      button.addEventListener("click", () => {
+        openModal(
+          button.dataset.project,
+          button
         );
-      }
-    }
-
-    function closeModal() {
-      if (!modal.classList.contains("open")) {
-        return;
-      }
-
-      modal.classList.remove(
-        "open"
-      );
-
-      modal.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-      document.body.classList.remove(
-        "modal-open"
-      );
-
-      state.activeModal =
-        null;
-
-      if (
-        state.lastFocusedElement &&
-        typeof state.lastFocusedElement.focus ===
-          "function"
-      ) {
-        state.lastFocusedElement.focus();
-      }
-    }
-
-    $$(".project-open").forEach(
-      (button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            openModal(
-              button.dataset.project
-            );
-          }
-        );
-      }
-    );
-
-    $$(
-      ".project-card[data-project]"
-    ).forEach((card) => {
-      card.addEventListener(
-        "click",
-        (event) => {
-          if (
-            event.target.closest(
-              "button, a"
-            )
-          ) {
-            return;
-          }
-
-          const key =
-            card.dataset.project;
-
-          if (key) {
-            openModal(key);
-          }
-        }
-      );
+      });
     });
 
-    $$(
-      "[data-close]",
-      modal
-    ).forEach((element) => {
+    $$("[data-close]", modal).forEach((element) => {
       element.addEventListener(
         "click",
         closeModal
       );
     });
 
-    if (closeButton) {
-      closeButton.addEventListener(
-        "click",
-        closeModal
-      );
-    }
-
     document.addEventListener(
       "keydown",
       (event) => {
         if (
-          event.key === "Escape"
+          event.key === "Escape" &&
+          modal.classList.contains("open")
         ) {
           closeModal();
         }
+      }
+    );
+
+    /*
+     * Basic focus protection.
+     */
+
+    modal.addEventListener(
+      "keydown",
+      (event) => {
+        if (event.key !== "Tab") return;
+
+        const focusable = $$(
+          'button, a, input, textarea, select, [tabindex]:not([tabindex="-1"])',
+          modal
+        );
+
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last =
+          focusable[focusable.length - 1];
 
         if (
-          event.key === "Tab" &&
-          modal.classList.contains("open")
+          event.shiftKey &&
+          document.activeElement === first
         ) {
-          trapFocus(
-            modal,
-            event
-          );
+          event.preventDefault();
+          last.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === last
+        ) {
+          event.preventDefault();
+          first.focus();
         }
       }
     );
@@ -1532,60 +1137,11 @@
 
   function escapeHTML(value) {
     return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-
-  /* =======================================================
-     MODAL FOCUS TRAP
-     ======================================================= */
-
-  function trapFocus(
-    container,
-    event
-  ) {
-    const focusable =
-      $$(
-        'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        container
-      ).filter(
-        (element) =>
-          !element.hasAttribute(
-            "disabled"
-          ) &&
-          element.offsetParent !==
-            null
-      );
-
-    if (!focusable.length) return;
-
-    const first =
-      focusable[0];
-
-    const last =
-      focusable[
-        focusable.length - 1
-      ];
-
-    if (
-      event.shiftKey &&
-      document.activeElement === first
-    ) {
-      event.preventDefault();
-      last.focus();
-    }
-
-    if (
-      !event.shiftKey &&
-      document.activeElement === last
-    ) {
-      event.preventDefault();
-      first.focus();
-    }
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
 
@@ -1593,390 +1149,195 @@
      CERTIFICATE DATA
      ======================================================= */
 
-  /*
-    IMPORTANT:
-    Static GitHub Pages cannot automatically list every file
-    inside assets/certificates/.
-
-    The array below is intentionally empty unless certificate
-    metadata is supplied. This prevents the portfolio from
-    inventing certificate names or broken file paths.
-
-    Add each real certificate here when its exact filename is
-    known.
-  */
-
   const certificates = [
-
-    /*
-    Example:
+    {
+      title: "AI & Machine Learning",
+      category: "technology",
+      description:
+        "Technology and artificial intelligence learning credential.",
+      file: null
+    },
 
     {
-      title: "Certificate Name",
-      organization: "Organization",
-      year: "2026",
+      title: "Computer Vision",
       category: "technology",
-      file: "assets/certificates/example.pdf"
+      description:
+        "Computer vision and intelligent image-analysis learning.",
+      file: null
+    },
+
+    {
+      title: "Research & Publication",
+      category: "research",
+      description:
+        "Research-oriented academic development.",
+      file: null
+    },
+
+    {
+      title: "Academic Development",
+      category: "academic",
+      description:
+        "Academic and professional development credential.",
+      file: null
+    },
+
+    {
+      title: "Hackathon Mentoring",
+      category: "mentoring",
+      description:
+        "Student innovation and hackathon mentoring.",
+      file: null
+    },
+
+    {
+      title: "Drone Technology Internship",
+      category: "internship",
+      description:
+        "45-day Indian Space Lab drone technology internship.",
+      file: null
+    },
+
+    {
+      title: "Reviewer Credential",
+      category: "review",
+      description:
+        "Research review and academic service credential.",
+      file: null
     }
-
-    Valid categories:
-    research
-    technology
-    academic
-    mentoring
-    internship
-    review
-    */
-
   ];
 
 
   /* =======================================================
-     CERTIFICATE RENDERING
+     CERTIFICATE SYSTEM
      ======================================================= */
 
   function initCertificates() {
-    const grid =
-      $("#certGrid");
-
-    const empty =
-      $("#certEmpty");
-
-    const search =
-      $("#certSearch");
-
-    const filters =
-      $$(".filter");
+    const grid = $("#certGrid");
+    const empty = $("#certEmpty");
+    const search = $("#certSearch");
+    const filters = $$(".filter");
 
     if (!grid) return;
 
-    function normalize(value) {
-      return String(value || "")
-        .trim()
-        .toLowerCase();
-    }
+    let currentFilter = "all";
+    let searchTerm = "";
 
-    function matchesCertificate(
-      certificate
-    ) {
-      const filterMatches =
-        state.activeFilter ===
-          "all" ||
-        normalize(
-          certificate.category
-        ) ===
-          normalize(
-            state.activeFilter
-          );
+    const render = () => {
+      const filtered =
+        certificates.filter((certificate) => {
+          const categoryMatch =
+            currentFilter === "all" ||
+            certificate.category === currentFilter;
 
-      if (!filterMatches) {
-        return false;
-      }
+          const searchable =
+            `${certificate.title}
+             ${certificate.description}
+             ${certificate.category}`
+              .toLowerCase();
 
-      if (!state.searchTerm) {
-        return true;
-      }
+          const searchMatch =
+            !searchTerm ||
+            searchable.includes(searchTerm);
 
-      const searchable = [
-        certificate.title,
-        certificate.organization,
-        certificate.year,
-        certificate.category
-      ]
-        .map(normalize)
-        .join(" ");
-
-      return searchable.includes(
-        state.searchTerm
-      );
-    }
-
-    function render() {
-      const visible =
-        certificates.filter(
-          matchesCertificate
-        );
+          return categoryMatch && searchMatch;
+        });
 
       grid.innerHTML = "";
 
-      visible.forEach(
-        (certificate, index) => {
-          const card =
-            document.createElement(
-              "article"
-            );
+      filtered.forEach((certificate) => {
+        const card =
+          document.createElement("article");
 
-          card.className =
-            "certificate-card reveal visible";
+        card.className =
+          "certificate-card reveal";
 
-          card.innerHTML = `
-            <div class="certificate-index">
-              ${String(
-                index + 1
-              ).padStart(2, "0")}
-            </div>
+        card.innerHTML = `
+          <div class="certificate-icon">
+            ✓
+          </div>
 
-            <div class="certificate-content">
+          <small>
+            ${escapeHTML(
+              certificate.category.toUpperCase()
+            )}
+          </small>
 
-              <small>
-                ${escapeHTML(
-                  String(
-                    certificate.category ||
-                      "CREDENTIAL"
-                  ).toUpperCase()
-                )}
-              </small>
+          <h3>
+            ${escapeHTML(certificate.title)}
+          </h3>
 
-              <h3>
-                ${escapeHTML(
-                  certificate.title
-                )}
-              </h3>
+          <p>
+            ${escapeHTML(
+              certificate.description
+            )}
+          </p>
+        `;
 
-              <p>
-                ${escapeHTML(
-                  certificate.organization ||
-                    ""
-                )}
-              </p>
+        if (certificate.file) {
+          const link =
+            document.createElement("a");
 
-              <div class="certificate-meta">
+          link.href = certificate.file;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.className = "text-button";
+          link.textContent =
+            "View credential ↗";
 
-                ${
-                  certificate.year
-                    ? `<span>${escapeHTML(
-                        certificate.year
-                      )}</span>`
-                    : ""
-                }
-
-                ${
-                  certificate.category
-                    ? `<span>${escapeHTML(
-                        certificate.category
-                      )}</span>`
-                    : ""
-                }
-
-              </div>
-
-              ${
-                certificate.file
-                  ? `
-                    <a
-                      class="text-button"
-                      href="${escapeAttribute(
-                        certificate.file
-                      )}"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      View credential ↗
-                    </a>
-                  `
-                  : ""
-              }
-
-            </div>
-          `;
-
-          grid.appendChild(card);
+          card.appendChild(link);
         }
-      );
+
+        grid.appendChild(card);
+      });
 
       if (empty) {
-        empty.hidden =
-          visible.length !== 0;
+        empty.hidden = filtered.length !== 0;
       }
-    }
+    };
 
-    function updateFilterButtons() {
-      filters.forEach(
-        (button) => {
-          const active =
-            button.dataset.filter ===
-            state.activeFilter;
+    filters.forEach((button) => {
+      button.addEventListener(
+        "click",
+        () => {
+          currentFilter =
+            button.dataset.filter || "all";
 
-          button.classList.toggle(
-            "active",
-            active
-          );
+          filters.forEach((item) => {
+            const active =
+              item === button;
 
-          button.setAttribute(
-            "aria-selected",
-            String(active)
-          );
+            item.classList.toggle(
+              "active",
+              active
+            );
+
+            item.setAttribute(
+              "aria-selected",
+              active ? "true" : "false"
+            );
+          });
+
+          render();
         }
       );
-    }
-
-    filters.forEach(
-      (button) => {
-        button.setAttribute(
-          "role",
-          "tab"
-        );
-
-        button.addEventListener(
-          "click",
-          () => {
-            state.activeFilter =
-              button.dataset.filter ||
-              "all";
-
-            updateFilterButtons();
-            render();
-          }
-        );
-      }
-    );
+    });
 
     if (search) {
       search.addEventListener(
         "input",
         () => {
-          state.searchTerm =
-            normalize(
-              search.value
-            );
+          searchTerm =
+            search.value
+              .trim()
+              .toLowerCase();
 
           render();
         }
       );
     }
 
-    updateFilterButtons();
     render();
-  }
-
-
-  /* =======================================================
-     ATTRIBUTE ESCAPE
-     ======================================================= */
-
-  function escapeAttribute(value) {
-    return String(value || "")
-      .replaceAll("&", "&amp;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;");
-  }
-
-
-  /* =======================================================
-     ACTIVE SECTION NAVIGATION
-     ======================================================= */
-
-  function initActiveNavigation() {
-    const sections =
-      $$("main section[id]");
-
-    const navLinks =
-      $$(".links a[href^='#']");
-
-    if (
-      !sections.length ||
-      !navLinks.length ||
-      !("IntersectionObserver" in window)
-    ) {
-      return;
-    }
-
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
-          entries.forEach(
-            (entry) => {
-              if (!entry.isIntersecting) {
-                return;
-              }
-
-              const id =
-                entry.target.id;
-
-              navLinks.forEach(
-                (link) => {
-                  const active =
-                    link.getAttribute(
-                      "href"
-                    ) === `#${id}`;
-
-                  link.classList.toggle(
-                    "active",
-                    active
-                  );
-                }
-              );
-            }
-          );
-        },
-        {
-          rootMargin:
-            "-35% 0px -55% 0px",
-          threshold: 0
-        }
-      );
-
-    sections.forEach(
-      (section) =>
-        observer.observe(section)
-    );
-  }
-
-
-  /* =======================================================
-     IMAGE ERROR SAFEGUARD
-     ======================================================= */
-
-  function initImageSafeguards() {
-    $$("img").forEach(
-      (image) => {
-        image.addEventListener(
-          "error",
-          () => {
-            image.classList.add(
-              "image-error"
-            );
-
-            image.setAttribute(
-              "data-load-error",
-              "true"
-            );
-          }
-        );
-      }
-    );
-  }
-
-
-  /* =======================================================
-     EXTERNAL LINK SAFEGUARD
-     ======================================================= */
-
-  function initExternalLinks() {
-    $$(
-      'a[target="_blank"]'
-    ).forEach((link) => {
-      const rel =
-        link.getAttribute(
-          "rel"
-        ) || "";
-
-      const values =
-        new Set(
-          rel
-            .split(/\s+/)
-            .filter(Boolean)
-        );
-
-      values.add("noopener");
-      values.add("noreferrer");
-
-      link.setAttribute(
-        "rel",
-        Array.from(values).join(" ")
-      );
-    });
   }
 
 
@@ -1985,8 +1346,7 @@
      ======================================================= */
 
   function initYear() {
-    const year =
-      $("#year");
+    const year = $("#year");
 
     if (!year) return;
 
@@ -1996,100 +1356,79 @@
 
 
   /* =======================================================
-     PAGE VISIBILITY
+     IMAGE ERROR SAFETY
      ======================================================= */
 
-  function initVisibilityOptimization() {
-    document.addEventListener(
-      "visibilitychange",
-      () => {
-        if (
-          document.hidden &&
-          state.animationFrame
-        ) {
-          cancelAnimationFrame(
-            state.animationFrame
-          );
+  function initImageSafety() {
+    const images = $$("img");
 
-          state.animationFrame =
-            null;
+    images.forEach((image) => {
+      image.addEventListener(
+        "error",
+        () => {
+          image.classList.add("image-error");
         }
-      }
+      );
+    });
+  }
+
+
+  /* =======================================================
+     RESPONSIVE SAFEGUARDS
+     ======================================================= */
+
+  function initResponsiveSafeguards() {
+    const check = () => {
+      document.documentElement.style.setProperty(
+        "--viewport-height",
+        `${window.innerHeight}px`
+      );
+    };
+
+    check();
+
+    window.addEventListener(
+      "resize",
+      check,
+      { passive: true }
     );
   }
 
 
   /* =======================================================
-     PERFORMANCE SAFEGUARDS
-     ======================================================= */
-
-  function initPerformanceGuards() {
-    if (
-      window.innerWidth <= 700
-    ) {
-      document.documentElement.classList.add(
-        "mobile-device"
-      );
-    }
-
-    if (
-      navigator.connection &&
-      navigator.connection.saveData
-    ) {
-      document.documentElement.classList.add(
-        "save-data"
-      );
-    }
-  }
-
-
-  /* =======================================================
-     INITIALIZATION
+     INITIALIZE EVERYTHING
      ======================================================= */
 
   function init() {
+    /*
+     * Boot screen is initialized FIRST.
+     * This is the most important fix.
+     */
 
-    initBoot();
+    initBootScreen();
 
     initNavigation();
-
-    initSmoothAnchors();
-
+    initNavbar();
     initScrollProgress();
-
-    initNavbarScroll();
-
-    initRevealAnimations();
-
-    initCursorGlow();
-
-    initMagneticButtons();
-
-    initTiltCards();
-
+    initReveal();
     initClock();
+    initFocusText();
+    initSmoothLinks();
 
-    initFocusRotator();
-
+    initResearchDomains();
+    initResearchCanvas();
     initNeuralCanvas();
 
-    initResearchGraph();
+    initCursorGlow();
+    initTilt();
+    initMagneticButtons();
 
-    initModal();
-
+    initProjectModal();
     initCertificates();
 
-    initActiveNavigation();
-
-    initImageSafeguards();
-
-    initExternalLinks();
-
     initYear();
-
-    initVisibilityOptimization();
-
-    initPerformanceGuards();
+    initImageSafety();
+    initResponsiveSafeguards();
 
     document.documentElement.classList.add(
       "js-ready"
@@ -2101,16 +1440,11 @@
      START
      ======================================================= */
 
-  if (
-    document.readyState ===
-    "loading"
-  ) {
+  if (document.readyState === "loading") {
     document.addEventListener(
       "DOMContentLoaded",
       init,
-      {
-        once: true
-      }
+      { once: true }
     );
   } else {
     init();
