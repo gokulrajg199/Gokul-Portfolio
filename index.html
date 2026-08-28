@@ -1,9 +1,10 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="theme-color" content="#050816">
 
@@ -13,11 +14,10 @@
   >
 
   <meta name="author" content="G. Gokulraj">
-  <meta name="robots" content="index, follow">
 
-  <title>G. Gokulraj — AI • Research • Innovation</title>
+  <title>G. Gokulraj | AI • Research • Innovation</title>
 
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -26,25 +26,18 @@
     rel="stylesheet"
   >
 
-  <!-- Main stylesheet -->
+  <!-- Main CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
   <!-- Accessibility -->
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">
+    Skip to content
+  </a>
 
-  <!-- Boot Screen -->
-  <div id="boot" class="boot" aria-hidden="true">
-    <div class="boot-core">
-      <span>GG</span>
-      <small>INITIALIZING DIGITAL LAB</small>
-      <i></i>
-    </div>
-  </div>
-
-  <!-- Global Visual Layers -->
+  <!-- Background -->
   <canvas id="neuralCanvas" aria-hidden="true"></canvas>
 
   <div class="ambient ambient-a" aria-hidden="true"></div>
@@ -59,16 +52,17 @@
     aria-hidden="true"
   ></div>
 
-  <!-- Navigation -->
+
+  <!-- =====================================================
+       NAVIGATION
+       ===================================================== -->
+
   <header class="nav-shell" id="navbar">
 
     <nav class="nav container" aria-label="Primary navigation">
 
-      <a
-        class="brand"
-        href="#home"
-        aria-label="G. Gokulraj home"
-      >
+      <a class="brand" href="#home" aria-label="G. Gokulraj home">
+
         <span class="brand-orbit">
           <b>GG</b>
           <i></i>
@@ -76,9 +70,14 @@
 
         <span>
           <strong>G. Gokulraj</strong>
-          <small>AI • RESEARCH • INNOVATION</small>
+
+          <small>
+            AI • RESEARCH • INNOVATION
+          </small>
         </span>
+
       </a>
+
 
       <button
         class="menu"
@@ -92,15 +91,23 @@
         <span></span>
       </button>
 
+
       <div class="links" id="navLinks">
 
         <a href="#home">Home</a>
+
         <a href="#about">Profile</a>
+
         <a href="#research">Research</a>
+
         <a href="#academic">Academic</a>
+
         <a href="#projects">Projects</a>
+
         <a href="#innovation">Innovation</a>
+
         <a href="#publications">Publications</a>
+
         <a href="#credentials">Credentials</a>
 
         <a class="nav-cta" href="#contact">
@@ -113,62 +120,86 @@
 
   </header>
 
-  <!-- Main -->
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
   <main id="main-content">
 
-    <!-- HERO -->
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
     <section class="hero container" id="home">
 
       <div class="hero-copy reveal">
 
         <div class="status-pill">
+
           <span></span>
+
           <b>SYSTEM ONLINE</b>
+
           <em>AI RESEARCH LAB</em>
+
         </div>
+
 
         <p class="eyebrow">
           ASSISTANT PROFESSOR ·
           COMPUTER SCIENCE & ENGINEERING
         </p>
 
+
         <h1>
           G.<br>
           <span>Gokulraj</span>
         </h1>
 
+
         <p class="lead">
+
           Building intelligent systems at the intersection of
+
           <b>Artificial Intelligence</b>,
+
           <b>Computer Vision</b>,
+
           <b>IoT</b>,
+
           <b>Robotics</b>
+
           and
+
           <b>student innovation</b>.
+
         </p>
+
 
         <div class="hero-actions">
 
-          <!-- ROOT-LEVEL RESUME -->
           <a
             class="btn primary magnetic"
-            href="G_Gokulraj_Resume.pdf"
+            href="assets/docs/G_Gokulraj_Resume.pdf"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             View Resume
             <i>↗</i>
           </a>
 
-          <!-- ROOT-LEVEL RESUME -->
+
           <a
             class="btn glass magnetic"
-            href="G_Gokulraj_Resume.pdf"
+            href="assets/docs/G_Gokulraj_Resume.pdf"
             download
           >
             Download CV
             <i>↓</i>
           </a>
+
 
           <a
             class="btn glass magnetic"
@@ -179,6 +210,7 @@
           </a>
 
         </div>
+
 
         <div class="social-rail">
 
@@ -222,14 +254,18 @@
 
       </div>
 
+
       <!-- HERO VISUAL -->
+
       <div class="hero-stage reveal">
 
         <div class="orbital orbital-1" aria-hidden="true"></div>
         <div class="orbital orbital-2" aria-hidden="true"></div>
         <div class="orbital orbital-3" aria-hidden="true"></div>
 
+
         <!-- PROFILE PHOTO -->
+
         <div class="portrait-card tilt">
 
           <img
@@ -237,18 +273,21 @@
             alt="Professional portrait of G. Gokulraj"
             loading="eager"
             decoding="async"
+            onerror="this.style.display='none'"
           >
 
-          <div
-            class="portrait-shine"
-            aria-hidden="true"
-          ></div>
+          <div class="portrait-shine" aria-hidden="true"></div>
+
 
           <div class="portrait-caption">
 
-            <small>G. GOKULRAJ</small>
+            <small>
+              G. GOKULRAJ
+            </small>
 
-            <b>ASSISTANT PROFESSOR · CSE</b>
+            <b>
+              ASSISTANT PROFESSOR · CSE
+            </b>
 
             <span>
               Sri Ramakrishna Institute of Technology
@@ -258,39 +297,53 @@
 
         </div>
 
-        <!-- Floating Cards -->
+
+        <!-- FLOATING CARDS -->
+
         <div class="floating-card card-a">
 
           <span class="live-dot"></span>
 
           <div>
+
             <small>ROLE</small>
+
             <b>Assistant Professor</b>
+
           </div>
 
         </div>
+
 
         <div class="floating-card card-b">
 
           <strong>AI</strong>
 
           <div>
+
             <small>FOCUS</small>
+
             <b>Research & Innovation</b>
+
           </div>
 
         </div>
+
 
         <div class="floating-card card-c">
 
           <strong>IoT</strong>
 
           <div>
+
             <small>DOMAIN</small>
+
             <b>Smart Systems</b>
+
           </div>
 
         </div>
+
 
         <div class="hero-readout">
 
@@ -308,7 +361,11 @@
 
     </section>
 
-    <!-- IMPACT -->
+
+    <!-- =====================================================
+         IMPACT
+         ===================================================== -->
+
     <section
       class="impact container reveal"
       aria-label="Professional focus areas"
@@ -356,7 +413,11 @@
 
     </section>
 
-    <!-- PROFILE -->
+
+    <!-- =====================================================
+         PROFILE
+         ===================================================== -->
+
     <section class="section" id="about">
 
       <div class="container">
@@ -364,7 +425,10 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">01 / PROFILE</span>
+
+            <span class="index">
+              01 / PROFILE
+            </span>
 
             <h2>
               Building
@@ -372,6 +436,7 @@
               <br>
               into impact.
             </h2>
+
           </div>
 
           <p>
@@ -382,6 +447,7 @@
 
         </div>
 
+
         <div class="profile-grid">
 
           <article class="panel bio reveal">
@@ -390,7 +456,9 @@
 
             <span class="label">IDENTITY</span>
 
-            <h3>Technology with purpose.</h3>
+            <h3>
+              Technology with purpose.
+            </h3>
 
             <p>
               I am a Computer Science and Engineering
@@ -413,9 +481,12 @@
 
           </article>
 
+
           <article class="panel identity reveal">
 
-            <span class="label">ACADEMIC IDENTITY</span>
+            <span class="label">
+              ACADEMIC IDENTITY
+            </span>
 
             <div>
               <small>PROFESSION</small>
@@ -431,7 +502,9 @@
 
             <div>
               <small>DOMAIN</small>
-              <b>Computer Science & Engineering</b>
+              <b>
+                Computer Science & Engineering
+              </b>
             </div>
 
             <div>
@@ -443,7 +516,9 @@
 
             <div>
               <small>PRIMARY INTEREST</small>
-              <b>Artificial Intelligence & Research</b>
+              <b>
+                Artificial Intelligence & Research
+              </b>
             </div>
 
             <div>
@@ -458,6 +533,7 @@
 
           </article>
 
+
           <article class="panel mission reveal">
 
             <span class="label">MISSION</span>
@@ -468,10 +544,12 @@
             </blockquote>
 
             <div class="mini-grid">
+
               <span>RESEARCH</span>
               <span>TEACHING</span>
               <span>MENTORING</span>
               <span>INNOVATION</span>
+
             </div>
 
           </article>
@@ -482,7 +560,11 @@
 
     </section>
 
-    <!-- RESEARCH -->
+
+    <!-- =====================================================
+         RESEARCH
+         ===================================================== -->
+
     <section
       class="section dark-section"
       id="research"
@@ -493,20 +575,25 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">02 / RESEARCH</span>
+
+            <span class="index">
+              02 / RESEARCH
+            </span>
 
             <h2>
               Explore the
               <span>research graph.</span>
             </h2>
+
           </div>
 
           <p>
-            Interactive research domains connect the ideas,
-            technologies and applications that shape the portfolio.
+            Research domains connecting ideas,
+            technologies and applications.
           </p>
 
         </div>
+
 
         <div class="research-lab reveal">
 
@@ -517,19 +604,22 @@
               aria-label="Interactive research network"
             ></canvas>
 
+
             <div class="graph-core">
 
               <span>GOKULRAJ</span>
+
               <b>RESEARCH LAB</b>
+
               <small>CLICK A DOMAIN</small>
 
             </div>
+
 
             <button
               class="graph-node n1"
               type="button"
               data-domain="AI"
-              aria-label="Explore Artificial Intelligence"
             >
               AI
             </button>
@@ -538,7 +628,6 @@
               class="graph-node n2"
               type="button"
               data-domain="Computer Vision"
-              aria-label="Explore Computer Vision"
             >
               VISION
             </button>
@@ -547,7 +636,6 @@
               class="graph-node n3"
               type="button"
               data-domain="IoT"
-              aria-label="Explore Internet of Things"
             >
               IoT
             </button>
@@ -556,7 +644,6 @@
               class="graph-node n4"
               type="button"
               data-domain="Robotics"
-              aria-label="Explore Robotics"
             >
               ROS
             </button>
@@ -565,7 +652,6 @@
               class="graph-node n5"
               type="button"
               data-domain="Smart Agriculture"
-              aria-label="Explore Smart Agriculture"
             >
               AGRI
             </button>
@@ -574,16 +660,18 @@
               class="graph-node n6"
               type="button"
               data-domain="Agentic AI"
-              aria-label="Explore Agentic AI"
             >
               AGENTS
             </button>
 
           </div>
 
+
           <aside class="research-detail">
 
-            <span class="label">SELECTED DOMAIN</span>
+            <span class="label">
+              SELECTED DOMAIN
+            </span>
 
             <h3 id="domainTitle">
               Artificial Intelligence
@@ -601,6 +689,7 @@
               <span>AI Systems</span>
 
             </div>
+
 
             <div class="profile-links">
 
@@ -634,6 +723,7 @@
 
         </div>
 
+
         <div class="research-stream">
 
           <article class="research-card reveal">
@@ -666,6 +756,7 @@
 
           </article>
 
+
           <article class="research-card reveal">
 
             <span>02</span>
@@ -690,6 +781,7 @@
             </div>
 
           </article>
+
 
           <article class="research-card reveal">
 
@@ -722,7 +814,11 @@
 
     </section>
 
-    <!-- ACADEMIC -->
+
+    <!-- =====================================================
+         ACADEMIC
+         ===================================================== -->
+
     <section class="section" id="academic">
 
       <div class="container">
@@ -730,12 +826,16 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">03 / ACADEMIC</span>
+
+            <span class="index">
+              03 / ACADEMIC
+            </span>
 
             <h2>
               Academic
               <span>practice.</span>
             </h2>
+
           </div>
 
           <p>
@@ -745,7 +845,9 @@
 
         </div>
 
+
         <div class="academic-grid">
+
 
           <article class="panel reveal">
 
@@ -755,29 +857,30 @@
               Computer Science & Engineering
             </h3>
 
+
             <div class="degree">
 
               <b>M.E.</b>
 
               <span>
-                Computer Science & Engineering
-                · 2023–2025
+                Computer Science & Engineering · 2023–2025
               </span>
 
             </div>
+
 
             <div class="degree">
 
               <b>B.E.</b>
 
               <span>
-                Computer Science & Engineering
-                · 2019–2023
+                Computer Science & Engineering · 2019–2023
               </span>
 
             </div>
 
           </article>
+
 
           <article class="panel reveal">
 
@@ -797,9 +900,12 @@
 
           </article>
 
+
           <article class="panel reveal">
 
-            <span class="label">TECHNICAL ECOSYSTEM</span>
+            <span class="label">
+              TECHNICAL ECOSYSTEM
+            </span>
 
             <h3>Build stack</h3>
 
@@ -824,13 +930,16 @@
 
           </article>
 
+
           <article class="panel reveal">
 
             <span class="label">
               INSTITUTIONAL CONTRIBUTION
             </span>
 
-            <h3>Leadership & service</h3>
+            <h3>
+              Leadership & service
+            </h3>
 
             <p>
               Hackathon In-charge, Capstone Project Mentor,
@@ -856,7 +965,11 @@
 
     </section>
 
-    <!-- PROJECTS -->
+
+    <!-- =====================================================
+         PROJECTS
+         ===================================================== -->
+
     <section
       class="section dark-section"
       id="projects"
@@ -867,12 +980,16 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">04 / PROJECTS</span>
+
+            <span class="index">
+              04 / PROJECTS
+            </span>
 
             <h2>
               Ideas into
               <span>systems.</span>
             </h2>
+
           </div>
 
           <p>
@@ -882,13 +999,13 @@
 
         </div>
 
+
         <div class="project-grid">
 
-          <!-- HYDROPONICS -->
-          <article
-            class="project-card tilt reveal"
-            data-project="hydro"
-          >
+
+          <!-- Hydroponics -->
+
+          <article class="project-card tilt reveal">
 
             <div class="project-art hydro-art">
 
@@ -896,23 +1013,29 @@
               <div class="sensor s2">EC</div>
               <div class="sensor s3">TDS</div>
 
-              <div class="plant" aria-hidden="true">⌁</div>
+              <div class="plant" aria-hidden="true">
+                ⌁
+              </div>
+
               <div class="data-line" aria-hidden="true"></div>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>SMART AGRICULTURE · 01</small>
+              <small>
+                SMART AGRICULTURE · 01
+              </small>
 
               <h3>
                 Hydroponic Nutrition Alert System
               </h3>
 
               <p>
-                Sensor-driven monitoring architecture for
-                water and environmental parameters with
-                intelligent alerts and predictive analysis.
+                Sensor-driven monitoring architecture
+                for water and environmental parameters
+                with intelligent alerts and predictive analysis.
               </p>
 
               <div class="tags">
@@ -922,39 +1045,39 @@
                 <i>ML</i>
               </div>
 
-              <button
-                class="text-button project-open"
-                type="button"
-                data-project="hydro"
-              >
-                Open system ↗
-              </button>
-
             </div>
 
           </article>
 
-          <!-- COMPUTER VISION -->
-          <article
-            class="project-card tilt reveal"
-            data-project="vision"
-          >
+
+          <!-- Computer Vision -->
+
+          <article class="project-card tilt reveal">
 
             <div class="project-art vision-art">
 
               <div class="scan" aria-hidden="true"></div>
+
               <div class="target" aria-hidden="true"></div>
 
               <span>YOLO</span>
-              <small>OBJECT DETECTION</small>
+
+              <small>
+                OBJECT DETECTION
+              </small>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>COMPUTER VISION · 02</small>
+              <small>
+                COMPUTER VISION · 02
+              </small>
 
-              <h3>AI-Based Detection Systems</h3>
+              <h3>
+                AI-Based Detection Systems
+              </h3>
 
               <p>
                 YOLO/YOLOv8-oriented computer vision workflows
@@ -969,38 +1092,35 @@
                 <i>Deep Learning</i>
               </div>
 
-              <button
-                class="text-button project-open"
-                type="button"
-                data-project="vision"
-              >
-                Open system ↗
-              </button>
-
             </div>
 
           </article>
 
-          <!-- FACULTY ATTENDANCE -->
-          <article
-            class="project-card tilt reveal"
-            data-project="attendance"
-          >
+
+          <!-- Faculty Attendance -->
+
+          <article class="project-card tilt reveal">
 
             <div class="project-art attendance-art">
 
               <div class="face-grid" aria-hidden="true"></div>
 
               <span>AI</span>
+
               <small>FACULTY ATTENDANCE</small>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>AI AUTOMATION · 03</small>
+              <small>
+                AI AUTOMATION · 03
+              </small>
 
-              <h3>Faculty Attendance System</h3>
+              <h3>
+                Faculty Attendance System
+              </h3>
 
               <p>
                 AI/computer-vision project direction for
@@ -1027,29 +1147,31 @@
 
           </article>
 
-          <!-- TIMETABLE -->
-          <article
-            class="project-card tilt reveal"
-            data-project="timetable"
-          >
+
+          <!-- Timetable -->
+
+          <article class="project-card tilt reveal">
 
             <div class="project-art timetable-art">
 
-              <div
-                class="schedule-grid"
-                aria-hidden="true"
-              ></div>
+              <div class="schedule-grid" aria-hidden="true"></div>
 
               <span>ERP</span>
+
               <small>SMART SCHEDULING</small>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>ACADEMIC SOFTWARE · 04</small>
+              <small>
+                ACADEMIC SOFTWARE · 04
+              </small>
 
-              <h3>SRIT Timetable ERP</h3>
+              <h3>
+                SRIT Timetable ERP
+              </h3>
 
               <p>
                 Scheduling platform direction with faculty
@@ -1076,30 +1198,28 @@
 
           </article>
 
+
           <!-- AURA -->
-          <article
-            class="project-card tilt reveal"
-            data-project="aura"
-          >
 
-            <div class="project-art aura-art">
+          <article class="project-card tilt reveal">
 
-              <div
-                class="aura-symbol"
-                aria-hidden="true"
-              ></div>
+            <div class="project-art">
+
+              <div class="aura-art" aria-hidden="true"></div>
 
               <span>AURA</span>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>AGENTIC AI · 05</small>
+              <small>
+                AGENTIC AI · 05
+              </small>
 
               <h3>
-                Project AURA —
-                Agentic AI Curator
+                Project AURA — Agentic AI Curator
               </h3>
 
               <p>
@@ -1114,40 +1234,33 @@
                 <i>Reasoning</i>
               </div>
 
-              <button
-                class="text-button project-open"
-                type="button"
-                data-project="aura"
-              >
-                Open system ↗
-              </button>
-
             </div>
 
           </article>
 
+
           <!-- ROS -->
-          <article
-            class="project-card tilt reveal"
-            data-project="ros"
-          >
 
-            <div class="project-art ros-art">
+          <article class="project-card tilt reveal">
 
-              <div
-                class="ros-orbit"
-                aria-hidden="true"
-              ></div>
+            <div class="project-art">
+
+              <div class="ros-art" aria-hidden="true"></div>
 
               <span>ROS</span>
 
             </div>
 
+
             <div class="project-body">
 
-              <small>ROBOTICS · 06</small>
+              <small>
+                ROBOTICS · 06
+              </small>
 
-              <h3>ROS Robotics Projects</h3>
+              <h3>
+                ROS Robotics Projects
+              </h3>
 
               <p>
                 Practical robotics learning and project
@@ -1161,19 +1274,12 @@
                 <i>Robotics</i>
               </div>
 
-              <button
-                class="text-button project-open"
-                type="button"
-                data-project="ros"
-              >
-                Open system ↗
-              </button>
-
             </div>
 
           </article>
 
         </div>
+
 
         <div class="project-marquee">
 
@@ -1196,7 +1302,11 @@
 
     </section>
 
-    <!-- INNOVATION -->
+
+    <!-- =====================================================
+         INNOVATION
+         ===================================================== -->
+
     <section
       class="section"
       id="innovation"
@@ -1207,12 +1317,16 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">05 / INNOVATION</span>
+
+            <span class="index">
+              05 / INNOVATION
+            </span>
 
             <h2>
               Mentoring
               <span>impact.</span>
             </h2>
+
           </div>
 
           <p>
@@ -1223,7 +1337,9 @@
 
         </div>
 
+
         <div class="innovation-grid">
+
 
           <article class="impact-card reveal">
 
@@ -1238,6 +1354,7 @@
 
           </article>
 
+
           <article class="impact-card reveal">
 
             <span>INTERNATIONAL</span>
@@ -1251,6 +1368,7 @@
 
           </article>
 
+
           <article class="impact-card reveal">
 
             <span>INNOVATION</span>
@@ -1263,6 +1381,7 @@
             </p>
 
           </article>
+
 
           <article class="impact-card reveal">
 
@@ -1278,6 +1397,7 @@
           </article>
 
         </div>
+
 
         <div class="timeline reveal">
 
@@ -1300,6 +1420,7 @@
 
           </div>
 
+
           <div>
 
             <span>02</span>
@@ -1319,6 +1440,7 @@
 
           </div>
 
+
           <div>
 
             <span>03</span>
@@ -1337,6 +1459,7 @@
             </article>
 
           </div>
+
 
           <div>
 
@@ -1363,7 +1486,11 @@
 
     </section>
 
-    <!-- PUBLICATIONS -->
+
+    <!-- =====================================================
+         PUBLICATIONS
+         ===================================================== -->
+
     <section
       class="section"
       id="publications"
@@ -1387,14 +1514,14 @@
           </div>
 
           <p>
-            Research topics and scholarly outputs presented
-            with clear status separation—published work is
-            kept distinct from ongoing research directions.
+            Research topics and scholarly outputs.
           </p>
 
         </div>
 
+
         <div class="research-stream">
+
 
           <article class="research-card reveal">
 
@@ -1422,6 +1549,7 @@
 
           </article>
 
+
           <article class="research-card reveal">
 
             <span>02</span>
@@ -1446,6 +1574,7 @@
             </div>
 
           </article>
+
 
           <article class="research-card reveal">
 
@@ -1472,13 +1601,16 @@
 
           </article>
 
+
           <article class="research-card reveal">
 
             <span>04</span>
 
             <small>RESEARCH DIRECTION</small>
 
-            <h3>YOLO-Based Person Detection</h3>
+            <h3>
+              YOLO-Based Person Detection
+            </h3>
 
             <p>
               Computer-vision research direction for
@@ -1494,13 +1626,16 @@
 
           </article>
 
+
           <article class="research-card reveal">
 
             <span>05</span>
 
             <small>RESEARCH DIRECTION</small>
 
-            <h3>Medical Image Analysis</h3>
+            <h3>
+              Medical Image Analysis
+            </h3>
 
             <p>
               Exploring AI and computer vision approaches
@@ -1516,6 +1651,7 @@
 
           </article>
 
+
           <article class="research-card reveal">
 
             <span>06</span>
@@ -1523,8 +1659,7 @@
             <small>RESEARCH DIRECTION</small>
 
             <h3>
-              Federated Learning
-              for Smart Systems
+              Federated Learning for Smart Systems
             </h3>
 
             <p>
@@ -1547,7 +1682,11 @@
 
     </section>
 
-    <!-- DEVELOPMENT -->
+
+    <!-- =====================================================
+         DEVELOPMENT
+         ===================================================== -->
+
     <section
       class="section dark-section"
       id="development"
@@ -1558,12 +1697,16 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">07 / DEVELOPMENT</span>
+
+            <span class="index">
+              07 / DEVELOPMENT
+            </span>
 
             <h2>
               Continuous
               <span>learning.</span>
             </h2>
+
           </div>
 
           <p>
@@ -1574,11 +1717,15 @@
 
         </div>
 
+
         <div class="development-grid">
+
 
           <article class="panel reveal">
 
-            <small>INDUSTRY / INTERNSHIP</small>
+            <small>
+              INDUSTRY / INTERNSHIP
+            </small>
 
             <h3>
               Indian Space Lab —
@@ -1586,42 +1733,54 @@
             </h3>
 
             <ul class="clean-list">
+
               <li>45-day internship</li>
               <li>Drone technology exposure</li>
               <li>Applied technical learning</li>
               <li>Hands-on development</li>
+
             </ul>
 
           </article>
+
 
           <article class="panel reveal">
 
             <small>RESEARCH</small>
 
-            <h3>AI · Computer Vision · IoT</h3>
+            <h3>
+              AI · Computer Vision · IoT
+            </h3>
 
             <ul class="clean-list">
+
               <li>AI/ML experimentation</li>
               <li>YOLO-based computer vision</li>
               <li>Smart agriculture systems</li>
               <li>IoT-enabled monitoring</li>
+
             </ul>
 
           </article>
 
+
           <article class="panel reveal">
 
-            <small>REVIEW & ACADEMIC SERVICE</small>
+            <small>
+              REVIEW & ACADEMIC SERVICE
+            </small>
 
             <h3>
               Research & Institutional Contribution
             </h3>
 
             <ul class="clean-list">
+
               <li>Reviewer credentials</li>
               <li>Academic coordination</li>
               <li>Examination service</li>
               <li>Student development</li>
+
             </ul>
 
           </article>
@@ -1632,7 +1791,11 @@
 
     </section>
 
-    <!-- CREDENTIALS -->
+
+    <!-- =====================================================
+         CREDENTIALS
+         ===================================================== -->
+
     <section
       class="section"
       id="credentials"
@@ -1643,21 +1806,24 @@
         <div class="section-head reveal">
 
           <div>
-            <span class="index">08 / CREDENTIALS</span>
+
+            <span class="index">
+              08 / CREDENTIALS
+            </span>
 
             <h2>
               Evidence of
               <span>learning.</span>
             </h2>
+
           </div>
 
           <p>
-            Your supplied certificate archive,
-            searchable and filterable without leaving
-            the portfolio.
+            Certificates and professional credentials.
           </p>
 
         </div>
+
 
         <div class="credential-toolbar reveal">
 
@@ -1739,6 +1905,7 @@
 
           </div>
 
+
           <label class="search-box">
 
             <span>⌕</span>
@@ -1755,11 +1922,15 @@
 
         </div>
 
+
+        <!-- Certificate cards are generated by script.js -->
+
         <div
           class="cert-grid"
           id="certGrid"
           aria-live="polite"
         ></div>
+
 
         <p
           class="empty-state"
@@ -1773,7 +1944,11 @@
 
     </section>
 
-    <!-- ENDLESS XPLORE -->
+
+    <!-- =====================================================
+         ENDLESS XPLORE
+         ===================================================== -->
+
     <section
       class="section venture"
       id="venture"
@@ -1813,6 +1988,7 @@
 
           </div>
 
+
           <div class="venture-logo">
 
             <div
@@ -1825,6 +2001,7 @@
               alt="Endless Xplorers logo"
               loading="lazy"
               decoding="async"
+              onerror="this.style.display='none'"
             >
 
             <small>
@@ -1839,7 +2016,11 @@
 
     </section>
 
-    <!-- CONTACT -->
+
+    <!-- =====================================================
+         CONTACT
+         ===================================================== -->
+
     <section
       class="section contact"
       id="contact"
@@ -1847,9 +2028,12 @@
 
       <div class="container contact-grid">
 
+
         <div class="reveal">
 
-          <span class="index">09 / CONTACT</span>
+          <span class="index">
+            09 / CONTACT
+          </span>
 
           <h2>
             Let's build
@@ -1859,8 +2043,9 @@
           <p>
             Research collaboration, student mentoring,
             academic initiatives, technology projects
-            and innovation are all welcome.
+            and innovation are welcome.
           </p>
+
 
           <div class="contact-links">
 
@@ -1900,43 +2085,63 @@
 
         </div>
 
+
         <div class="panel contact-panel reveal">
 
-          <!-- ROOT-LEVEL RESUME -->
+
           <a
             class="email-link"
-            href="G_Gokulraj_Resume.pdf"
+            href="assets/docs/G_Gokulraj_Resume.pdf"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             Open Resume
             <span>↗</span>
           </a>
 
+
           <div class="contact-line">
+
             <small>PROFILE</small>
+
             <b>G. Gokulraj</b>
+
           </div>
 
+
           <div class="contact-line">
+
             <small>PROFESSIONAL</small>
-            <b>Assistant Professor · CSE</b>
+
+            <b>
+              Assistant Professor · CSE
+            </b>
+
           </div>
 
+
           <div class="contact-line">
+
             <small>RESEARCH</small>
+
             <b>
               AI · ML · IoT · Computer Vision · Robotics
             </b>
+
           </div>
 
+
           <div class="contact-line">
+
             <small>IDENTIFIERS</small>
+
             <b>
               Scopus 59403144200 ·
               IEEE 911391347219365
             </b>
+
           </div>
+
 
           <a
             class="repo-link"
@@ -1955,7 +2160,11 @@
 
   </main>
 
-  <!-- MODAL -->
+
+  <!-- =====================================================
+       MODAL
+       ===================================================== -->
+
   <div
     class="modal"
     id="modal"
@@ -1970,6 +2179,7 @@
       data-close
     ></div>
 
+
     <div class="modal-card">
 
       <button
@@ -1980,6 +2190,7 @@
       >
         ×
       </button>
+
 
       <div id="modalContent">
 
@@ -1993,14 +2204,17 @@
 
   </div>
 
-  <!-- FOOTER -->
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
   <footer>
 
     <div class="container">
 
       <span>
-        ©
-        <span id="year">2026</span>
+        © <span id="year">2026</span>
         G. Gokulraj ·
         AI • Research • Innovation
       </span>
@@ -2013,7 +2227,11 @@
 
   </footer>
 
-  <!-- JavaScript -->
+
+  <!-- =====================================================
+       JAVASCRIPT
+       ===================================================== -->
+
   <script src="script.js"></script>
 
 </body>
