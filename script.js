@@ -20,8 +20,49 @@ const projectData={
 const certFiles=[
 '21673ae0-8367-4066-a1e3-85b128f880b6.pdf','782ff36f-6785-4a71-9028-b5cfa182f7e5.pdf','Adobe Scan Adobe Scan 17 Apr 2026.pdf','Brain Tumor IEEE.pdf','Bubucizz Certificate FDP.pdf','Certificate of Gokulraj G.pdf','Coursera IBM.pdf','G_Gokulraj_OW_Participation_Certificate_SEP_2025 (1).pdf','Gokul G.pdf','Gokul-Mentor-Certificate jaipur .pdf-1.pdf','GokulrajBuddha.pdf','Hindustan Conference Certificate.pdf','IA Online Training Certificate.pdf','IA Participation Certificate.pdf','IEEE Certificate ME (1).pdf','ISL-Internship Certificate .pdf','Infosys Certificate (4).pdf','Infosys Certificate .pdf','Infosys Certificate.pdf','Learnmall Certificate.pdf','MATLAB-EXPO-2025-certificate.pdf','Mr. Gokul Raj  G.pdf','Mr.G.Gokul_Raj_Certificate.pdf','NIT FDP .pdf','NIT FDP.pdf','Share ST Edu Invigilator Certificate_Mr. G.Gokulraj_Sri Ramakrishna Institute of Technolog_T.N_24-25.pdf','Skill safari.pdf','certificate.pdf','gokul microsoft  1.pdf','gokul microsoft.pdf','matlab certificate.pdf','reviewer-journal-certificate-2026-05-01-17-38-44.pdf','reviewer-level-certificate-2026-04-20-09-23-51.pdf','reviewer-level-certificate-2026-04-21-07-27-41.pdf','yolo person detection IEEE Certificate (1).pdf','IMG-20250821-WA0108.jpg','WhatsApp Image 2025-08-01 at 9.31.58 PM.jpeg'
 ];
-function slugTitle(f){return f.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').replace(/\bpdf\b/gi,'').trim().replace(/\b\w/g,c=>c.toUpperCase())}
-function category(f){const x=f.toLowerCase(); if(x.includes('isl'))return ['internship','Internship']; if(x.includes('mentor'))return ['mentoring','Mentoring']; if(x.includes('reviewer'))return ['review','Reviewer']; if(x.includes('ieee')||x.includes('yolo')||x.includes('brain tumor'))return ['research','Research']; if(x.includes('infosys')||x.includes('microsoft')||x.includes('matlab')||x.includes('coursera')||x.includes('skill safari')||x.includes('learnmall'))return ['technology','Technology']; if(x.includes('fdp')||x.includes('invigilator')||x.includes('online training'))return ['academic','Academic']; return ['achievement','Achievement']}
+/* Titles below are normalized from the certificate content where machine-readable
+   text is available; filenames are used only as a fallback for scanned assets. */
+const certMeta={
+'21673ae0-8367-4066-a1e3-85b128f880b6.pdf':{title:'AI for Beginners',issuer:'HP LIFE',cat:'technology',label:'Technology'},
+'782ff36f-6785-4a71-9028-b5cfa182f7e5.pdf':{title:'Agile Project Management',issuer:'HP LIFE',cat:'technology',label:'Technology'},
+'Adobe Scan Adobe Scan 17 Apr 2026.pdf':{title:'Academic / Professional Certificate',issuer:'Certificate Document',cat:'academic',label:'Academic'},
+'Brain Tumor IEEE.pdf':{title:'Brain Tumor Segmentation Using Proposed YOLO Algorithm',issuer:'IEEE / ICEPE 2025',cat:'research',label:'Research'},
+'Bubucizz Certificate FDP.pdf':{title:'Faculty Development Programme Certificate',issuer:'Bubucizz',cat:'academic',label:'Academic'},
+'Certificate of Gokulraj G.pdf':{title:'National Entrepreneurship Challenge – Participation / Completion',issuer:'E-Cell IIT Bombay',cat:'mentoring',label:'Mentoring'},
+'Coursera IBM.pdf':{title:'Introduction to Artificial Intelligence (AI)',issuer:'IBM via Coursera',cat:'technology',label:'Technology'},
+'G_Gokulraj_OW_Participation_Certificate_SEP_2025 (1).pdf':{title:'OWASP Coimbatore Chapter Workshop',issuer:'OWASP Coimbatore Chapter',cat:'technology',label:'Technology'},
+'Gokul G.pdf':{title:'Geospatial Intelligence: Applications & Challenges in the Big Data Era',issuer:'IIIT Sri City',cat:'research',label:'Research'},
+'Gokul-Mentor-Certificate jaipur .pdf-1.pdf':{title:'Mentorship Certificate – MUJ HackX 3.0',issuer:'Manipal University Jaipur',cat:'mentoring',label:'Mentoring'},
+'GokulrajBuddha.pdf':{title:'Meditation for Confidence & Manifestation',issuer:'Breath-Mindfulness Meditation Course',cat:'academic',label:'Academic'},
+'Hindustan Conference Certificate.pdf':{title:'Performance Prediction of Modified Solar Still Using Artificial Neural Network',issuer:'Hindusthan Institute of Technology',cat:'research',label:'Research'},
+'IA Online Training Certificate.pdf':{title:'Innovation & Entrepreneurship Foundation – Online Training',issuer:'IIC',cat:'academic',label:'Academic'},
+'IA Participation Certificate.pdf':{title:'Innovation & Entrepreneurship Foundation – Participation',issuer:'IIC',cat:'academic',label:'Academic'},
+'IEEE Certificate ME (1).pdf':{title:'Research Conference / IEEE Certificate',issuer:'IEEE',cat:'research',label:'Research'},
+'ISL-Internship Certificate .pdf':{title:'45-Day Internship – Drone Technology',issuer:'Indian Space Lab',cat:'internship',label:'Internship'},
+'Infosys Certificate (4).pdf':{title:'HTML5 and CSS3 Advanced Training',issuer:'Infosys',cat:'technology',label:'Technology'},
+'Infosys Certificate .pdf':{title:'Internet of Things Foundation Certification',issuer:'Infosys',cat:'technology',label:'Technology'},
+'Infosys Certificate.pdf':{title:'TechA Testing Fundamentals Certification',issuer:'Infosys',cat:'technology',label:'Technology'},
+'Learnmall Certificate.pdf':{title:'Basics of Java – Introductory Course',issuer:'Learnmall',cat:'technology',label:'Technology'},
+'MATLAB-EXPO-2025-certificate.pdf':{title:'MATLAB EXPO 2025',issuer:'MathWorks',cat:'technology',label:'Technology'},
+'Mr. Gokul Raj  G.pdf':{title:'Capacity Building Programme on Cybersecurity – Basic Course',issuer:'IIT Madras / IITM Pravartak',cat:'technology',label:'Technology'},
+'Mr.G.Gokul_Raj_Certificate.pdf':{title:'Professional Development Certificate',issuer:'Academic Training',cat:'academic',label:'Academic'},
+'NIT FDP .pdf':{title:'Emerging Tools & Techniques for Environmental Risk Assessment',issuer:'NIT Warangal – E&ICT Academy',cat:'academic',label:'Academic'},
+'NIT FDP.pdf':{title:'Emerging Tools & Techniques for Environmental Risk Assessment',issuer:'NIT Warangal – E&ICT Academy',cat:'academic',label:'Academic'},
+'Share ST Edu Invigilator Certificate_Mr. G.Gokulraj_Sri Ramakrishna Institute of Technolog_T.N_24-25.pdf':{title:'IT Skills Course Test Invigilator – Certificate of Appreciation',issuer:'Spoken Tutorial / IIT Bombay',cat:'academic',label:'Academic'},
+'Skill safari.pdf':{title:'Start Your Web Development Journey in 2022 Workshop',issuer:'Skill Safari',cat:'technology',label:'Technology'},
+'certificate.pdf':{title:'Generative AI Literacy',issuer:'SkillQuest',cat:'technology',label:'Technology'},
+'gokul microsoft  1.pdf':{title:'Microsoft AI / Machine Learning Learning Certificate',issuer:'Microsoft',cat:'technology',label:'Technology'},
+'gokul microsoft.pdf':{title:'Microsoft AI / Machine Learning Learning Certificate',issuer:'Microsoft',cat:'technology',label:'Technology'},
+'matlab certificate.pdf':{title:'MATLAB EXPO 2025 Workshop',issuer:'MathWorks',cat:'technology',label:'Technology'},
+'reviewer-journal-certificate-2026-05-01-17-38-44.pdf':{title:'Journal Reviewer Recognition',issuer:'UK Scientific Publication / Journal Review',cat:'review',label:'Reviewer'},
+'reviewer-level-certificate-2026-04-20-09-23-51.pdf':{title:'Reviewer Level Recognition',issuer:'Academic Peer Review',cat:'review',label:'Reviewer'},
+'reviewer-level-certificate-2026-04-21-07-27-41.pdf':{title:'Reviewer Level Recognition',issuer:'Academic Peer Review',cat:'review',label:'Reviewer'},
+'yolo person detection IEEE Certificate (1).pdf':{title:'Person Detection Using Proposed YOLOv8 in Crime Hotspot Cities',issuer:'IEEE / VIT Bhopal University',cat:'research',label:'Research'},
+'IMG-20250821-WA0108.jpg':{title:'Academic / Innovation Certificate',issuer:'Certificate Image',cat:'achievement',label:'Achievement'},
+'WhatsApp Image 2025-08-01 at 9.31.58 PM.jpeg':{title:'Academic / Professional Certificate',issuer:'Certificate Image',cat:'achievement',label:'Achievement'}
+};
+function slugTitle(f){return (certMeta[f]?.title||f.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').replace(/\s+/g,' ').replace(/\bpdf\b/gi,'').trim().replace(/\b\w/g,c=>c.toUpperCase()))}
+function category(f){const m=certMeta[f]; if(m)return [m.cat,m.label]; const x=f.toLowerCase(); if(x.includes('isl'))return ['internship','Internship']; if(x.includes('mentor'))return ['mentoring','Mentoring']; if(x.includes('reviewer'))return ['review','Reviewer']; if(x.includes('ieee')||x.includes('yolo'))return ['research','Research']; return ['achievement','Achievement']}
 function initBoot(){setTimeout(()=>$('#boot')?.classList.add('done'),700)}
 function initNav(){const btn=$('#menuButton'),links=$('#navLinks'); if(!btn)return; btn.addEventListener('click',()=>{const open=links.classList.toggle('open');btn.setAttribute('aria-expanded',open)}); $$('#navLinks a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');btn.setAttribute('aria-expanded','false')}))}
 function initScroll(){const bar=$('#scrollProgress'),nav=$('#navbar'); addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;bar.style.width=(scrollY/Math.max(h,1)*100)+'%';nav.classList.toggle('scrolled',scrollY>20)},{passive:true})}
@@ -39,7 +80,49 @@ function openProject(id){const d=projectData[id];if(!d)return;$('#modalContent')
 function openModal(){const m=$('#modal');m.classList.add('open');m.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('.modal-close')?.focus()}
 function closeModal(){const m=$('#modal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function initModal(){$$('#modal [data-close],.modal-close').forEach(x=>x.addEventListener('click',closeModal));addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()})}
-function initCertificates(){const grid=$('#certGrid'),search=$('#certSearch');if(!grid)return;let filter='all';function render(){const q=(search?.value||'').toLowerCase();grid.innerHTML='';let count=0;certFiles.forEach(file=>{const [cat,label]=category(file),title=slugTitle(file);if(filter!=='all'&&cat!==filter)return;if(q&&!`${title} ${label} ${file}`.toLowerCase().includes(q))return;count++;const card=document.createElement('article');card.className='cert-card reveal visible';card.innerHTML=`<small>${label.toUpperCase()}</small><h3>${title}</h3><p>${file.toLowerCase().endsWith('.pdf')?'PDF credential / document':'Image credential'}</p><div class="cert-actions"><a href="assets/certificates/${encodeURIComponent(file)}" target="_blank" rel="noopener">View</a><a href="assets/certificates/${encodeURIComponent(file)}" download>Open / Save</a></div>`;grid.appendChild(card)});$('#certEmpty').hidden=count>0}$$('.filter').forEach(b=>b.addEventListener('click',()=>{$$('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()}));search?.addEventListener('input',render);render()}
+function initCertificates(){
+ const grid=$('#certGrid'),search=$('#certSearch'),more=$('#certMore');
+ if(!grid)return;
+ let filter='all',showAll=false;
+ function render(){
+   const q=(search?.value||'').toLowerCase().trim();
+   grid.innerHTML='';
+   let matches=[];
+   certFiles.forEach(file=>{
+     const [cat,label]=category(file),meta=certMeta[file]||{},title=slugTitle(file),issuer=meta.issuer||'Certificate document';
+     const hay=`${title} ${issuer} ${label} ${file}`.toLowerCase();
+     if(filter!=='all'&&cat!==filter)return;
+     if(q&&!hay.includes(q))return;
+     matches.push({file,cat,label,title,issuer});
+   });
+   const visible=showAll?matches:matches.slice(0,8);
+   visible.forEach(({file,cat,label,title,issuer})=>{
+     const href=`assets/certificates/${encodeURIComponent(file)}`;
+     const card=document.createElement('article');
+     card.className='cert-card reveal visible';
+     card.innerHTML=`
+       <div class="cert-ai"><span>✦</span> AI ANALYZED</div>
+       <small>${label.toUpperCase()}</small>
+       <h3>${title}</h3>
+       <p class="cert-issuer">${issuer}</p>
+       <p class="cert-type">${file.toLowerCase().endsWith('.pdf')?'PDF credential / document':'Image credential'}</p>
+       <div class="cert-actions">
+         <a class="cert-view" href="${href}" target="_blank" rel="noopener">View Certificate ↗</a>
+         <a href="${href}" download>Save ↓</a>
+       </div>`;
+     grid.appendChild(card);
+   });
+   $('#certEmpty').hidden=matches.length>0;
+   if(more){
+     more.hidden=matches.length<=8;
+     more.textContent=showAll?`Show Less ↑`:`View More (${matches.length-8}) ↓`;
+   }
+ }
+ $$('.filter').forEach(b=>b.addEventListener('click',()=>{$$('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;showAll=false;render()}));
+ search?.addEventListener('input',()=>{showAll=false;render()});
+ more?.addEventListener('click',()=>{showAll=!showAll;render(); if(!showAll)document.querySelector('#credentials')?.scrollIntoView({behavior:'smooth',block:'start'})});
+ render();
+}
 function initActiveNav(){const sections=$$('main section[id]'),links=$$('#navLinks a[href^="#"]');const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-35% 0px -55%'});sections.forEach(s=>io.observe(s))}
 function init(){initBoot();initNav();initScroll();initReveal();initCursor();initTilt();initGlowCards();initClock();initFocus();initBackground();initResearchGraph();initResearch();initProjects();initModal();initCertificates();initActiveNav();$('#year').textContent=new Date().getFullYear()}
 addEventListener('DOMContentLoaded',init);

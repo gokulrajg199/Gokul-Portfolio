@@ -4349,3 +4349,667 @@ footer a {
     transition: none;
   }
 }
+
+
+/* =========================================================
+   FINAL POLISH — HERO / IMPACT / CREDENTIALS
+   ========================================================= */
+
+/* Keep the identity readable even when floating UI is animated. */
+.hero-copy { z-index: 20; }
+.hero h1 {
+  position: relative;
+  z-index: 30;
+  isolation: isolate;
+  overflow: visible;
+}
+.hero h1 .hero-initial,
+.hero h1 .hero-name {
+  position: relative;
+  z-index: 31;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+}
+.hero h1 .hero-name {
+  white-space: nowrap;
+  padding-right: .08em;
+}
+.hero-stage { z-index: 1; }
+.floating-card { z-index: 10; }
+.portrait-card { z-index: 2; }
+
+/* Impact strip: equal-height cells, predictable alignment and no overflow. */
+.impact {
+  align-items: stretch;
+  overflow: hidden;
+}
+.impact > div {
+  min-width: 0;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  text-align: left;
+  padding: 18px 20px;
+}
+.impact strong {
+  flex: 0 0 auto;
+  line-height: 1;
+}
+.impact span {
+  min-width: 0;
+  display: block;
+  line-height: 1.45;
+}
+
+/* Credential cards */
+.cert-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 265px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(145deg, rgba(19,29,59,.72), rgba(8,13,28,.72));
+  box-shadow: var(--shadow);
+}
+.cert-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,0%), rgba(104,229,255,.10), transparent 35%);
+  opacity: 0;
+  transition: opacity .35s;
+}
+.cert-card:hover::before { opacity: 1; }
+.cert-ai {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-bottom: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--line2);
+  border-radius: 999px;
+  color: var(--cyan);
+  font-size: .48rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.cert-ai span { font-size: .7rem; }
+.cert-card > small,
+.cert-card h3,
+.cert-card p,
+.cert-actions { position: relative; z-index: 1; }
+.cert-card h3 {
+  margin: 8px 0 10px;
+  font: 700 1.12rem/1.22 "Space Grotesk";
+  letter-spacing: -.02em;
+}
+.cert-issuer {
+  margin: 0;
+  color: var(--soft);
+  font-size: .72rem !important;
+  line-height: 1.45;
+}
+.cert-type {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: .58rem !important;
+}
+.cert-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 18px;
+}
+.cert-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: .62rem;
+  font-weight: 800;
+  background: rgba(255,255,255,.025);
+  transition: .25s var(--ease);
+}
+.cert-actions a:hover {
+  transform: translateY(-2px);
+  border-color: var(--line2);
+  background: rgba(104,229,255,.06);
+}
+.cert-actions .cert-view {
+  background: rgba(104,229,255,.08);
+  border-color: rgba(104,229,255,.28);
+}
+.cert-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+.cert-more {
+  min-width: 170px;
+  cursor: pointer;
+}
+
+/* Prevent animated cards from covering the title on narrow screens. */
+@media (max-width: 1050px) {
+  .hero h1 .hero-name { font-size: clamp(3.9rem, 15vw, 7.2rem); }
+  .hero-stage { margin-top: 46px; }
+}
+@media (max-width: 760px) {
+  .hero h1 { margin-top: 18px; margin-bottom: 24px; }
+  .hero h1 .hero-initial,
+  .hero h1 .hero-name {
+    max-width: 100%;
+  }
+  .hero h1 .hero-name {
+    font-size: clamp(3.4rem, 17vw, 5.8rem);
+    letter-spacing: -.055em;
+  }
+  .hero-stage { margin-top: 42px; }
+  .impact > div {
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+@media (max-width: 380px) {
+  .hero h1 .hero-name { font-size: 3.25rem; }
+  .impact > div { padding-inline: 12px; }
+}
+
+
+/* =========================================================
+   FINAL V3 — HERO AI SIGNALS / SAFE FLOATING UI
+   ========================================================= */
+.hero-stage{overflow:visible;}
+.hero-stage::before{
+  content:"";position:absolute;inset:7%;border:1px solid rgba(104,229,255,.08);
+  border-radius:42px;box-shadow:inset 0 0 60px rgba(104,229,255,.025),0 0 70px rgba(104,229,255,.025);
+  pointer-events:none;z-index:0;
+}
+.portrait-card{z-index:8;}
+.portrait-caption{z-index:30 !important;}
+.portrait-caption *{position:relative;z-index:31;}
+.floating-card{z-index:12;pointer-events:none;}
+.card-a{left:-2%;top:13%;}
+.card-b{right:-3%;top:24%;}
+.card-c{left:-4%;bottom:18%;}
+.card-d{right:-5%;top:47%;animation-delay:-.7s;}
+.card-e{left:1%;top:69%;animation-delay:-1.8s;}
+.card-f{right:1%;bottom:7%;animation-delay:-3.1s;}
+.ai-signal-grid{position:absolute;inset:0;z-index:6;pointer-events:none;}
+.ai-signal{position:absolute;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(104,229,255,.14);border-radius:999px;background:rgba(5,10,24,.62);backdrop-filter:blur(12px);font-size:.52rem;letter-spacing:.1em;color:var(--muted);box-shadow:0 10px 35px rgba(0,0,0,.2);animation:signalFloat 6s ease-in-out infinite;}
+.ai-signal i{font-style:normal;color:var(--cyan);font-size:.78rem;}
+.signal-1{left:7%;top:4%;}.signal-2{right:8%;top:9%;animation-delay:-1.4s}.signal-3{left:8%;bottom:4%;animation-delay:-2.8s}.signal-4{right:8%;bottom:14%;animation-delay:-4s}
+@keyframes signalFloat{50%{transform:translateY(-7px) scale(1.02)}}
+
+/* =========================================================
+   AI TOOLKIT
+   ========================================================= */
+.ai-toolkit{position:relative;overflow:hidden;}
+.ai-toolkit::before{content:"";position:absolute;width:420px;height:420px;right:-180px;top:80px;border-radius:50%;background:radial-gradient(circle,rgba(104,229,255,.09),transparent 68%);pointer-events:none;}
+.ai-toolkit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.ai-tool-card{position:relative;min-height:270px;padding:24px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(10,16,33,.54));overflow:hidden;transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);}
+.ai-tool-card::after{content:"";position:absolute;width:150px;height:150px;right:-70px;top:-70px;border:1px solid rgba(104,229,255,.1);border-radius:50%;box-shadow:0 0 0 18px rgba(104,229,255,.02),0 0 0 36px rgba(104,229,255,.015);}
+.ai-tool-card:hover{transform:translateY(-7px);border-color:var(--line2);box-shadow:0 25px 70px rgba(0,0,0,.28),0 0 35px rgba(104,229,255,.06);}
+.ai-icon{display:grid;place-items:center;width:46px;height:46px;margin-bottom:24px;border:1px solid rgba(104,229,255,.18);border-radius:14px;color:var(--cyan);background:rgba(104,229,255,.05);font-size:1.2rem;box-shadow:inset 0 0 22px rgba(104,229,255,.04);}
+.ai-tool-card small{font-size:.5rem;letter-spacing:.16em;color:var(--cyan);}.ai-tool-card h3{margin:9px 0 12px;font:700 1.05rem/1.2 "Space Grotesk";}.ai-tool-card p{font-size:.68rem;line-height:1.7;color:var(--muted);max-width:34ch;}.ai-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}.ai-tags i{font-style:normal;font-size:.52rem;padding:6px 8px;border:1px solid var(--line);border-radius:999px;color:var(--soft);background:rgba(255,255,255,.025);}
+.ai-workflow{margin-top:16px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.025);display:flex;align-items:center;justify-content:space-between;gap:20px;}.ai-workflow>span{font-size:.52rem;letter-spacing:.16em;color:var(--cyan);}.ai-workflow>div{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.65rem;color:var(--muted);}.ai-workflow b{color:var(--text);font:700 .72rem "Space Grotesk";}.ai-workflow i{color:var(--cyan);font-style:normal;}
+
+/* Strong caption contrast: identity always wins over decorative UI. */
+.portrait-caption{isolation:isolate;background:linear-gradient(180deg,rgba(5,9,20,.12),rgba(5,9,20,.96)) !important;border:1px solid rgba(255,255,255,.08);box-shadow:0 12px 35px rgba(0,0,0,.3);}
+.portrait-caption small,.portrait-caption b,.portrait-caption span{display:block;text-shadow:0 2px 12px rgba(0,0,0,.8);}
+
+@media (max-width:1050px){
+  .ai-toolkit-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .card-a{left:0}.card-b{right:0}.card-c{left:0}.card-d{right:0}.card-e{left:0}.card-f{right:0}
+}
+@media (max-width:760px){
+  .hero-stage{height:510px;min-height:510px;margin-top:48px;}
+  .portrait-card{width:min(300px,76vw);top:30px;}
+  .floating-card{z-index:14;padding:7px 9px;}
+  .card-a{left:0;top:8px}.card-b{right:0;top:92px}.card-c{left:0;top:205px;bottom:auto}.card-d{right:0;top:275px}.card-e{left:0;top:348px}.card-f{right:0;top:420px;bottom:auto}
+  .ai-signal{font-size:.43rem;padding:6px 8px}.signal-1{left:2%;top:0}.signal-2{right:2%;top:4%}.signal-3{left:2%;bottom:1%}.signal-4{right:2%;bottom:8%}
+  .ai-toolkit-grid{grid-template-columns:1fr;}.ai-tool-card{min-height:0;}.ai-workflow{align-items:flex-start;flex-direction:column;}
+}
+@media (max-width:430px){
+  .hero-stage{height:545px;min-height:545px;}
+  .portrait-card{top:48px;width:min(278px,74vw);}
+  .card-a{top:8px}.card-b{top:104px}.card-c{top:224px}.card-d{top:294px}.card-e{top:366px}.card-f{top:438px}
+  .ai-signal-grid{opacity:.8}.signal-1{left:0}.signal-2{right:0}.signal-3{left:0}.signal-4{right:0}
+}
+@media (prefers-reduced-motion:reduce){.ai-signal,.ai-tool-card{animation:none!important;transition:none!important;}.hero-stage::before{display:none;}}
+
+/* =========================================================
+   FINAL V4 — IDENTITY-SAFE HERO + PROFESSIONAL AI TOOLCHAIN
+   ========================================================= */
+
+/* Identity always wins over decorative hero layers. */
+.hero,
+.hero-copy,
+.hero h1,
+.hero h1 .hero-initial,
+.hero h1 .hero-name {
+  position: relative;
+}
+.hero { isolation: isolate; }
+.hero-copy { z-index: 50; }
+.hero h1 {
+  z-index: 60;
+  isolation: isolate;
+  max-width: min(100%, 860px);
+}
+.hero h1 .hero-initial,
+.hero h1 .hero-name {
+  z-index: 61;
+  position: relative;
+  text-shadow: 0 2px 30px rgba(0,0,0,.45);
+}
+.hero h1 .hero-name {
+  white-space: nowrap;
+}
+
+/* Decorative stage stays visually separate from the identity column. */
+.hero-stage {
+  z-index: 2;
+  min-width: 0;
+}
+.hero-stage .floating-card,
+.hero-stage .ai-signal-grid,
+.hero-stage .hero-readout {
+  z-index: 12;
+}
+.hero-stage::after {
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(620px,90%);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%);
+  border:1px solid rgba(104,229,255,.035);
+  border-radius:50%;
+  box-shadow:0 0 80px rgba(104,229,255,.025);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Give the identity a clean visual lane so floating UI can never obscure it. */
+.hero-copy::before {
+  content:"";
+  position:absolute;
+  inset:-22px -18px -22px -18px;
+  background:linear-gradient(90deg,rgba(5,8,22,.24),transparent 82%);
+  border-radius:32px;
+  pointer-events:none;
+  z-index:-1;
+}
+
+/* Small professional signal strip. */
+.hero-toolline {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+  max-width:760px;
+}
+.hero-toolline span {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 10px;
+  border:1px solid rgba(157,174,218,.13);
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  color:var(--muted);
+  font-size:.5rem;
+  letter-spacing:.1em;
+  backdrop-filter:blur(10px);
+}
+.hero-toolline i {
+  font-style:normal;
+  color:var(--cyan);
+  font-size:.72rem;
+}
+
+/* Professional toolchain panel. */
+.ai-stack-panel {
+  margin-top:16px;
+  padding:26px;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(104,229,255,.07),transparent 28%),
+    linear-gradient(145deg,rgba(255,255,255,.04),rgba(8,13,28,.58));
+  box-shadow:var(--shadow);
+}
+.ai-stack-head {
+  display:grid;
+  grid-template-columns:.72fr 1fr 1fr;
+  gap:20px;
+  align-items:end;
+  margin-bottom:22px;
+}
+.ai-stack-head .label { color:var(--cyan); }
+.ai-stack-head h3 {
+  margin:0;
+  font:700 1.25rem/1.15 "Space Grotesk";
+}
+.ai-stack-head p {
+  margin:0;
+  color:var(--muted);
+  font-size:.66rem;
+  line-height:1.65;
+}
+.ai-stack-list {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+}
+.ai-stack-list span {
+  min-width:0;
+  display:grid;
+  grid-template-columns:36px 1fr;
+  grid-template-rows:auto auto;
+  column-gap:10px;
+  padding:12px;
+  border:1px solid rgba(157,174,218,.11);
+  border-radius:15px;
+  background:rgba(255,255,255,.022);
+  transition:.3s var(--ease);
+}
+.ai-stack-list span:hover {
+  transform:translateY(-3px);
+  border-color:var(--line2);
+  background:rgba(104,229,255,.035);
+}
+.ai-stack-list b {
+  grid-row:1 / 3;
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border:1px solid rgba(104,229,255,.16);
+  border-radius:10px;
+  color:var(--cyan);
+  background:rgba(104,229,255,.045);
+}
+.ai-stack-list strong {
+  font:700 .72rem/1.2 "Space Grotesk";
+  color:var(--text);
+  align-self:end;
+}
+.ai-stack-list small {
+  color:var(--muted);
+  font-size:.49rem;
+  letter-spacing:.05em;
+  margin-top:3px;
+}
+
+/* Better impact strip: same baseline, same rhythm, no squeezed text. */
+.impact {
+  position:relative;
+  z-index:5;
+}
+.impact > div {
+  min-height:102px;
+  align-items:center;
+}
+.impact strong { min-width:42px; text-align:center; }
+.impact span { max-width:15ch; }
+
+/* Responsive safety: stack before decorative elements can cross into the identity column. */
+@media (max-width:1180px) {
+  .hero {
+    grid-template-columns:1fr;
+    gap:18px;
+    padding-top:110px;
+  }
+  .hero-copy { max-width:900px; }
+  .hero-stage {
+    width:min(760px,100%);
+    margin-inline:auto;
+    margin-top:24px;
+  }
+  .hero-copy::before { inset:-12px -10px; }
+  .ai-stack-head { grid-template-columns:1fr 1fr; }
+  .ai-stack-head p { grid-column:1/-1; max-width:650px; }
+}
+@media (max-width:760px) {
+  .hero { padding-top:92px; }
+  .hero h1 { max-width:100%; }
+  .hero h1 .hero-name { white-space:normal; overflow-wrap:anywhere; }
+  .hero-copy::before {
+    inset:-8px -8px;
+    background:rgba(5,8,22,.18);
+  }
+  .hero-toolline { gap:6px; }
+  .hero-toolline span { font-size:.43rem; padding:6px 8px; }
+  .ai-stack-panel { padding:20px; }
+  .ai-stack-head { grid-template-columns:1fr; gap:10px; }
+  .ai-stack-head p { grid-column:auto; }
+  .ai-stack-list { grid-template-columns:1fr 1fr; }
+  .impact { grid-template-columns:1fr 1fr; }
+  .impact > div {
+    min-height:82px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:14px 12px;
+  }
+  .impact > div:nth-child(2n) { border-right:0; }
+  .impact > div:last-child { grid-column:1/-1; border-right:0; }
+  .impact span { max-width:none; font-size:.58rem; }
+}
+@media (max-width:430px) {
+  .ai-stack-list { grid-template-columns:1fr; }
+  .hero-toolline span { letter-spacing:.06em; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ai-stack-list span { transition:none; }
+}
+
+/* =========================================================
+   FINAL POLISH — PORTRAIT SAFE ZONE / ZERO OVERLAP
+   ========================================================= */
+.hero-stage{isolation:isolate;}
+.portrait-card{
+  z-index:30 !important;
+  position:relative;
+}
+/* Decorative UI stays outside the portrait's visual plane. */
+.floating-card{
+  z-index:8 !important;
+  translate:0 0;
+}
+.card-a{left:-5%;top:11%;}
+.card-b{right:-9%;top:22%;}
+.card-c{left:-8%;bottom:16%;}
+.card-d{right:-11%;top:48%;}
+.card-e{left:-6%;top:70%;}
+.card-f{right:-8%;bottom:5%;}
+.hero-readout{right:-6%;bottom:3%;z-index:7;}
+.ai-signal-grid{z-index:5;}
+/* Keep the portrait caption readable and visually separate from the image. */
+.portrait-caption{
+  left:16px;right:16px;bottom:14px;
+  padding:14px 16px;
+  z-index:40 !important;
+  background:linear-gradient(180deg,rgba(4,8,18,.35),rgba(4,8,18,.97)) !important;
+}
+.portrait-caption b{font-size:1.02rem;}
+
+@media (max-width:1200px){
+  .card-a{left:-2%;}
+  .card-b{right:-4%;}
+  .card-c{left:-4%;}
+  .card-d{right:-5%;}
+  .card-e{left:-3%;}
+  .card-f{right:-3%;}
+  .hero-readout{right:-2%;}
+}
+
+@media (max-width:760px){
+  /* Mobile gets a completely clean portrait: decorative cards never paint over it. */
+  .portrait-card{z-index:40 !important;}
+  .floating-card{z-index:6 !important;}
+  .hero-readout{z-index:5;right:4%;bottom:2%;}
+  .card-a{left:0;top:8px;}
+  .card-b{right:0;top:8px;}
+  .card-c{left:0;top:410px;bottom:auto;}
+  .card-d{right:0;top:410px;}
+  .card-e{left:0;top:462px;}
+  .card-f{right:0;top:462px;bottom:auto;}
+  .ai-signal-grid{z-index:4;}
+  .portrait-caption{left:12px;right:12px;bottom:12px;}
+}
+
+@media (max-width:430px){
+  .card-c,.card-d{top:438px;}
+  .card-e,.card-f{top:490px;}
+  .hero-readout{display:none;}
+  .floating-card{font-size:.58rem;}
+  .floating-card b{font-size:.62rem;}
+}
+
+
+/* =========================================================
+   FINAL V6 — CLEAN HERO COMPOSITION / HARD PORTRAIT SAFE-ZONE
+   The portrait gets a physical no-float buffer, not just z-index.
+   ========================================================= */
+
+.hero-stage{
+  width:100%;
+  max-width:760px;
+  margin-inline:auto;
+  position:relative;
+  overflow:visible;
+}
+
+/* Slightly tighter portrait gives the floating UI a real lane. */
+.portrait-card{
+  width:min(400px,52%);
+  z-index:30 !important;
+}
+
+/* Keep every floating panel completely outside the portrait bounds. */
+.hero-stage > .floating-card{
+  max-width:190px;
+  white-space:normal;
+  z-index:8 !important;
+}
+
+.hero-stage .card-a{left:-12%; top:15%;}
+.hero-stage .card-b{right:-12%; top:21%;}
+.hero-stage .card-c{left:-12%; bottom:20%;}
+.hero-stage .card-d{right:-12%; top:52%;}
+.hero-stage .card-e{left:-12%; top:68%;}
+.hero-stage .card-f{right:-12%; bottom:7%;}
+
+.hero-stage .ai-signal-grid{z-index:4;}
+
+/* Signals hug the perimeter rather than the portrait. */
+.hero-stage .signal-1{left:-1%; top:4%;}
+.hero-stage .signal-2{right:-1%; top:7%;}
+.hero-stage .signal-3{left:-1%; bottom:4%;}
+.hero-stage .signal-4{right:-1%; bottom:10%;}
+
+/* Keep the portrait caption readable without competing with floating cards. */
+.portrait-caption{
+  z-index:40 !important;
+  left:14px !important;
+  right:14px !important;
+  bottom:14px !important;
+  padding:13px 15px !important;
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 14px 40px rgba(0,0,0,.28);
+}
+.portrait-caption small,
+.portrait-caption b,
+.portrait-caption span{position:relative;z-index:2;}
+
+/* At tablet widths, switch the decorative UI to a clean perimeter layout. */
+@media (max-width:1180px){
+  .hero-stage{
+    width:min(760px,100%);
+    max-width:760px;
+  }
+  .portrait-card{width:min(390px,54%);}
+  .hero-stage .card-a{left:0;top:4%;}
+  .hero-stage .card-b{right:0;top:4%;}
+  .hero-stage .card-c{left:0;bottom:14%;}
+  .hero-stage .card-d{right:0;top:48%;}
+  .hero-stage .card-e{left:0;top:72%;}
+  .hero-stage .card-f{right:0;bottom:3%;}
+  .hero-stage .signal-1{left:7%;}
+  .hero-stage .signal-2{right:7%;}
+  .hero-stage .signal-3{left:7%;}
+  .hero-stage .signal-4{right:7%;}
+}
+
+/* Below tablet, no decorative card is allowed to touch the portrait. */
+@media (max-width:760px){
+  .hero-stage{
+    width:100%;
+    max-width:560px;
+    min-height:610px;
+    height:610px;
+  }
+  .portrait-card{
+    width:min(320px,68vw);
+    margin-inline:auto;
+  }
+  .hero-stage > .floating-card{
+    max-width:150px;
+    padding:9px 10px;
+  }
+  .hero-stage .card-a{left:0;top:4px;}
+  .hero-stage .card-b{right:0;top:4px;}
+  .hero-stage .card-c{left:0;top:auto;bottom:70px;}
+  .hero-stage .card-d{right:0;top:auto;bottom:70px;}
+  .hero-stage .card-e,
+  .hero-stage .card-f{display:none;}
+  .hero-stage .ai-signal-grid{opacity:.65;}
+  .hero-stage .signal-1{left:2%;}
+  .hero-stage .signal-2{right:2%;}
+  .hero-stage .signal-3,
+  .hero-stage .signal-4{display:none;}
+}
+
+@media (max-width:430px){
+  .hero-stage{
+    min-height:560px;
+    height:560px;
+  }
+  .portrait-card{width:min(280px,70vw);}
+  .hero-stage > .floating-card{
+    max-width:126px;
+    font-size:.54rem;
+    padding:8px 9px;
+    border-radius:13px;
+  }
+  .hero-stage .card-a{top:2px;left:0;}
+  .hero-stage .card-b{top:2px;right:0;}
+  .hero-stage .card-c{bottom:38px;left:0;}
+  .hero-stage .card-d{bottom:38px;right:0;}
+  .portrait-caption{
+    left:10px !important;
+    right:10px !important;
+    bottom:10px !important;
+    padding:11px 12px !important;
+  }
+  .portrait-caption b{font-size:.78rem !important;}
+  .portrait-caption span{font-size:.55rem !important;}
+}
